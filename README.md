@@ -1,4 +1,4 @@
-# Change Makers Match Making
+# Change Makers Matchmaking
 Helping to build teams of change makers by matching projects, needs and profiles.
 
 Doing good for others is a way to express our worth.<br>
