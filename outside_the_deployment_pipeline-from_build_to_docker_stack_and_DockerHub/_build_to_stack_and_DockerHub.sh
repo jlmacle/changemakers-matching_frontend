@@ -12,8 +12,9 @@ cp -Rfu dist/changemakers-matchmaking_front-end/*.* outside_the_deployment_pipel
 echo "**** Building  the Docker image."
 cd outside_the_deployment_pipeline-from_build_to_docker_stack_and_DockerHub/context
 sudo docker build -t jlmacle/changemakers-matchmaking-frontend:0.0.1-SNAPSHOT .
+sudo docker login
 sudo docker push jlmacle/changemakers-matchmaking-frontend:0.0.1-SNAPSHOT
-
+sudo docker logout
 
 cd ..
 
