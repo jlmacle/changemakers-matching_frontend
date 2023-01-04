@@ -15,6 +15,7 @@ sudo docker build -t jlmacle/changemakers-matchmaking-frontend:0.0.1-SNAPSHOT .
 sudo docker login
 sudo docker push jlmacle/changemakers-matchmaking-frontend:0.0.1-SNAPSHOT
 sudo docker logout
-
 cd ..
+
+sudo docker stack deploy -c ./docker-compose-stack-DockerHubImages.yml stack_frontend_DockerHub
 
