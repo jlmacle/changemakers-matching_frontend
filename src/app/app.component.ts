@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 // TODO : to move later in a component
 import {Project} from './models/project';
-// TODO: comment to remove : page displayed before uncommenting and after
 import { ProjectDataService } from './services/project-data.service';
 @Component({
   selector: 'app-root',

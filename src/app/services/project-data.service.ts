@@ -14,7 +14,7 @@ export class ProjectDataService {
     
     console.log("Entering getProjects()");
     let results:unknown = this.http.get(Variables.baseUrl + '/projects').toPromise();
-    console.log(" Nbr of results: "+(results as Array<Project>).length);    
+    console.log("Base URL "+Variables.baseUrl);    
     return (results as Promise<any>);
   }
   
