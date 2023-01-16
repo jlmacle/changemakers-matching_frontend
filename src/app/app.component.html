@@ -1,0 +1,13 @@
+
+<!-- data display -->
+<div>
+  List of the projects in the database
+  <ul>    
+    <li *ngFor="let project of projects" value={{project.id}} id="project{{project.id}}" >
+      {{project.name}}
+    </li>
+  </ul>
+  
+</div>
+
+<router-outlet></router-outlet>

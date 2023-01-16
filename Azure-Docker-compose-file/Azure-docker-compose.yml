@@ -1,0 +1,44 @@
+#Thanks to https://github.com/docker/awesome-compose/blob/master/spring-postgres/docker-compose.yaml
+#https://docs.docker.com/compose/compose-file/compose-file-v3/#secrets
+version: "3.8"
+services:      
+  postgresql:
+    image: postgres:alpine    
+    networks:
+      - cm-network     
+    environment:
+      # https://hub.docker.com/_/postgres
+      # "The PostgreSQL image uses several environment variables which are easy to miss. 
+      # The only variable required is POSTGRES_PASSWORD, the rest are optional.
+      # Warning: the Docker specific variables will only have an effect if you start the container with a data directory that is empty; 
+      # any pre-existing database will be left untouched on container startup.      
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}    
+   
+  backend:
+    depends_on:
+      - postgresql
+    image: jlmacle/changemakers-matchmaking-backend:demo0
+    ports:
+      - target: 8081
+        published: 8081 # 127.0.0.1:<published port> queried     
+    environment:
+      - DB_URL=${DB_URL}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+    networks:
+      - cm-network 
+
+  frontend:
+    depends_on:
+      - backend
+    image: jlmacle/changemakers-matchmaking-backend:demo0
+    ports:
+      - target: 80
+        published: 80    
+    networks:
+     - cm-network
+   
+networks:
+  atl-network: {}

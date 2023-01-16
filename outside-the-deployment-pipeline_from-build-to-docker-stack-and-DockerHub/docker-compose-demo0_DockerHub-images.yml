@@ -1,0 +1,80 @@
+# Thanks to https://github.com/docker/awesome-compose/blob/master/spring-postgres/docker-compose.yaml
+# https://docs.docker.com/compose/compose-file/compose-file-v3/#secrets
+# https://github.com/compose-spec/compose-spec/blob/master/spec.md
+
+# Docker stack is not to be run from wsl
+# I don't understand why, 
+# but I witnessed the service accessible when started with cmd, 
+# and the service inaccessible when starting with wsl.
+
+version: "3.8"
+services:
+  postgresql:
+    image: postgres:alpine   
+    networks:
+      - cm-network  
+    ports:
+      - target: 5432   
+    secrets:      
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+    environment:
+      # https://hub.docker.com/_/postgres
+      # "The PostgreSQL image uses several environment variables which are easy to miss. 
+      # The only variable required is POSTGRES_PASSWORD, the rest are optional.
+      # Warning: the Docker specific variables will only have an effect if you start the container with a data directory that is empty; 
+      # any pre-existing database will be left untouched on container startup.   
+      - POSTGRES_DB_FILE=/run/secrets/POSTGRES_DB   
+      - POSTGRES_USER_FILE=/run/secrets/POSTGRES_USER
+      - POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD          
+  
+  backend:  
+    depends_on:
+      - postgresql
+    image: jlmacle/changemakers-matchmaking-backend:demo0
+    networks:
+      - cm-network 
+    ports:
+      - target: 8081
+        published: 8081 # 127.0.0.1:<published port> queried           
+    secrets:
+      - DB_JDBC_ROOT
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD      
+    environment:
+      - POSTGRES_DB_FILE=/run/secrets/POSTGRES_DB
+      - DB_JDBC_ROOT_FILE=/run/secrets/DB_JDBC_ROOT
+      - POSTGRES_USER_FILE=/run/secrets/POSTGRES_USER
+      - POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD       
+    
+      
+  frontend:
+    depends_on:
+      - backend
+    image: jlmacle/changemakers-matchmaking-frontend:demo0
+    networks:
+     - cm-network
+    ports:
+      - target: 80
+        published: 80   
+
+secrets:
+  DB_JDBC_ROOT:
+    external: true
+  POSTGRES_DB:
+    external: true
+  POSTGRES_USER:
+    external: true
+  POSTGRES_PASSWORD:
+    external: true 
+  
+    # "is defined as an external resource, which means that it has already been defined in Docker, 
+    # either by running the docker secret create command or by another stack deployment.
+    # https://docs.docker.com/compose/compose-file/compose-file-v3/#secrets
+    
+networks:
+  cm-network: 
+
+  
