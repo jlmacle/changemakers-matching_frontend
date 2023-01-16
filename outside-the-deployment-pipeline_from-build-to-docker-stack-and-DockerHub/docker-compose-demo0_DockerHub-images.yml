@@ -14,8 +14,7 @@ services:
     networks:
       - cm-network  
     ports:
-      - target: 5432
-        published: 5432    
+      - target: 5432   
     secrets:      
       - POSTGRES_DB
       - POSTGRES_USER
@@ -38,7 +37,7 @@ services:
       - cm-network 
     ports:
       - target: 8081
-        published: 8083 # 127.0.0.1:<published port> queried           
+        published: 8081 # 127.0.0.1:<published port> queried           
     secrets:
       - DB_JDBC_ROOT
       - POSTGRES_DB
