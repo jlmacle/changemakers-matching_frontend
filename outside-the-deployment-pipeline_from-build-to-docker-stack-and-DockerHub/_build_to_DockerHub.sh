@@ -9,6 +9,7 @@ ng build --aot --build-optimizer --common-chunk
 
 echo "**** Moving website files in the context folder."
 cp -Rfu dist/changemakers-matchmaking_front-end/*.* outside-the-deployment-pipeline_from-build-to-docker-stack-and-DockerHub/context/html
+#Provisioned for later
 #cp -Rfu dist/changemakers-matchmaking_front-end/assets outside-the-deployment-pipeline_from-build-to-docker-stack-and-DockerHub/context/html
 
 echo "**** Building  the Docker image."
