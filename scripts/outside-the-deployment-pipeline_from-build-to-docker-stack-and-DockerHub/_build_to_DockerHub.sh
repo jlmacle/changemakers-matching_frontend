@@ -1,9 +1,11 @@
 # nvm, node and Angular have been installed on WSL.
-# dockerd is supposed to be running before this script is to be run.
+# Docker Desktop or dockerd are supposed to be running before this script is to be run.
 
-# Make sure that the IP in resolv.conf is the one from your DNS
+# Make sure that the IP in /etc/resolv.conf is the one from your DNS
+echo "**** Pulling nginx:latest"
+sudo docker pull nginx:latest
 
-echo "**** Building the Docker image"
+echo "**** Building the Docker image - Please be patient"
 cd ..
 ng build --aot --build-optimizer --common-chunk
 
