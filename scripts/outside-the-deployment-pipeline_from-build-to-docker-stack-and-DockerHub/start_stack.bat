@@ -1,10 +1,11 @@
 :: Uncomment before running the script
 set CM_version=demo0
 
-start "../_common/docker_start.bat"
+start "Starting Docker Desktop" /d "../_common/" docker_start.bat
 
 :: Removing the potential standalone PostgreSQL Docker service
 docker stack rm postgresql-stack_local-images
+docker stack rm backend-stack_local-images
 
 docker pull jlmacle/changemakers-matchmaking-frontend:%CM_version%
 docker pull postgres:alpine
