@@ -1,7 +1,21 @@
+<!-- **** Banner area : beginning -->
 
+
+
+<!-- ***** Banner area : end -->
+
+<!-- **** Login area : beginning -->
+
+
+<!-- **** Login area : end -->
+
+
+<!-- **** Data area : beginning -->
 <!-- data display -->
+<main> <!-- A11y issue fix -->
+
 <div>
-  List of the projects in the database
+  <h1>List of the projects in the database</h1><!-- A11y issue fix -->
   <ul>    
     <li *ngFor="let project of projects" value={{project.id}} id="project{{project.id}}" >
       {{project.name}}
@@ -11,3 +25,11 @@
 </div>
 
 <router-outlet></router-outlet>
+
+<!-- **** Data area : end -->
+
+<!-- **** Footer area : beginning -->
+
+
+<!-- **** Footer area : end -->
+</main>
