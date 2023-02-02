@@ -18,3 +18,6 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+// For test accessibility with axe-core in Cypress
+import 'cypress-axe-core'
