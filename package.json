@@ -19,6 +19,9 @@
     "@angular/platform-browser-dynamic": "^15.0.0",
     "@angular/router": "^15.0.0",
     "@badeball/cypress-cucumber-preprocessor": "^15.1.3",
+    "cytorus": "^0.3.1",
+    "cytorus-reporter": "^1.2.1",
+    "path": "^0.12.7",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
