@@ -1,4 +1,4 @@
-# Changemakers Matchmaking
+# Changemakers Matching
 
 Helping build teams of changemakers by matching projects, needs and profiles.
 
