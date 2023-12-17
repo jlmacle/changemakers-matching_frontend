@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../_css/all_media.css"> <!--CSS for all media types -->
+    <title>Looking to change the world? Find if your skills could be used to achieve the UN Sustainable Development Goals.</title>
+</head>
+<body>
+    <header class="header">
+        <div style="text-align: right;padding-right: 20px;padding-top: 10px;"></div>
+        <div style="text-align: center;">Header</div>
+    </header>
+    <nav class="nav">
+        <div style="text-align: center;">Navigation</div>
+    </nav>
+    <main id="main" class="main">
+        <script>
+            // https://www.w3schools.com/js/tryit.asp?filename=tryjs_function_expression_self
+            function fetch_user() 
+            {   
+                event.preventDefault();
+                const file = "http://127.0.0.1:8080/contributor_auth"
+                const username = document.getElementById("username").value;
+                const password = document.getElementById("password").value;
+
+                
+                fetch (file, {
+                    method:'POST', 
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify({username: username, password: password})
+                })
+                .then(response => response.text())
+                .then(data => document.getElementById("main").innerHTML = data)
+                .catch(error => console.log(error));
+            }
+            
+        </script>
+
+        <div style="text-align: center;">
+            <form id="contributor_auth">
+                <label for="username">Username/Password</label>
+                <input type="text" name="username" id="username">
+                <input type="password" name="password" id="password">
+                <button type="submit" onclick="fetch_user()">Submit</button>
+            </form>
+        </div>
+    </main>
+    <footer class="footer">
+        <div style="text-align: center;">Footer</div>
+    </footer>
+    
+</body>
+</html>
