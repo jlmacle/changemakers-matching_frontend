@@ -8,7 +8,7 @@
 </head>
 <body>
     <header class="header">
-        <div style="text-align: right;padding-right: 20px;padding-top: 10px;"></div>
+        <div style="text-align: right;padding-right: 20px;padding-top: 10px;"><div id="welcome"></div></div>
         <div style="text-align: center;">Header</div>
     </header>
     <nav class="nav">
@@ -20,7 +20,7 @@
             function fetch_user() 
             {   
                 event.preventDefault();
-                const file = "http://127.0.0.1:8080/contributor_auth"
+                const file = "http://127.0.0.1:8080/representative_newacc"
                 const username = document.getElementById("username").value;
                 const password = document.getElementById("password").value;
 
@@ -31,7 +31,11 @@
                     body: JSON.stringify({username: username, password: password})
                 })
                 .then(response => response.text())
-                .then(data => document.getElementById("main").innerHTML = data)
+                .then(data => {
+                    document.getElementById("main").innerHTML = data; 
+                    //TODO: Generate the project representative page "projects view" from the data fetched from the backend
+                    
+                    document.getElementById("welcome").innerHTML = "Welcome, " + username;})
                 .catch(error => console.log(error));
             }
             
@@ -39,7 +43,7 @@
 
         <div style="text-align: center;">
             <form id="contributor_auth">
-                <label for="username">Username/Password</label>
+                <label for="username">To avoid issues with handling private data, this demo only uses a username to create an account: Username/Password</label>
                 <input type="text" name="username" id="username">
                 <input type="password" name="password" id="password">
                 <button type="submit" onclick="fetch_user()">Submit</button>
