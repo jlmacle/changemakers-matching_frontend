@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch: # This line enables manual triggering
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
