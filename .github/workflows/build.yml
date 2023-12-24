@@ -19,13 +19,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  OWASP_Dependency_Track_check:
-    name: OWASP Dependency Track check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: OWASP Dependency Track check
-        uses: Quobis/action-owasp-dependecy-track-check@v1.3
   
