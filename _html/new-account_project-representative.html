@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../_css/all_media.css"> <!--CSS for all media types -->
     <title>Looking to change the world? Find if your skills could be used to achieve the UN Sustainable Development Goals.</title>
+    <!-- "OWASP recommends DOMPurify or the Sanitizer API for HTML sanitization." -->
+    <!-- https://cheatsheetseries.owasp.org/cheatsheets/DOM_Clobbering_Prevention_Cheat_Sheet.html#mitigation-techniques -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
+    <script src="../_js/common.js"></script>
 </head>
 <body>
     <header class="header">
@@ -20,7 +24,7 @@
             function fetch_user() 
             {   
                 event.preventDefault();
-                const file = "http://127.0.0.1:8080/representative_newacc"
+                const file = "http://127.0.0.1:8080/representatives/new-account"
                 const username = document.getElementById("username").value;
                 const password = document.getElementById("password").value;
 
@@ -31,8 +35,13 @@
                     body: JSON.stringify({username: username, password: password})
                 })
                 .then(response => response.text())
-                .then(data => {
-                    document.getElementById("main").innerHTML = data; 
+                .then(string_to_sanitize => {
+                    //TODO: from JSON string data to object to stylizable HTML
+                    // "you can sanitize strings by executing the following code:"
+                    // https://www.npmjs.com/package/dompurify
+                    const sanitized_string = DOMPurify.sanitize(string_to_sanitize);
+                    
+                    document.getElementById("main").innerHTML = sanitized_string; 
                     //TODO: Generate the project representative page "projects view" from the data fetched from the backend
                     
                     document.getElementById("welcome").innerHTML = "Welcome, " + username;})
@@ -41,18 +50,21 @@
             
         </script>
 
-        <div style="text-align: center;">
-            <form id="contributor_auth">
+        <div id="data-entry_new-account_proj-rep" style="text-align: center;">
+            <form id="contributor_auth_form">
+                <!-- TODO: to check that no email is being used -->
                 <label for="username">To avoid issues with handling private data, this demo only uses a username to create an account: Username/Password</label>
-                <input type="text" name="username" id="username">
+                <input type="text" name="username" id="username" oninput="checkUsername(event)">
+                <div id="username_error"></div>
                 <input type="password" name="password" id="password">
-                <button type="submit" onclick="fetch_user()">Submit</button>
+                <button type="submit" id="contributor_auth_form_submit" onclick="fetch_user()" disabled>Submit</button>
             </form>
         </div>
     </main>
     <footer class="footer">
         <div style="text-align: center;">Footer</div>
     </footer>
+   
     
 </body>
 </html>
