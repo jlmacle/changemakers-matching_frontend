@@ -1,0 +1,125 @@
+/* Written by inverse order of specificity
+- Elements and pseudo-elements - Example: h1, ::before
+- Classes, pseudo-classes, attribute selectors - Example: .test, :hover, [href]
+- IDs - Example: #navbar */
+/* *{
+    border: 1px solid black;
+} */
+
+
+
+.header-title
+{
+    font: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+}
+
+.footer a{
+    /* todo  links not underlined */
+    text-decoration:none;
+    border: 1px solid black;
+
+}
+
+.footer span
+{
+    position:absolute;
+}
+
+/* ---------------------- HEADER section ---------------------- */
+
+#header
+{
+    border: solid 1px black;
+    height: auto;
+    min-height: 100px;
+    background-color: white;
+}
+
+
+
+#authentication-container{
+    margin-bottom: 20px;
+}
+
+#data-entry_new-account_proj-rep
+{
+    margin-top:180px;
+}
+
+
+#header-title-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;   
+    
+}
+
+@media (max-width:600px){
+    #header-title-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+#sdg-link{
+    text-decoration: none;
+    color: black;
+}
+
+#header-sdg-wheel
+{
+    height:20px;    
+    width:auto;   
+    padding-left: 0px;
+    padding-right: 0px;
+    align-self:center;
+    vertical-align: -2px;
+    
+}
+
+/* ---------------------- NAV section ----------------------  */
+
+#nav
+{
+    border: solid 1px black;
+    height:auto;
+    min-height: 60px;
+    line-height: 60px;
+    background-color: lightblue;
+}
+
+
+
+/* ---------------------- MAIN section ----------------------  */
+
+#main
+{
+    border: solid 1px black;
+    height: auto;
+    min-height: 400px;
+    background-color: #fafad2;
+}
+
+/* ---------------------- FOOTER section ----------------------   */
+
+#footer
+{
+    border: solid 1px black;
+    height: auto;
+    min-height: 60px;
+    line-height: 60px;
+    background-color: white;
+}
+
+#footer-left{
+    position:absolute;
+    left:30px;
+}
+
+#footer-right{
+    position:absolute;
+    right:30px;
+}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../_css/all_media.css"> <!--CSS for all media types -->
+    <link rel="stylesheet" type="text/css"  href="../_css/all-media.css"> <!--CSS for all media types -->
     <title>Looking to change the world? Find if your skills could be used to achieve the UN Sustainable Development Goals.</title>
     <!-- "OWASP recommends DOMPurify or the Sanitizer API for HTML sanitization." -->
     <!-- https://cheatsheetseries.owasp.org/cheatsheets/DOM_Clobbering_Prevention_Cheat_Sheet.html#mitigation-techniques -->
@@ -11,14 +11,19 @@
     <script src="../_js/common.js"></script>
 </head>
 <body>
-    <header class="header">
-        <div style="text-align: right;padding-right: 20px;padding-top: 10px;"><div id="welcome"></div></div>
-        <div style="text-align: center;">Header</div>
+    <header id="header">
+        <div id="authentication-container" style="text-align: right;padding-right: 20px;padding-top: 10px;"><a href="./new-account_project-representative.html">Create new proj. rep. account</a></div>
+        <div id="header-title-container">
+            <div class="header-title">Looking&nbsp;</div>
+            <div class="header-title">to be&nbsp;</div>
+            <div class="header-title">involved&nbsp;</div>
+            <div class="header-title"> in&nbsp;</div>
+            <div class="header-title"> <a id="sdg-link"  href="https://sdgs.un.org/goals">SDG</a> pr
+            <img id="header-sdg-wheel" src="../_media/UN-graphics/SDG-Wheel-Transparent-WEB.png" alt="UN SDG Wheel" style="padding:0px;margin-left:-5px;margin-right:-5px;"/>
+            jects?</div>          
+        </div>
     </header>
-    <nav class="nav">
-        <div style="text-align: center;">Navigation</div>
-    </nav>
-    <main id="main" class="main">
+    <main id="main">
         <script>
             // https://www.w3schools.com/js/tryit.asp?filename=tryjs_function_expression_self
             function fetch_user() 
@@ -36,6 +41,8 @@
                 })
                 .then(response => response.text())
                 .then(string_to_sanitize => {
+                    //removing the account cretaion link
+                    document.getElementById("authentication-container").innerHTML = "";
                     //TODO: from JSON string data to object to stylizable HTML
                     // "you can sanitize strings by executing the following code:"
                     // https://www.npmjs.com/package/dompurify
@@ -51,18 +58,20 @@
         </script>
 
         <div id="data-entry_new-account_proj-rep" style="text-align: center;">
-            <form id="contributor_auth_form">
+            <form id="contributor-auth-form">
                 <!-- TODO: to check that no email is being used -->
-                <label for="username">To avoid issues with handling private data, this demo only uses a username to create an account: Username/Password</label>
+                <label for="username">Please enter username and password</label><br>
                 <input type="text" name="username" id="username" oninput="checkUsername(event)">
-                <div id="username_error"></div>
-                <input type="password" name="password" id="password">
-                <button type="submit" id="contributor_auth_form_submit" onclick="fetch_user()" disabled>Submit</button>
+                <div id="username_error">For this demo, the password cannot contain @ and spaces</div>
+                <input type="password" name="password" id="password" oninput="checkPassword(event)"><br>
+                <div id="password_error">Password should be at least 8 characters long</div>
+                <button type="submit" id="contributor-auth-form-submit" onclick="fetch_user()" disabled>Submit</button>
             </form>
         </div>
     </main>
-    <footer class="footer">
-        <div style="text-align: center;">Footer</div>
+    <footer id="footer">
+        <span id="footer-left"><a href="">About</a></span>
+        <span id="footer-right"><a href="">Privacy</a></span>
     </footer>
    
     
