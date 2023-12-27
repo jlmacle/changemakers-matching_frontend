@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css"  href="../_css/all-media.css"> <!--CSS for all media types -->
+    <title>Looking to change the world? Find if your skills could be used to achieve the UN Sustainable Development Goals.</title>
+    <!-- "OWASP recommends DOMPurify or the Sanitizer API for HTML sanitization." -->
+    <!-- https://cheatsheetseries.owasp.org/cheatsheets/DOM_Clobbering_Prevention_Cheat_Sheet.html#mitigation-techniques -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
+    <script src="../_js/common.js"></script>
+</head>
+<body>
+    <header id="header">
+        <div id="authentication-container" style="text-align: right;padding-right: 20px;padding-top: 10px;"><a href="./new-account_project-representative.html">Create new proj. rep. account</a></div>
+        <div id="header-title-container">
+            <div class="header-title">Looking&nbsp;</div>
+            <div class="header-title">to be&nbsp;</div>
+            <div class="header-title">involved&nbsp;</div>
+            <div class="header-title"> in&nbsp;</div>
+            <div class="header-title"> <a id="sdg-link"  href="https://sdgs.un.org/goals">SDG</a> pr
+            <img id="header-sdg-wheel" src="../_media/UN-graphics/SDG-Wheel-Transparent-WEB.png" alt="UN SDG Wheel" style="padding:0px;margin-left:-5px;margin-right:-5px;"/>
+            jects?</div>          
+        </div>
+    </header>
+    <main id="main">
+        <script>
+            // https://www.w3schools.com/js/tryit.asp?filename=tryjs_function_expression_self
+            function fetch_user() 
+            {   
+                event.preventDefault();
+                const file = "http://127.0.0.1:8080/representatives/new-account"
+                const username = document.getElementById("username").value;
+                const password = document.getElementById("password").value;
+
+                
+                fetch (file, {
+                    method:'POST', 
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify({username: username, password: password})
+                })
+                .then(response => response.text())
+                .then(string_to_sanitize => {
+                    //removing the account cretaion link
+                    document.getElementById("authentication-container").innerHTML = "";
+                    //TODO: from JSON string data to object to stylizable HTML
+                    // "you can sanitize strings by executing the following code:"
+                    // https://www.npmjs.com/package/dompurify
+                    const sanitized_string = DOMPurify.sanitize(string_to_sanitize);
+                    
+                    document.getElementById("main").innerHTML = sanitized_string; 
+                    //TODO: Generate the project representative page "projects view" from the data fetched from the backend
+                    
+                    document.getElementById("welcome").innerHTML = "Welcome, " + username;})
+                .catch(error => console.log(error));
+            }
+            
+        </script>
+
+        <div id="data-entry_new-account_proj-rep" style="text-align: center;">
+            <form id="contributor-auth-form">
+                <!-- TODO: to check that no email is being used -->
+                <label for="username">Please enter username and password</label><br>
+                <input type="text" name="username" id="username" oninput="checkUsername(event)">
+                <div id="username_error">For this demo, the password cannot contain @ and spaces</div>
+                <input type="password" name="password" id="password" oninput="checkPassword(event)"><br>
+                <div id="password_error">Password should be at least 8 characters long</div>
+                <button type="submit" id="contributor-auth-form-submit" onclick="fetch_user()" disabled>Submit</button>
+            </form>
+        </div>
+    </main>
+    <footer id="footer">
+        <span id="footer-left"><a href="">About</a></span>
+        <span id="footer-right"><a href="">Privacy</a></span>
+    </footer>
+   
+    
+</body>
+</html>
