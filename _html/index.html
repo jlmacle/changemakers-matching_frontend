@@ -3,13 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../_css/all-media.css"> <!--CSS for all media types -->
+    <link rel="stylesheet" type="text/css" href="../_css/common.css"> 
+    <link rel="stylesheet" type="text/css" href="../_css/authentication.css"> 
     <title>Looking to change the world? Find if your skills could be used to achieve the UN Sustainable Development Goals.</title>
 </head>
 <body>
     
     <header id="header">
-        <div id="authentication-container" style="text-align: right;padding-right: 20px;padding-top: 10px;"><a href="./new-account_project-representative.html">Create new proj. rep. account</a></div>
+        <button id="account-login-access" onclick="openAuthenticationModal()">New<br>account<br>-<br>Login</button> 
+
+        <div id="authentication-modal">
+            <div id="authentication-modal-close" onclick="closeAuthenticationModal()">&times;</div>
+            <div id="authentication-modal-content"><a href="./new-account_project-representative.html">Project representative</a>/Contributor</div>
+        </div>
+        
+        <!-- <a href="./new-account_project-representative.html">Create new proj. rep. account</a> -->
+        
+    
         <div id="header-title-container">
             <div class="header-title">Looking&nbsp;</div>
             <div class="header-title">to be&nbsp;</div>
@@ -27,6 +37,23 @@
         <span id="footer-left"><a href="">About</a></span>
         <span id="footer-right"><a href="">Privacy</a></span>
     </footer>
+
+    <script>
+        function openAuthenticationModal(){
+            alert("openAuthenticationModal() called");
+            // document.getElementById("authentication-modal").style.display = "block";
+            document.getElementById("authentication-modal").style.visibiity = "visible";
+        }
+
+        function closeAuthenticationModal(){
+            alert("closeAuthenticationModal() called");
+            // document.getElementById("authentication-modal").style.display = "none"; 
+            // Why is the code innefective?
+            document.getElementById("authentication-modal").style.visibiity = "hidden";
+        
+        }
+    </script>
     
 </body>
 </html>
+

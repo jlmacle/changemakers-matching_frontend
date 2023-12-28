@@ -1,0 +1,85 @@
+/* ---------------------- HEADER section ---------------------- */
+
+
+/* #authentication-container{
+    position: relative;
+    text-align: right;
+    padding-right: 20px;
+    padding-top: 10px;
+    margin-bottom: 20px;
+    text-decoration: underline;
+} */
+
+#account-login-access{
+    position:absolute;
+    top:20px;
+    right: 20px;
+    
+    border:0px;
+    background-color: transparent;
+
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 14px;
+}
+
+@media (max-width:251px){
+    #account-login-access{
+        position:absolute;
+        top:10px;
+        right: 10px;
+        font-size: 12px;
+        border: 1px solid black;
+    }
+}
+
+
+#authentication-modal{
+    /* display:none; */
+    visibility: hidden;
+    position:fixed;
+    /* z-index: 1; */
+
+    top:0;
+    left:0;
+    width: 100%;
+    height: 1000%;
+    /* overflow:auto; */
+    
+    /* min-width:400px;
+    text-align: center;
+    margin: auto;  */
+
+    
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+#authentication-modal-close{
+    color: white;
+    font-size: 50px;
+    padding-right: 15px;
+}
+
+#authentication-modal-content{
+    z-index: 2;
+    text-align: center;
+    color: white;
+
+
+    /* display: block; */
+
+}
+
+/* TODO  media queries for different viewport sizes */
+/* @media (max-width:600px) {
+    #authentication-modal{
+        width:100%;
+    }
+    
+} */
+
+#data-entry_new-account_proj-rep
+{
+    margin-top:180px;
+}
