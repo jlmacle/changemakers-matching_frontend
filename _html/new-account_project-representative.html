@@ -47,9 +47,9 @@
                     //TODO: from JSON string data to object to stylizable HTML
                     // "you can sanitize strings by executing the following code:"
                     // https://www.npmjs.com/package/dompurify
-                    const sanitized_string = DOMPurify.sanitize(string_to_sanitize);
-                    
-                    document.getElementById("main").innerHTML = sanitized_string; 
+                    string_to_sanitize = string_to_sanitize.replace(',',',<br>'); // to allow a line break for the data
+                    const sanitized_string = DOMPurify.sanitize(string_to_sanitize);                    
+                    document.getElementById("main").innerHTML = '<div style="word-break:break-word;">'+sanitized_string+'</div>'; 
                     //TODO: Generate the project representative page "projects view" from the data fetched from the backend
                     
                     // document.getElementById("welcome").innerHTML = "Welcome, " + username;})
@@ -58,15 +58,19 @@
             }
             
         </script>
-
+        
         <div id="data-entry_new-account_proj-rep" style="text-align: center;">
-            <form id="contributor-auth-form">
-                <label for="username">Please enter username and password</label><br>
+            <h1 id="txt_account_creation">New account creation</h1>
+            <form id="auth-form">
+                Please enter username and password<br><br>
+                <!-- <label for="username">Please enter username and password</label><br> -->
                 <input type="text" aria-label="username input field" name="username" id="username" oninput="checkUsername(event)">
                 <div id="username_error">For this demo, the password cannot contain @ and spaces</div>
+                <br>
                 <input type="password" aria-label="password input field" name="password" id="password" oninput="checkPassword(event)"><br>
                 <div id="password_error">Password should be at least 8 characters long</div>
-                <button type="submit" id="contributor-auth-form-submit" onclick="fetch_user()" disabled>Submit</button>
+                <br>
+                <button type="submit" id="auth-form-submit" onclick="fetch_user()" disabled>Submit</button>
             </form>
         </div>
     </main>

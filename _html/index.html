@@ -6,26 +6,27 @@
     <link rel="stylesheet" type="text/css" href="../_css/common.css"> 
     <link rel="stylesheet" type="text/css" href="../_css/authentication.css"> 
     <title>Looking to change the world? Find if your skills could be used to achieve the UN Sustainable Development Goals.</title>
+    <!-- Keywords to add for the SEO -->
 </head>
+
 <body>
     
     <header id="header">
-        <button id="account-login-access" onclick="openUserTypeOptionsModal()">New<br>account<br>-<br>Login</button> 
+        <a style="text-indent:-5000000px;" href="#main">Next is new account creation and login. Otherwise, you can skip to user testimonies (recommanded).</a>
+        <button aria-label="Click to create a new account or to login." id="account-login-access" onclick="openUserTypeOptionsModal()">
+            <span tabindex="-1">New<br>account<br>-<br>Login</span>
+        </button> 
 
-        <div id="user-type-options-modal">
-            <div id="user-type-options_modal-close" onclick="closeUserTypeOptionsModal()">&times;</div>
-            <!-- Need to transmit the type of users --><div id="user-type-options_modal-content"><a href="./new-account_project-representative.html">Project representative</a> <br><br> - <br><br>Contributor</div>
-            <!-- <div id="user-type-options_modal-content"><a onclick="openNewAccountOrLoginModal(user-type)"><span id="text_proj-rep" name="text_proj-rep">Project representative</span></a> <br><br> - <br><br><a><span id="text_contributor" name="text_proj-rep">Contributor</span>/a></div> -->
-        </div>
+        <div aria-roledescription="dialog" aria-modal="true"  id="user-type-options-modal">            
+            <!-- Need to transmit the type of users -->
+            <div aria-label=" Please choose the appropriate option between 'project representative' and 'contributor' "  id="user-type-options_modal-content">
+                <div><a href="./new-account_project-representative.html">Project representative</a> <br><br> - <br><br><a style="text-decoration: none;">Contributor</a></div>
+            </div>
+            <div aria-label="Click to exit choice of type of user." id="user-type-options_modal-close" onclick="closeUserTypeOptionsModal()">&times;</div>
+        </div>    
         
-        
-        <div id="new-account-or-login-modal">
-            <div id="new-account-or-login_modal-close" onclick="closeNewAccountOrLoginModal()">&times;</div>
-            <div id="new-account-or-login_modal-content"><a href="./new-account_project-representative.html">New account</a> <br><br> - <br><br><a>Login</a></div>
-        </div>
-      
-    
-        <div id="header-title-container">
+        <a style="text-indent:-5000000px;" href="#main">Skip to user testimonies (recommanded).</a>
+        <div tabindex="-1" id="header-title-container">
             <div class="header-title">Looking&nbsp;</div>
             <div class="header-title">to be&nbsp;</div>
             <div class="header-title">involved&nbsp;</div>
@@ -35,9 +36,11 @@
             jects?</div>          
         </div>
     </header>
-    <main id="main" style="display:flex;">
-        <div style="text-align: center;margin:auto;"><strong>Testimonies of satisfied users</strong></div>
+
+    <main tabindex="0" id="main" style="display:flex;">
+        <div style="text-align:center;margin:auto;"><strong>Testimonies of satisfied users</strong></div>
     </main>
+
     <footer id="footer">
         <span id="footer-left"><a href="">About</a></span>
         <span id="footer-right"><a href="">Privacy</a></span>
@@ -45,24 +48,12 @@
 
     <script>
         function openUserTypeOptionsModal(userType){            
-            document.getElementById("user-type-options-modal").style.visibility = "visible";
-            
+            document.getElementById("user-type-options-modal").style.visibility = "visible";            
         }
 
         function closeUserTypeOptionsModal(){
             // Run into an unsolved issue using display ="none". Chose visibility="hidden" instead.
-            document.getElementById("user-type-options-modal").style.visibility = "hidden";      
-
-        }
-
-        function openNewAccountOrLoginModal(userType){
-               
-        }
-
-        function closeNewAccountOrLoginModal(){
-            
-                
-
+            document.getElementById("user-type-options-modal").style.visibility = "hidden";
         }
     </script>
     
