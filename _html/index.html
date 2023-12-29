@@ -3,13 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../_css/all-media.css"> <!--CSS for all media types -->
+    <link rel="stylesheet" type="text/css" href="../_css/common.css"> 
+    <link rel="stylesheet" type="text/css" href="../_css/authentication.css"> 
     <title>Looking to change the world? Find if your skills could be used to achieve the UN Sustainable Development Goals.</title>
 </head>
 <body>
     
     <header id="header">
-        <div id="authentication-container" style="text-align: right;padding-right: 20px;padding-top: 10px;"><a href="./new-account_project-representative.html">Create new proj. rep. account</a></div>
+        <button id="account-login-access" onclick="openUserTypeOptionsModal()">New<br>account<br>-<br>Login</button> 
+
+        <div id="user-type-options-modal">
+            <div id="user-type-options_modal-close" onclick="closeUserTypeOptionsModal()">&times;</div>
+            <!-- Need to transmit the type of users --><div id="user-type-options_modal-content"><a href="./new-account_project-representative.html">Project representative</a> <br><br> - <br><br>Contributor</div>
+            <!-- <div id="user-type-options_modal-content"><a onclick="openNewAccountOrLoginModal(user-type)"><span id="text_proj-rep" name="text_proj-rep">Project representative</span></a> <br><br> - <br><br><a><span id="text_contributor" name="text_proj-rep">Contributor</span>/a></div> -->
+        </div>
+        
+        
+        <div id="new-account-or-login-modal">
+            <div id="new-account-or-login_modal-close" onclick="closeNewAccountOrLoginModal()">&times;</div>
+            <div id="new-account-or-login_modal-content"><a href="./new-account_project-representative.html">New account</a> <br><br> - <br><br><a>Login</a></div>
+        </div>
+      
+    
         <div id="header-title-container">
             <div class="header-title">Looking&nbsp;</div>
             <div class="header-title">to be&nbsp;</div>
@@ -27,6 +42,30 @@
         <span id="footer-left"><a href="">About</a></span>
         <span id="footer-right"><a href="">Privacy</a></span>
     </footer>
+
+    <script>
+        function openUserTypeOptionsModal(userType){            
+            document.getElementById("user-type-options-modal").style.visibility = "visible";
+            
+        }
+
+        function closeUserTypeOptionsModal(){
+            // Run into an unsolved issue using display ="none". Chose visibility="hidden" instead.
+            document.getElementById("user-type-options-modal").style.visibility = "hidden";      
+
+        }
+
+        function openNewAccountOrLoginModal(userType){
+               
+        }
+
+        function closeNewAccountOrLoginModal(){
+            
+                
+
+        }
+    </script>
     
 </body>
 </html>
+

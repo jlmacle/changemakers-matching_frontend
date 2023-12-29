@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css"  href="../_css/all-media.css"> <!--CSS for all media types -->
+    <link rel="stylesheet" type="text/css"  href="../_css/common.css"> 
+    <link rel="stylesheet" type="text/css"  href="../_css/authentication.css">
     <title>Looking to change the world? Find if your skills could be used to achieve the UN Sustainable Development Goals.</title>
     <!-- "OWASP recommends DOMPurify or the Sanitizer API for HTML sanitization." -->
     <!-- https://cheatsheetseries.owasp.org/cheatsheets/DOM_Clobbering_Prevention_Cheat_Sheet.html#mitigation-techniques -->
@@ -12,7 +13,7 @@
 </head>
 <body>
     <header id="header">
-        <div id="authentication-container" style="text-align: right;padding-right: 20px;padding-top: 10px;"><a href="./new-account_project-representative.html">Create new proj. rep. account</a></div>
+        <!-- <div id="authentication-container" style="text-align: right;padding-right: 20px;padding-top: 10px;"><a href="./new-account_project-representative.html">Create new proj. rep. account</a></div> -->
         <div id="header-title-container">
             <div class="header-title">Looking&nbsp;</div>
             <div class="header-title">to be&nbsp;</div>
@@ -42,7 +43,7 @@
                 .then(response => response.text())
                 .then(string_to_sanitize => {
                     //removing the account cretaion link
-                    document.getElementById("authentication-container").innerHTML = "";
+                    // document.getElementById("authentication-container").innerHTML = "";
                     //TODO: from JSON string data to object to stylizable HTML
                     // "you can sanitize strings by executing the following code:"
                     // https://www.npmjs.com/package/dompurify
@@ -51,7 +52,8 @@
                     document.getElementById("main").innerHTML = sanitized_string; 
                     //TODO: Generate the project representative page "projects view" from the data fetched from the backend
                     
-                    document.getElementById("welcome").innerHTML = "Welcome, " + username;})
+                    // document.getElementById("welcome").innerHTML = "Welcome, " + username;})
+                    })
                 .catch(error => console.log(error));
             }
             
@@ -59,11 +61,10 @@
 
         <div id="data-entry_new-account_proj-rep" style="text-align: center;">
             <form id="contributor-auth-form">
-                <!-- TODO: to check that no email is being used -->
                 <label for="username">Please enter username and password</label><br>
-                <input type="text" name="username" id="username" oninput="checkUsername(event)">
+                <input type="text" aria-label="username input field" name="username" id="username" oninput="checkUsername(event)">
                 <div id="username_error">For this demo, the password cannot contain @ and spaces</div>
-                <input type="password" name="password" id="password" oninput="checkPassword(event)"><br>
+                <input type="password" aria-label="password input field" name="password" id="password" oninput="checkPassword(event)"><br>
                 <div id="password_error">Password should be at least 8 characters long</div>
                 <button type="submit" id="contributor-auth-form-submit" onclick="fetch_user()" disabled>Submit</button>
             </form>
