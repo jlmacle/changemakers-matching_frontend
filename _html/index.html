@@ -10,15 +10,20 @@
 <body>
     
     <header id="header">
-        <button id="account-login-access" onclick="openAuthenticationModal()">New<br>account<br>-<br>Login</button> 
+        <button id="account-login-access" onclick="openUserTypeOptionsModal()">New<br>account<br>-<br>Login</button> 
 
-        <div id="authentication-modal">
-            <div id="authentication-modal-close" onclick="closeAuthenticationModal()">&times;</div>
-            <div id="authentication-modal-content"><a href="./new-account_project-representative.html">Project representative</a>/Contributor</div>
+        <div id="user-type-options-modal">
+            <div id="user-type-options_modal-close" onclick="closeUserTypeOptionsModal()">&times;</div>
+            <!-- Need to transmit the type of users --><div id="user-type-options_modal-content"><a href="./new-account_project-representative.html">Project representative</a> <br><br> - <br><br>Contributor</div>
+            <!-- <div id="user-type-options_modal-content"><a onclick="openNewAccountOrLoginModal(user-type)"><span id="text_proj-rep" name="text_proj-rep">Project representative</span></a> <br><br> - <br><br><a><span id="text_contributor" name="text_proj-rep">Contributor</span>/a></div> -->
         </div>
         
-        <!-- <a href="./new-account_project-representative.html">Create new proj. rep. account</a> -->
         
+        <div id="new-account-or-login-modal">
+            <div id="new-account-or-login_modal-close" onclick="closeNewAccountOrLoginModal()">&times;</div>
+            <div id="new-account-or-login_modal-content"><a href="./new-account_project-representative.html">New account</a> <br><br> - <br><br><a>Login</a></div>
+        </div>
+      
     
         <div id="header-title-container">
             <div class="header-title">Looking&nbsp;</div>
@@ -39,18 +44,25 @@
     </footer>
 
     <script>
-        function openAuthenticationModal(){
-            alert("openAuthenticationModal() called");
-            // document.getElementById("authentication-modal").style.display = "block";
-            document.getElementById("authentication-modal").style.visibiity = "visible";
+        function openUserTypeOptionsModal(userType){            
+            document.getElementById("user-type-options-modal").style.visibility = "visible";
+            
         }
 
-        function closeAuthenticationModal(){
-            alert("closeAuthenticationModal() called");
-            // document.getElementById("authentication-modal").style.display = "none"; 
-            // Why is the code innefective?
-            document.getElementById("authentication-modal").style.visibiity = "hidden";
-        
+        function closeUserTypeOptionsModal(){
+            // Run into an unsolved issue using display ="none". Chose visibility="hidden" instead.
+            document.getElementById("user-type-options-modal").style.visibility = "hidden";      
+
+        }
+
+        function openNewAccountOrLoginModal(userType){
+               
+        }
+
+        function closeNewAccountOrLoginModal(){
+            
+                
+
         }
     </script>
     
