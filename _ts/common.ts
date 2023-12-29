@@ -11,7 +11,7 @@ function checkUsername() {
     let debug = true;
 
     let username = document.getElementById("username") as HTMLFormElement; // To be able to access the value property
-    let submit_button = document.getElementById("contributor-auth-form-submit") as HTMLButtonElement;
+    let submit_button = document.getElementById("auth-form-submit") as HTMLButtonElement;
     username?.addEventListener("input", function(event){
         let username_error = document.getElementById("username_error");     
         
@@ -61,7 +61,7 @@ function checkPassword() {
     let debug = true;
 
     let password = document.getElementById("password") as HTMLInputElement; // To be able to access the value property
-    let submit_button = document.getElementById("contributor-auth-form-submit") as HTMLButtonElement;
+    let submit_button = document.getElementById("auth-form-submit") as HTMLButtonElement;
     password?.addEventListener("input", function(event){                
         let password_error = document.getElementById("password_error");        
 

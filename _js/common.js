@@ -9,7 +9,7 @@ var password_is_valid = false;
 function checkUsername() {
     let debug = true;
     let username = document.getElementById("username"); // To be able to access the value property
-    let submit_button = document.getElementById("contributor-auth-form-submit");
+    let submit_button = document.getElementById("auth-form-submit");
     username === null || username === void 0 ? void 0 : username.addEventListener("input", function (event) {
         let username_error = document.getElementById("username_error");
         if ((username === null || username === void 0 ? void 0 : username.value) && username_error) {
@@ -23,7 +23,7 @@ function checkUsername() {
             else if (username.value.includes(" ")) {
                 if (debug)
                     console.log("Username contains an empty space");
-                username.value = username.value.trim();
+                username.value = username.value.trim(); //Suppressing the empty space
                 submit_button.disabled = true;
                 username_is_valid = false;
             }
@@ -40,6 +40,7 @@ function checkUsername() {
                 username_error.innerHTML = "The username is valid for this demo.";
                 // TODO: alphanumeric characters and underscore only. Min 3 characters, max 20 characters.                
                 username_is_valid = true;
+                // Still need to check if the password is valid before enabling the submit button.
                 if (username_is_valid && password_is_valid)
                     submit_button.disabled = false;
             }
@@ -56,7 +57,7 @@ function checkUsername() {
 function checkPassword() {
     let debug = true;
     let password = document.getElementById("password"); // To be able to access the value property
-    let submit_button = document.getElementById("contributor-auth-form-submit");
+    let submit_button = document.getElementById("auth-form-submit");
     password === null || password === void 0 ? void 0 : password.addEventListener("input", function (event) {
         let password_error = document.getElementById("password_error");
         if ((password === null || password === void 0 ? void 0 : password.value) && password_error) {
@@ -70,8 +71,9 @@ function checkPassword() {
             else {
                 if (debug)
                     console.log("Password is valid");
-                password_error.innerHTML = "There is no character check in this demo.";
+                password_error.innerHTML = "This password is valid for this demo.";
                 password_is_valid = true;
+                // Still need to check if the username is valid before enabling the submit button.
                 if (username_is_valid && password_is_valid)
                     submit_button.disabled = false;
             }
