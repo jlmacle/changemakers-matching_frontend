@@ -64,11 +64,11 @@
             <form id="auth-form">
                 Please enter username and password<br><br>
                 <!-- <label for="username">Please enter username and password</label><br> -->
-                <input type="text" aria-label="username input field" name="username" id="username" oninput="checkUsername(event)">
-                <div id="username_error">For this demo, the password cannot contain @ and spaces</div>
+                <input type="text" aria-label="username input field" name="username" id="username" oninput="checkUsername(event)" autocomplete="off">
+                <div id="username_error">For this demo, the password cannot contain @ and spaces.</div>
                 <br>
                 <input type="password" aria-label="password input field" name="password" id="password" oninput="checkPassword(event)"><br>
-                <div id="password_error">Password should be at least 8 characters long</div>
+                <div id="password_error">Password should be at least 8 characters long.</div>
                 <br>
                 <button type="submit" id="auth-form-submit" onclick="fetch_user()" disabled>Submit</button>
             </form>

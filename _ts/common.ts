@@ -19,19 +19,19 @@ function checkUsername() {
         if (username?.value && username_error) {            
             if (username.value.includes("@")) {
                 if (debug) console.log("Username contains @");
-                username_error.innerHTML = "Username cannot contain @";
+                username_error.innerHTML = "Username cannot contain @.";
                 submit_button.disabled = true;
                 username_is_valid = false;
             }              
             else if (username.value.includes(" ")) {
-                if (debug) console.log("Username contains an empty space");
+                if (debug) console.log("Username contains an empty space.");
                 username.value = username.value.trim(); //Suppressing the empty space
                 submit_button.disabled = true;
                 username_is_valid = false;
             }
             else if (username.value.trim().length == 0) {
                 if (debug) console.log("Username is empty");
-                username_error.innerHTML = "Username cannot be empty";
+                username_error.innerHTML = "Username cannot be empty.";
                 submit_button.disabled = true;
                 username_is_valid = false;
             }           
@@ -68,7 +68,7 @@ function checkPassword() {
         if (password?.value && password_error) {
             if (password.value.trim().length <=8) {
                 if (debug) console.log("Password is too short");
-                password_error.innerHTML = "Password should be at least 8 characters long";
+                password_error.innerHTML = "Password should be at least 8 characters long.";
                 submit_button.disabled = true;          
                 password_is_valid = false;      
             }

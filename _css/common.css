@@ -2,10 +2,18 @@
 - Elements and pseudo-elements - Example: h1, ::before
 - Classes, pseudo-classes, attribute selectors - Example: .test, :hover, [href]
 - IDs - Example: #navbar */
-/* *{
-    border: 1px solid black;
-} */
+*{
+    /* border: 1px solid black; */
+}
 
+
+:root
+{
+    --header-min-height: 120px;
+    --main-min-height:610px;
+    --nav-height: 60px;
+    --footer-height: 60px;   
+}
 
 
 .header-title
@@ -14,52 +22,41 @@
     font-size: 30px;
 }
 
-@media (max-width:250px){
-    .header-title
-    {
-        font-size: 15px;
+        @media (max-width:250px){
+            .header-title
+            {
+                font-size: 15px;
+            }
+        }
 
-    }
+.footer{
+    margin-top: 20px;
 }
 
 .footer a{
-    /* todo  links not underlined */
     text-decoration:none;
-    border: 1px solid black;
-
 }
 
-.footer span
-{
-    position:absolute;
-}
 
 /* ---------------------- HEADER section ---------------------- */
 
 #header
 {
+    min-height: var(--header-min-height);
+
     display: flex;
-    justify-content: center;
-    border: solid 1px black;
-    height: auto;
-    min-height: 100px;
+    justify-content: center;     
+
+    border: solid 1px black;  
     background-color: white;
 }
 
 #header-title-container{
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;   /* For the container */
     align-items: center;       /* For the items */
     
-}
-
-@media (max-width:600px){
-    #header-title-container{
-        display: flex;
-        flex-direction: column;
-    }
 }
 
 #sdg-link{
@@ -71,9 +68,9 @@
 {
     height:20px;    
     width:auto;   
+
     padding-left: 0px;
-    padding-right: 0px;
-    align-self:center;
+    padding-right: 0px;    
     vertical-align: -2px;
     
 }
@@ -82,10 +79,8 @@
 
 #nav
 {
-    border: solid 1px black;
-    height:auto;
-    min-height: 60px;
-    line-height: 60px;
+    height: var(--nav-height);  
+    border: solid 1px black;    
     background-color: lightblue;
 }
 
@@ -95,9 +90,8 @@
 
 #main
 {
-    border: solid 1px black;
-    height: auto;
-    min-height: 400px;
+    min-height: var(--main-min-height);
+    border: solid 1px black;   
     background-color: #fafad2;
 }
 
@@ -105,10 +99,8 @@
 
 #footer
 {
-    border: solid 1px black;
-    height: auto;
-    min-height: 60px;
-    line-height: 60px;
+    height: var(--nav-height);
+    border: solid 1px black;     
     background-color: white;
 }
 
