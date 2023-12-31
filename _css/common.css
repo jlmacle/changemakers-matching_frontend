@@ -1,36 +1,47 @@
 /* Written by inverse order of specificity
-- Elements and pseudo-elements - Example: h1, ::before
-- Classes, pseudo-classes, attribute selectors - Example: .test, :hover, [href]
-- IDs - Example: #navbar */
+- Elements and pseudo-elements - Example:h1, ::before
+- Classes, pseudo-classes, attribute selectors - Example:.test, :hover, [href]
+- IDs - Example:#navbar */
 *{
-    /* border: 1px solid black; */
+    /* border:1px solid black; */
 }
+
+/* Minimum size taken into account:Nokia 8110 4G (240 x 320 pixels) */
 
 
 :root
 {
-    --header-min-height: 120px;
+    --header-min-height:120px;
     --main-min-height:610px;
-    --nav-height: 60px;
-    --footer-height: 60px;   
+    --nav-height:60px;
+    --footer-height:60px;   
 }
 
 
 .header-title
 {
-    font: Arial, Helvetica, sans-serif;
-    font-size: 30px;
+    font:Arial, Helvetica, sans-serif;
+    font-size:30px;
 }
 
-        @media (max-width:250px){
+        @media screen and (min-width:239px) and (max-width:500px){
             .header-title
             {
-                font-size: 15px;
+                font-size:19px;
             }
         }
 
+        @media (min-width:250px) and (max-width:500px){
+            .header-title
+            {
+                font-size:24px;
+            }
+        }
+
+
+
 .footer{
-    margin-top: 20px;
+    margin-top:20px;
 }
 
 .footer a{
@@ -42,26 +53,29 @@
 
 #header
 {
-    min-height: var(--header-min-height);
+    min-height:var(--header-min-height);
 
-    display: flex;
-    justify-content: center;     
+    display:flex;
+    justify-content:center;
 
-    border: solid 1px black;  
-    background-color: white;
+    border:solid 1px black;  
+    background-color:white;
 }
 
 #header-title-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;   /* For the container */
-    align-items: center;       /* For the items */
+    display:flex;
+    flex-direction:column;
+    justify-content:center;   /* For the container */
+    align-items:center;       /* For the items */
+
+    margin-top:10px;
+    margin-bottom:10px;
     
 }
 
 #sdg-link{
-    text-decoration: none;
-    color: black;
+    text-decoration:none;
+    color:black;
 }
 
 #header-sdg-wheel
@@ -69,19 +83,42 @@
     height:20px;    
     width:auto;   
 
-    padding-left: 0px;
-    padding-right: 0px;    
-    vertical-align: -2px;
-    
+    margin-left:-6px;
+    margin-right:-6px;  
+    vertical-align:-3px;    
 }
+
+        @media screen and (min-width:239px) and (max-width:249px){
+            #header-sdg-wheel{
+                height:10px;    
+                width:auto;   
+
+                margin-left:-4px;
+                margin-right:-4px;   
+                vertical-align:-1px;    
+            }
+        }
+
+        @media screen and (min-width:250px) and (max-width:500px){
+            #header-sdg-wheel{
+                height:13px;    
+                width:auto;   
+        
+                margin-left:-5px;
+                margin-right:-5px;   
+                vertical-align:-1px;                   
+            }            
+        }
+  
+
 
 /* ---------------------- NAV section ----------------------  */
 
 #nav
 {
-    height: var(--nav-height);  
-    border: solid 1px black;    
-    background-color: lightblue;
+    height:var(--nav-height);  
+    border:solid 1px black;    
+    background-color:lightblue;
 }
 
 
@@ -90,18 +127,18 @@
 
 #main
 {
-    min-height: var(--main-min-height);
-    border: solid 1px black;   
-    background-color: #fafad2;
+    min-height:var(--main-min-height);
+    border:solid 1px black;   
+    background-color:#fafad2;
 }
 
 /* ---------------------- FOOTER section ----------------------   */
 
 #footer
 {
-    height: var(--nav-height);
-    border: solid 1px black;     
-    background-color: white;
+    height:var(--nav-height);
+    border:solid 1px black;     
+    background-color:white;
 }
 
 #footer-left{
