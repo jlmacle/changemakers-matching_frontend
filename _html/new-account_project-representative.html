@@ -15,46 +15,56 @@
     <header id="header">
         <!-- <div id="authentication-container" style="text-align: right;padding-right: 20px;padding-top: 10px;"><a href="./new-account_project-representative.html">Create new proj. rep. account</a></div> -->
         <div id="header-title-container">
-            <div class="header-title">Looking&nbsp;</div>
-            <div class="header-title">to be&nbsp;</div>
-            <div class="header-title">involved&nbsp;</div>
-            <div class="header-title"> in&nbsp;</div>
-            <div class="header-title"> <a id="sdg-link"  href="https://sdgs.un.org/goals">SDG</a> pr
-            <img id="header-sdg-wheel" src="../_media/UN-graphics/SDG-Wheel-Transparent-WEB.png" alt="UN SDG Wheel" style="padding:0px;margin-left:-5px;margin-right:-5px;"/>
-            jects?</div>          
+            <a id="home-link" href="./index.html" title="Link to the homepage">
+                <div class="header-title">Looking&nbsp;</div>
+                <div class="header-title">to be&nbsp;</div>
+                <div class="header-title">involved&nbsp;</div>
+                <div class="header-title"> in&nbsp;</div>
+                <div class="header-title"> SDG pr
+                <img id="header-sdg-wheel" src="../_media/UN-graphics/SDG-Wheel-Transparent-WEB.png" alt="UN SDG Wheel" style="padding:0px;margin-left:-5px;margin-right:-5px;"/>
+                jects?</div>   
+            </a>       
         </div>
     </header>
     <main id="main">
         <script>
+            
             // https://www.w3schools.com/js/tryit.asp?filename=tryjs_function_expression_self
             function fetch_user() 
             {   
-                event.preventDefault();
+                event.preventDefault(); // to avoid unexpected network behaviors causing network errors
                 const file = "http://127.0.0.1:8080/representatives/new-account"
                 const username = document.getElementById("username").value;
-                const password = document.getElementById("password").value;
+                const password = document.getElementById("password").value;                           
 
-                
-                fetch (file, {
-                    method:'POST', 
-                    headers: {'Content-Type': 'application/json'}, 
-                    body: JSON.stringify({username: username, password: password})
-                })
-                .then(response => response.text())
-                .then(string_to_sanitize => {
-                    //removing the account cretaion link
-                    // document.getElementById("authentication-container").innerHTML = "";
-                    //TODO: from JSON string data to object to stylizable HTML
-                    // "you can sanitize strings by executing the following code:"
-                    // https://www.npmjs.com/package/dompurify
-                    string_to_sanitize = string_to_sanitize.replace(',',',<br>'); // to allow a line break for the data
-                    const sanitized_string = DOMPurify.sanitize(string_to_sanitize);                    
-                    document.getElementById("main").innerHTML = '<div style="word-break:break-word;">'+sanitized_string+'</div>'; 
-                    //TODO: Generate the project representative page "projects view" from the data fetched from the backend
-                    
-                    // document.getElementById("welcome").innerHTML = "Welcome, " + username;})
+                if (!username || !password) // if username or password are empty or null
+                {
+                    document.getElementById("auth-form-submit").disabled = false;
+                    console.log("username or password are empty. Treated in HTML page.");
+                }
+                else{
+                    console.log("Entering fetch_user() function");
+                    fetch (file, {
+                        method:'POST', 
+                        headers: {'Content-Type': 'application/json'}, 
+                        body: JSON.stringify({username: username, password: password})
                     })
-                .catch(error => console.log(error));
+                    .then(response => response.text())
+                    .then(string_to_sanitize => {
+                        //removing the account cretaion link
+                        // document.getElementById("authentication-container").innerHTML = "";
+                        //TODO: from JSON string data to object to stylizable HTML
+                        // "you can sanitize strings by executing the following code:"
+                        // https://www.npmjs.com/package/dompurify
+                        string_to_sanitize = string_to_sanitize.replace(',',',<br>'); // to allow a line break for the data
+                        const sanitized_string = DOMPurify.sanitize(string_to_sanitize);                    
+                        document.getElementById("main").innerHTML = '<div style="word-break:break-word;">'+sanitized_string+'</div>'; 
+                        //TODO: Generate the project representative page "projects view" from the data fetched from the backend
+                        
+                        // document.getElementById("welcome").innerHTML = "Welcome, " + username;})
+                        })
+                    .catch(error => console.log(error));
+            }
             }
             
         </script>
@@ -63,9 +73,9 @@
             <h1 id="txt_account_creation">New account creation</h1>
             <form id="auth-form">
                 Please enter username and password<br><br>
-                <!-- <label for="username">Please enter username and password</label><br> -->
-                <input type="text" aria-label="username input field" name="username" id="username" oninput="checkUsername(event)" autocomplete="off">
-                <div id="username_error">For this demo, the password cannot contain @ and spaces.</div>
+                <!-- <label for="username">Please enter username and password</label><br> -->  
+                <input type="text" aria-label="username input field" name="username" id="username" oninput="checkUsername(event)" autocomplete="off"> <!--TODO: autocomplete="off" to remove eventually-->
+                <div id="username_error">The password can only contain unaccented letters, numbers and underscores.</div>
                 <br>
                 <input type="password" aria-label="password input field" name="password" id="password" oninput="checkPassword(event)"><br>
                 <div id="password_error">Password should be at least 8 characters long.</div>
