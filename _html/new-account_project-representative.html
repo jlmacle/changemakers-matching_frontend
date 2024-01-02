@@ -72,15 +72,19 @@
         <div id="data-entry_new-account_proj-rep" style="text-align: center;">
             <h1 id="txt_account_creation">New account creation</h1>
             <form id="auth-form">
-                Please enter username and password<br><br>
-                <!-- <label for="username">Please enter username and password</label><br> -->  
-                <input type="text" aria-label="username input field" name="username" id="username" oninput="checkUsername(event)" autocomplete="off"> <!--TODO: autocomplete="off" to remove eventually-->
-                <div id="username_error">The password can only contain unaccented letters, numbers and underscores.</div>
-                <br>
-                <input type="password" aria-label="password input field" name="password" id="password" oninput="checkPassword(event)"><br>
-                <div id="password_error">Password should be at least 8 characters long.</div>
-                <br>
-                <button type="submit" id="auth-form-submit" onclick="fetch_user()" disabled>Submit</button>
+                <fieldset>
+                    <legend>Please enter username and password</legend>
+                    <label for="username">Username</label>
+                    <input type="text" aria-label="username input field" name="username" id="username" oninput="checkUsername(event)" autocomplete="off">
+                    <!--TODO: autocomplete="off" to remove eventually. A help with demos-->
+                    <div id="username_error">The password can only contain unaccented letters, numbers and underscores.</div>
+                    <br>
+                    <label for="password">Password</label>
+                    <input type="password" aria-label="password input field" name="password" id="password" oninput="checkPassword(event)"><br>
+                    <div id="password_error">Password should be at least 8 characters long.</div>
+                    <br>
+                    <button type="submit" id="auth-form-submit" onclick="fetch_user()" disabled>Submit</button>            
+                </fieldset>
             </form>
         </div>
     </main>

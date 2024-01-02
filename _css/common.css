@@ -129,7 +129,7 @@
 /* ---------------------- MAIN section ----------------------  */
 
 #main
-{
+{       
     min-height:var(--main-min-height);
     border:solid 1px black;   
     background-color:#fafad2;
