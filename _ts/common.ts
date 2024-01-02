@@ -1,8 +1,8 @@
 // https://code.visualstudio.com/docs/typescript/typescript-compiling
 // Ctrl+Shift+B
 
-var username_is_valid:boolean = false;
-var password_is_valid:boolean = false;
+let username_is_valid:boolean = false;
+let password_is_valid:boolean = false;
 
 /**
  * Function used to check if the username is acceptable.
