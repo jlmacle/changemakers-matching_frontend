@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css"  href="../_css/common.css"> 
     <link rel="stylesheet" type="text/css"  href="../_css/authentication.css">
+    <link rel="stylesheet" type="text/css"  href="../_css/project-view.css">
     <title>Looking to change the world? Find if your skills could be used to achieve the UN Sustainable Development Goals.</title>
     <!-- "OWASP recommends DOMPurify or the Sanitizer API for HTML sanitization." -->
     <!-- https://cheatsheetseries.owasp.org/cheatsheets/DOM_Clobbering_Prevention_Cheat_Sheet.html#mitigation-techniques -->
@@ -50,18 +51,23 @@
                         body: JSON.stringify({username: username, password: password})
                     })
                     .then(response => response.text())
-                    .then(string_to_sanitize => {
-                        //removing the account cretaion link
-                        // document.getElementById("authentication-container").innerHTML = "";
+                    .then(string_to_sanitize => {                 
+                        //Toggling the visibility of the authentication form
+                        document.getElementById("data-entry_new-account_proj-rep").style.display = "none";
+                        
                         //TODO: from JSON string data to object to stylizable HTML
                         // "you can sanitize strings by executing the following code:"
                         // https://www.npmjs.com/package/dompurify
                         string_to_sanitize = string_to_sanitize.replace(',',',<br>'); // to allow a line break for the data
-                        const sanitized_string = DOMPurify.sanitize(string_to_sanitize);                    
-                        document.getElementById("main").innerHTML = '<div style="word-break:break-word;">'+sanitized_string+'</div>'; 
-                        //TODO: Generate the project representative page "projects view" from the data fetched from the backend
+                        const sanitized_string = DOMPurify.sanitize(string_to_sanitize);                           
                         
-                        // document.getElementById("welcome").innerHTML = "Welcome, " + username;})
+                        // Welcome message
+                        document.getElementById("welcome").innerHTML = "Welcome, " + username;
+
+                        // Toggling the visibility of the project main content
+                        document.getElementById("project-main-content").style.display = "block";
+
+
                         })
                     .catch(error => console.log(error));
             }
@@ -69,9 +75,9 @@
             
         </script>
         
-        <div id="data-entry_new-account_proj-rep" style="text-align: center;">
-            <h1 id="txt_account_creation">New account creation</h1>
-            <form id="auth-form">
+        <div id="data-entry_new-account_proj-rep" style="text-align: center;display:block;">
+            <h1 id="txt_account_creation" style="display:block;">New account creation</h1>
+            <form id="auth-form" style="display: block;">
                 <fieldset>
                     <legend>Please enter username and password</legend>
                     <label for="username">Username</label>
@@ -87,6 +93,34 @@
                 </fieldset>
             </form>
         </div>
+
+        <div id="project-main-content" style="display:none;">            
+            <div id="welcome"></div>
+            <h1 id="dashboard_proj-rep">Dashboard</h1>
+            <div id="projects-list"><strong>Your projects</strong>
+                <ul>
+                    <li>You have no projects declared.</li>
+                </ul>
+            </div>
+
+            <div id="new-project-definition-invite" onclick='toggleElementVisibility("new-project-definition")'><strong>Click to declare a new project</strong></div>
+            <form id="new-project-definition" style="display:none;" >
+                <fieldset>
+                    <legend>Declare a new project</legend>
+                    <label for="project-name">Project name </label>
+                    <input aria-label="Project name input field" type="text" id="project-name" name="project-name" placeholder="Project name" required><br>
+                    ...
+                    <br>
+                    ...
+                    <br>
+                    ...
+                    <br>
+                    <button type="submit" id="new-proj-def-form-submit"  disabled>Submit</button>
+                </fieldset>
+            </form>            
+        </div>
+
+
     </main>
     <footer id="footer">
         <span id="footer-left"><a href="">About</a></span>
