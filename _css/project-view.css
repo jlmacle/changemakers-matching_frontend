@@ -1,0 +1,22 @@
+#data-entry_new-account_proj-rep
+{
+    margin-top:20px;
+}
+
+#dashboard_proj-rep{
+    margin-left: 20px;
+
+}
+
+#project-main-content{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#new-project-definition-invite:hover{
+    border: solid 1px black;
+    border-radius: 5px;
+    max-width: fit-content;
+}
+
+

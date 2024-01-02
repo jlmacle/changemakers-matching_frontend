@@ -119,6 +119,20 @@ function checkPassword() {
     
 }
 
+/**
+ * Function used to toggle the visibility of an element.
+ * @param elementId the id of the element to toggle
+ */
+function toggleElementVisibility(elementId: string){
+    let element = document.getElementById(elementId) as HTMLElement;
+
+    if (element.style.display == "block"){
+        element.style.display = "none";
+    }
+    else if (element.style.display == "none"){
+        element.style.display = "block";
+    }
+}
 
 
 
