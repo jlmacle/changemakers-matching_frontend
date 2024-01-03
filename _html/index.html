@@ -9,7 +9,7 @@
     <!-- TODO: Keywords to add for the SEO -->
 </head>
 
-<body>
+<body aria-hidden="false">
     
     <header id="header">
         <a style="text-indent:-5000000px;" href="#main">Next is new account creation and login. Otherwise, you can skip to user testimonies (recommanded).</a>
@@ -19,13 +19,13 @@
 
         <div aria-roledescription="dialog" aria-modal="true"  id="user-type-options-modal">            
             <!-- Need to transmit the type of users -->
-            <div aria-label=" Please choose the appropriate option between 'project representative' and 'contributor' "  id="user-type-options_modal-content">
+            <div tabindex="0" aria-label=" Please choose the appropriate option between 'project representative' and 'contributor' "  id="user-type-options_modal-content">
                 <div>
                     <a href="./new-account_project-representative.html">Project representative</a> <br><br>
-                    <a style="text-decoration: none;"> - </a><br><br>
+                    <span style="font-size:30px;color:white;"><strong> - </strong></span><br><br>
                     <a style="text-decoration: none;">Contributor</a></div>
             </div>
-            <div aria-label="Click to exit choice of type of user." id="user-type-options_modal-close" onclick="closeUserTypeOptionsModal()">&times;</div>
+            <div tabindex="0" aria-label="Click to exit choice of type of user." id="user-type-options_modal-close" onclick="closeUserTypeOptionsModal()">&times;</div>
         </div>    
         
         <a style="text-indent:-5000000px;" href="#main">Skip to user testimonies (recommanded).</a>
@@ -52,13 +52,24 @@
     </footer>
 
     <script>
-        function openUserTypeOptionsModal(userType){            
+        function openUserTypeOptionsModal(userType){     
+            //Switching the aria-hidden attribute to true  to make the main content not accessible to screen readers
+            let body_element = document.getElementsByTagName("body")[0];
+            body_element.setAttribute("aria-hidden", "true"); 
+            console.log(document.getElementById("main").getAttribute("aria-hidden"));
+
+            //Giving focus to the closing button of the modal
+            document.getElementById("user-type-options_modal-close").focus();
+            
             document.getElementById("user-type-options-modal").style.visibility = "visible";            
         }
 
         function closeUserTypeOptionsModal(){
             // Run into an unsolved issue using display ="none". Chose visibility="hidden" instead.
             document.getElementById("user-type-options-modal").style.visibility = "hidden";
+            //Switching the aria-hidden attribute back to false
+            let body_element = document.getElementsByTagName("body")[0];
+            body_element.setAttribute("aria-hidden", "false"); 
         }
     </script>
     
