@@ -1,12 +1,13 @@
-/* ---------------------- MAIN section ----------------------  */
 
-#data-entry_new-account_proj-rep
-{
+/* ---------------------- MAIN section :  ----------------------  */
+
+#data-entry_new-account_proj-rep{
     margin-top:20px;
 }
 
 #dashboard_proj-rep{
     margin-left: 20px;
+    text-align: center;
 
 }
 
@@ -19,10 +20,32 @@
     overflow: scroll;
 }
 
-#new-project-definition-invite:hover{
-    border: solid 1px black;
-    border-radius: 5px;
-    max-width: fit-content;
+#new-project-definition-invite-button{
+    background-color: transparent;
+    border:0px;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 16px;
 }
 
+#new-project-definition-invite-button:hover{
+    border: solid 1px black;
+    border-radius: 5px;
+    max-width: fit-content;    
+}
+
+.new-project-definition-container{
+    display:flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: flex-start;
+}
+
+.new-project-definition-label{
+    width: 200px;
+}
+
+.new-project-definition-input{
+    width: 100%;
+    min-height: 20px;
+}
 
