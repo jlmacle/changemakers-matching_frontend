@@ -98,8 +98,8 @@ function checkPassword() {
             
             
             else {
-                if (debug) console.log("✅ This password is valid for this demo.");
-                password_error.innerHTML = "This password is valid for this demo.";
+                if (debug) console.log("This password is valid for this demo.");
+                password_error.innerHTML = "✅ This password is valid for this demo.";
                 password_is_valid = true;
                 // Still need to check if the username is valid before enabling the submit button.
                 if (username_is_valid && password_is_valid) submit_button.disabled = false;

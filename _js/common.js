@@ -87,8 +87,8 @@ function checkPassword() {
             //TODO : to limit the special characters to the ones that are allowed
             else {
                 if (debug)
-                    console.log("✅ This password is valid for this demo.");
-                password_error.innerHTML = "This password is valid for this demo.";
+                    console.log("This password is valid for this demo.");
+                password_error.innerHTML = "✅ This password is valid for this demo.";
                 password_is_valid = true;
                 // Still need to check if the username is valid before enabling the submit button.
                 if (username_is_valid && password_is_valid)
@@ -123,13 +123,11 @@ function toggleElementVisibility(elementId) {
  * @param elementId the id of the element to toggle
  */
 function toggleElementVisibility_SpaceBarKey_EnterKey(elementId) {
-    console.log("toggleElementVisibility_SpaceBarKey_EnterKey");
-    let element = document.getElementById(elementId);
+    let element = document.getElementById(elementId); // Note: I couldn't get the script to work with a <DIV> element.
     element.addEventListener("keyup", function (event) {
         if (event.key == " " || event.key == "Enter") {
             console.log("event.key == ' ' || event.key == 'Enter'");
             toggleElementVisibility(elementId);
         }
     });
-    console.log("End of toggleElementVisibility_SpaceBarKey_EnterKey");
 }
