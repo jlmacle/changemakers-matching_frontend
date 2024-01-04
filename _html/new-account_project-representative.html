@@ -11,6 +11,7 @@
     <!-- https://cheatsheetseries.owasp.org/cheatsheets/DOM_Clobbering_Prevention_Cheat_Sheet.html#mitigation-techniques -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
     <script src="../_js/common.js"></script>
+    <!-- TODO file hash to add to the scripts -->
 </head>
 <body>
     <header id="header">
@@ -81,12 +82,12 @@
                 <fieldset>
                     <legend>Please enter username and password</legend>
                     <label for="username">Username</label>
-                    <input type="text" aria-label="username input field" name="username" id="username" oninput="checkUsername(event)" autocomplete="off">
+                    <input type="text" name="username" id="username" oninput="checkUsername(event)" autocomplete="off">
                     <!--TODO: autocomplete="off" to remove eventually. A help with demos-->
-                    <div id="username_error">The password can only contain unaccented letters, numbers and underscores.</div>
+                    <div id="username_error">The username can only contain unaccented letters, numbers and underscores.</div>
                     <br>
                     <label for="password">Password</label>
-                    <input type="password" aria-label="password input field" name="password" id="password" oninput="checkPassword(event)"><br>
+                    <input type="password" name="password" id="password" oninput="checkPassword(event)"><br>
                     <div id="password_error">Password should be at least 8 characters long.</div>
                     <br>
                     <button type="submit" id="auth-form-submit" onclick="fetch_user()" disabled>Submit</button>            
@@ -104,14 +105,25 @@
                 </ul>
             </div>
 
-            <div id="new-project-definition-invite" onclick='toggleElementVisibility("new-project-definition")'><strong>Click to declare a new project</strong></div>
+            <button tabindex="0" id="new-project-definition-invite-button" onclick='toggleElementVisibility("new-project-definition")' 
+            onkeydown='toggleElementVisibility_SpaceBarKey_EnterKey("new-project-definition")'>                
+                <strong>Click to declare a new project</strong></button>
             <form id="new-project-definition" style="display:none;" >
+                
                 <fieldset>
-                    <legend>Declare a new project</legend>
-                    <label for="project-name">Project name </label>
-                    <input aria-label="Project name input field" type="text" id="project-name" name="project-name" placeholder="Project name" required><br>
-                    ...
-                    <br>
+                    <legend>New project declaration</legend>
+                    <div class="new-project-definition-container">
+                        <label class="new-project-definition-label" for="project-name">Project name </label>
+                        <textarea put class="new-project-definition-input" type="text" id="project-name" name="project-name" rows="1"></textarea><br>
+                    </div>
+                    <div class="new-project-definition-container">
+                        <label class="new-project-definition-label" for="project-mission-statement">Project mission statement</label>
+                        <textarea class="new-project-definition-input" size="2000" type="textarea" id="project-mission-statement" 
+                            name="project-mission-statement" rows="5">
+                        </textarea><br>
+                    </div>
+                    
+                    
                     ...
                     <br>
                     ...
@@ -128,6 +140,7 @@
         <span id="footer-right"><a href="">Privacy</a></span>
     </footer>
    
+    <script>toggleElementVisibility_SpaceBarKey_EnterKey("new-project-definition");</script>
     
 </body>
 </html>

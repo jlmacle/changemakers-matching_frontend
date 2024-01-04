@@ -21,21 +21,21 @@ function checkUsername() {
             if (username.value.search(/\W/) !== -1) { // Equivalent to [^A-Za-z0-9_]
                 if (debug)
                     console.log("Invalid character. The username can only contain unaccentuated letters, numbers and underscores.");
-                username_error.innerHTML = "Invalid character present. <br>The username can only contain unaccentuated letters, numbers and underscores.";
+                username_error.innerHTML = "⚠️ Invalid character present. <br>The username can only contain unaccentuated letters, numbers and underscores.";
                 submit_button.disabled = true;
                 username_is_valid = false;
             }
             else if (username.value.length < 4) {
                 if (debug)
                     console.log("Username is too short");
-                username_error.innerHTML = "Username should be at least 4 characters long.";
+                username_error.innerHTML = "⚠️ The username should be at least 4 characters long.";
                 submit_button.disabled = true;
                 username_is_valid = false;
             }
             else {
                 if (debug)
                     console.log("The username is valid.");
-                username_error.innerHTML = "The username is valid.";
+                username_error.innerHTML = "✅ The username is valid.";
                 username_is_valid = true;
                 // Still need to check if the password is valid before enabling the submit button.
                 if (username_is_valid && password_is_valid)
@@ -70,24 +70,24 @@ function checkPassword() {
         // A common maximum length is 64 characters due to limitations in certain hashing algorithms"
         // https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html  
         if ((password === null || password === void 0 ? void 0 : password.value) && password_error) {
-            if (password.value.length <= 8) {
+            if (password.value.length < 8) {
                 if (debug)
                     console.log("Password is too short");
-                password_error.innerHTML = "Password should be at least 8 characters long.";
+                password_error.innerHTML = "⚠️ The password should be at least 8 characters long.";
                 submit_button.disabled = true;
                 password_is_valid = false;
             }
             else if (password.value.length >= 64) {
                 if (debug)
                     console.log("Password is too long");
-                password_error.innerHTML = "Password should be less than 64 characters long.";
+                password_error.innerHTML = "⚠️ The password should be less than 64 characters long.";
                 submit_button.disabled = true;
                 password_is_valid = false;
             }
             //TODO : to limit the special characters to the ones that are allowed
             else {
                 if (debug)
-                    console.log("This password is valid for this demo.");
+                    console.log("✅ This password is valid for this demo.");
                 password_error.innerHTML = "This password is valid for this demo.";
                 password_is_valid = true;
                 // Still need to check if the username is valid before enabling the submit button.
@@ -117,4 +117,19 @@ function toggleElementVisibility(elementId) {
     else if (element.style.display == "none") {
         element.style.display = "block";
     }
+}
+/**
+ * Function used to toggle the visibility of an element with the space bar or enter key.
+ * @param elementId the id of the element to toggle
+ */
+function toggleElementVisibility_SpaceBarKey_EnterKey(elementId) {
+    console.log("toggleElementVisibility_SpaceBarKey_EnterKey");
+    let element = document.getElementById(elementId);
+    element.addEventListener("keyup", function (event) {
+        if (event.key == " " || event.key == "Enter") {
+            console.log("event.key == ' ' || event.key == 'Enter'");
+            toggleElementVisibility(elementId);
+        }
+    });
+    console.log("End of toggleElementVisibility_SpaceBarKey_EnterKey");
 }

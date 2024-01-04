@@ -1,16 +1,9 @@
-/* Written by inverse order of specificity
-- Elements and pseudo-elements - Example:h1, ::before
-- Classes, pseudo-classes, attribute selectors - Example:.test, :hover, [href]
-- IDs - Example:#navbar */
 *{
     /* border:1px solid black; */
 }
 
 /* Minimum size taken into account:Nokia 8110 4G (240 x 320 pixels) */
-
-
-:root
-{
+:root{
     --header-min-height:120px;
     --main-min-height:610px;
     --nav-height:60px;
@@ -18,41 +11,9 @@
 }
 
 
-.header-title
-{
-    font:Arial, Helvetica, sans-serif;
-    font-size:30px;
-}
-
-        @media screen and (min-width:239px) and (max-width:500px){
-            .header-title
-            {
-                font-size:19px;
-            }
-        }
-
-        @media (min-width:250px) and (max-width:500px){
-            .header-title
-            {
-                font-size:24px;
-            }
-        }
-
-
-
-.footer{
-    margin-top:20px;
-}
-
-.footer a{
-    text-decoration:none;
-}
-
-
 /* ---------------------- HEADER section ---------------------- */
 
-#header
-{
+#header{
     min-height:var(--header-min-height);
 
     display:flex;
@@ -72,6 +33,26 @@
     
 }
 
+.header-title{
+    font:Arial, Helvetica, sans-serif;
+    font-size:30px;
+}
+
+        @media screen and (min-width:239px) and (max-width:500px){
+            .header-title
+            {
+                font-size:19px;
+            }
+        }
+
+        @media (min-width:250px) and (max-width:500px){
+            .header-title
+            {
+                font-size:24px;
+            }
+        }
+
+
 #home-link{
     display: flex;
     flex-direction: column;
@@ -81,8 +62,7 @@
     color:black;
 }
 
-#header-sdg-wheel
-{
+#header-sdg-wheel{
     height:20px;    
     width:auto;   
 
@@ -117,8 +97,7 @@
 
 /* ---------------------- NAV section ----------------------  */
 
-#nav
-{
+#nav{
     height:var(--nav-height);  
     border:solid 1px black;    
     background-color:lightblue;
@@ -128,8 +107,7 @@
 
 /* ---------------------- MAIN section ----------------------  */
 
-#main
-{       
+#main{       
     min-height:var(--main-min-height);
     border:solid 1px black;   
     background-color:#fafad2;
@@ -137,12 +115,20 @@
 
 /* ---------------------- FOOTER section ----------------------   */
 
-#footer
-{
+#footer{
     height:var(--nav-height);
     border:solid 1px black;     
     background-color:white;
 }
+
+.footer{
+    margin-top:20px;
+}
+
+.footer a{
+    text-decoration:none;
+}
+
 
 #footer-left{
     position:absolute;
