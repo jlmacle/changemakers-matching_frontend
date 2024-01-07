@@ -9,13 +9,14 @@
     <title>Looking to change the world? Find if your skills could be used to achieve the UN Sustainable Development Goals.</title>
     <!-- "OWASP recommends DOMPurify or the Sanitizer API for HTML sanitization." -->
     <!-- https://cheatsheetseries.owasp.org/cheatsheets/DOM_Clobbering_Prevention_Cheat_Sheet.html#mitigation-techniques -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js" integrity="sha512-5g2Nj3mqLOgClHi20oat1COW7jWvf7SyqnvwWUsMDwhjHeqeTl0C+uzjucLweruQxHbhDwiPLXlm8HBO0011pA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Integrity confirmed to be correct with https://www.srihash.org/. Couldn't do the same with Get-FileHash. Need to understand why. -->
     <script src="../_js/common.js"></script>
+    <script type="module" src="../_js/project_view.js"></script>
     <!-- TODO file hash to add to the scripts -->
 </head>
 <body>
-    <header id="header">
-        <!-- <div id="authentication-container" style="text-align: right;padding-right: 20px;padding-top: 10px;"><a href="./new-account_project-representative.html">Create new proj. rep. account</a></div> -->
+    <header id="header">        
         <div id="header-title-container">
             <a id="home-link" href="./index.html" title="Link to the homepage">
                 <div class="header-title">Looking&nbsp;</div>
@@ -122,7 +123,13 @@
                         </textarea><br>
                     </div>
                     
-                    
+                    <div class="new-project-definition-container">
+                        <label class="new-project-definition-label" for="project-country">Country</label>
+                        <select class="new-project-definition-input" id="project-country" name="project-country">
+                            <!-- here the options  -->
+                        </select>                        
+                    </div>              
+                    <br>
                     ...
                     <br>
                     ...
@@ -138,6 +145,8 @@
         <span id="footer-left"><a href="">About</a></span>
         <span id="footer-right"><a href="">Privacy</a></span>
     </footer>
+
+    
     
 </body>
 </html>
