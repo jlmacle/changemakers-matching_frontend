@@ -52,6 +52,8 @@
             }
         }
 
+        /* TODO: add media queries for tablets (and deksktops) */
+
 
 #home-link{
     display: flex;

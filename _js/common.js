@@ -1,6 +1,4 @@
 "use strict";
-// https://code.visualstudio.com/docs/typescript/typescript-compiling
-// Ctrl+Shift+B
 let username_is_valid = false;
 let password_is_valid = false;
 /**
@@ -118,16 +116,4 @@ function toggleElementVisibility(elementId) {
         element.style.display = "block";
     }
 }
-/**
- * Function used to toggle the visibility of an element with the space bar or enter key.
- * @param elementId the id of the element to toggle
- */
-function toggleElementVisibility_SpaceBarKey_EnterKey(elementId) {
-    let element = document.getElementById(elementId); // Note: I couldn't get the script to work with a <DIV> element.
-    element.addEventListener("keyup", function (event) {
-        if (event.key == " " || event.key == "Enter") {
-            console.log("event.key == ' ' || event.key == 'Enter'");
-            toggleElementVisibility(elementId);
-        }
-    });
-}
+//# sourceMappingURL=common.js.map
