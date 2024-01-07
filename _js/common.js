@@ -116,4 +116,3 @@ function toggleElementVisibility(elementId) {
         element.style.display = "block";
     }
 }
-//# sourceMappingURL=common.js.map
