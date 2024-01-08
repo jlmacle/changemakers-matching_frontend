@@ -4,7 +4,7 @@
 
 /* Minimum size taken into account:Nokia 8110 4G (240 x 320 pixels) */
 :root{
-    --header-min-height:120px;
+    --header-height:240px;
     --main-min-height:610px;
     --nav-height:60px;
     --footer-height:60px;   
@@ -14,7 +14,7 @@
 /* ---------------------- HEADER section ---------------------- */
 
 #header{
-    min-height:var(--header-min-height);
+    height:var(--header-height);
 
     display:flex;
     justify-content:center;
@@ -33,26 +33,10 @@
     
 }
 
-.header-title{
-    font:Arial, Helvetica, sans-serif;
-    font-size:30px;
+#header-title-container img {
+    height:calc(80/100*var(--header-height));
+    width:auto;
 }
-
-        @media screen and (min-width:239px) and (max-width:500px){
-            .header-title
-            {
-                font-size:19px;
-            }
-        }
-
-        @media (min-width:250px) and (max-width:500px){
-            .header-title
-            {
-                font-size:24px;
-            }
-        }
-
-        /* TODO: add media queries for tablets (and deksktops) */
 
 
 #home-link{
@@ -63,38 +47,6 @@
     text-decoration:none;
     color:black;
 }
-
-#header-sdg-wheel{
-    height:20px;    
-    width:auto;   
-
-    margin-left:-6px;
-    margin-right:-6px;  
-    vertical-align:-3px;    
-}
-
-        @media screen and (min-width:239px) and (max-width:249px){
-            #header-sdg-wheel{
-                height:10px;    
-                width:auto;   
-
-                margin-left:-4px;
-                margin-right:-4px;   
-                vertical-align:-1px;    
-            }
-        }
-
-        @media screen and (min-width:250px) and (max-width:500px){
-            #header-sdg-wheel{
-                height:13px;    
-                width:auto;   
-        
-                margin-left:-5px;
-                margin-right:-5px;   
-                vertical-align:-1px;                   
-            }            
-        }
-  
 
 
 /* ---------------------- NAV section ----------------------  */

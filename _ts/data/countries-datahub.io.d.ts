@@ -1,1 +1,0 @@
-export declare const country_data: string;

@@ -1,6 +1,6 @@
 /* ---------------------- HEADER section ---------------------- */
 
-#account-login-access{
+#new-account-or-login-access{
     position:absolute;
     top:20px;
     right:20px;
@@ -13,7 +13,7 @@
     line-height:14px;
 }
         @media screen and (min-width:239px) and (max-width:500px){
-            #account-login-access{
+            #new-account-or-login-access{
                 position:absolute;
                 top:10px;
                 right:10px;
@@ -44,7 +44,7 @@
     
 }
 
-#user-type-options_modal-close{
+#user-type-options_modal-closing{
     position:absolute;        
     right:20px;
     z-index:2;
