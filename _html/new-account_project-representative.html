@@ -3,6 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Changemakers Matching Project, Project Collaboration Platform, Volunteer Matching Service, Sustainable Development Goals Matching,
+    Community Project Support, Nonprofit Collaboration Network, Skill-Based Volunteering, SDG Project Matching, Nonprofit Resource Sharing,
+    Community Service Opportunities, Volunteer Skills Database, Project Needs Assessment, Collaborative Project Development, Social Impact Networking,
+    Volunteer Contribution Matching, SDG 1 No Poverty, SDG 2 Zero Hunger, SDG 3 Good Health and Well-being, SDG 4 Quality Education, SDG 5 Gender Equality, 
+    SDG 6 Clean Water and Sanitation, SDG 7 Affordable and Clean Energy, SDG 8 Decent Work and Economic Growth, SDG 9 Industry, Innovation, and Infrastructure, 
+    SDG 10 Reduced Inequalities, SDG 11 Sustainable Cities and Communities, SDG 12 Responsible Consumption and Production, SDG 13 Climate Action, SDG 14 Life Below Water, 
+    SDG 15 Life on Land, SDG 16 Peace, Justice, and Strong Institutions, SDG 17 Partnerships for the Goals, Project Communication Tools, Nonprofit Administrative Support,
+    Nonprofit Legal Assistance, Volunteer Transportation Services, Nonprofit Research and Development, Project Contribution Tracking, Nonprofit Project Management">
+    <meta name="description" content="The Changemakers Matching Project is a platform dedicated to connecting projects with the right contributors. 
+    Focused on addressing diverse needs across various domains such as Administration, Communication, Maintenance, and more, it serves as a bridge between projects seeking specific skills and volunteers eager to offer their expertise. 
+    Emphasizing Sustainable Development Goals (SDGs), the project enables alignment of efforts with global initiatives like Gender Equality, Climate Action, and Life on Land. 
+    With features like detailed contributor profiles, project needs assessments, and communication tool integration, 
+    this platform is an innovative solution for collaborative social impact and community empowerment.">
     <link rel="stylesheet" type="text/css"  href="../_css/common.css"> 
     <link rel="stylesheet" type="text/css"  href="../_css/authentication.css">
     <link rel="stylesheet" type="text/css"  href="../_css/project-view.css">
@@ -10,25 +23,24 @@
     <!-- "OWASP recommends DOMPurify or the Sanitizer API for HTML sanitization." -->
     <!-- https://cheatsheetseries.owasp.org/cheatsheets/DOM_Clobbering_Prevention_Cheat_Sheet.html#mitigation-techniques -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js" integrity="sha512-5g2Nj3mqLOgClHi20oat1COW7jWvf7SyqnvwWUsMDwhjHeqeTl0C+uzjucLweruQxHbhDwiPLXlm8HBO0011pA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- Integrity confirmed to be correct with https://www.srihash.org/. Couldn't do the same with Get-FileHash. Need to understand why. -->
-    <script src="../_js/common.js"></script>
+    <!-- integrity checked automatically by browser. Any error would be seen on the developper console. -->
+<!--TODO: SRI -->
+    <script src="../_js/common.js" ></script>
     <script type="module" src="../_js/project_view.js"></script>
-    <!-- TODO file hash to add to the scripts -->
+   
 </head>
 <body>
+
+    <!-- /* ---------------------- HEADER section ---------------------- */     -->
     <header id="header">        
         <div id="header-title-container">
-            <a id="home-link" href="./index.html" title="Link to the homepage">
-                <div class="header-title">Looking&nbsp;</div>
-                <div class="header-title">to be&nbsp;</div>
-                <div class="header-title">involved&nbsp;</div>
-                <div class="header-title"> in&nbsp;</div>
-                <div class="header-title"> SDG pr
-                <img id="header-sdg-wheel" src="../_media/UN-graphics/SDG-Wheel-Transparent-WEB.png" alt="UN SDG Wheel" style="padding:0px;margin-left:-5px;margin-right:-5px;"/>
-                jects?</div>   
+            <a tabindex="0" id="home-link" href="./index.html" title="Link to the homepage">                
+                <img src="../_media/header-picture.png" alt="">                
             </a>       
         </div>
     </header>
+    
+     <!-- /* ---------------------- MAIN section ----------------------  */ -->
     <main id="main">
         <script>
             
@@ -76,7 +88,7 @@
             }
             
         </script>
-        
+            <!-- User/password creation -->
         <div id="data-entry_new-account_proj-rep" style="text-align: center;display:block;">
             <h1 id="txt_account_creation" style="display:block;">New account creation</h1>
             <form id="auth-form" style="display: block;">
@@ -84,7 +96,7 @@
                     <legend>Please enter username and password</legend>
                     <label for="username">Username</label>
                     <input type="text" name="username" id="username" oninput="checkUsername(event)" autocomplete="off">
-                    <!--TODO: autocomplete="off" to remove eventually. A help with demos-->
+<!--TODO: autocomplete "off" to remove eventually. A help with demos-->
                     <div id="username_error">The username can only contain unaccented letters, numbers and underscores.</div>
                     <br>
                     <label for="password">Password</label>
@@ -95,30 +107,32 @@
                 </fieldset>
             </form>
         </div>
-
+             <!-- Welcome greeting -->
         <div id="welcome"></div>
-        <div id="projects-main-content" style="display:none;">            
-            
+            <!-- Project main content -->
+        <div id="projects-main-content" style="display:none;">         
+                <!-- Existing projects -->
             <h1 id="dashboard_proj-rep">Dashboard</h1>
             <div id="projects-list"><strong>Your projects</strong>
                 <ul>
                     <li>You have no projects declared.</li>
                 </ul>
             </div>
-
+                <!-- Definition of a new project -->
             <button tabindex="0" id="new-project-definition-invite-button" onclick='toggleElementVisibility("new-project-definition")'>                
                 <strong>Click to declare a new project</strong></button>
             <form id="new-project-definition" style="display:none;" >
                 
                 <fieldset>
+<!-- TODO: the responsiveness of the form -->
                     <legend>New project declaration</legend>
                     <div class="new-project-definition-container">
                         <label class="new-project-definition-label" for="project-name">Project name </label>
-                        <textarea put class="new-project-definition-input" type="text" id="project-name" name="project-name" rows="1"></textarea><br>
+                        <textarea class="new-project-definition-input" id="project-name" name="project-name" rows="1"></textarea><br>
                     </div>
                     <div class="new-project-definition-container">
                         <label class="new-project-definition-label" for="project-mission-statement">Project mission statement</label>
-                        <textarea class="new-project-definition-input" size="2000" type="textarea" id="project-mission-statement" 
+                        <textarea class="new-project-definition-input" size="2000" id="project-mission-statement" 
                             name="project-mission-statement" rows="5">
                         </textarea><br>
                     </div>
@@ -130,6 +144,24 @@
                         </select>                        
                     </div>              
                     <br>
+<!-- TODO  a dataset of languages per country -->                    
+                    <div class="new-project-definition-container">
+                        <label class="new-project-definition-label" for="project-language-1">Prefered language for communication</label>
+                        <select class="new-project-definition-input" id="project-language-1" name="project-language-1">
+                            <!-- here the options  -->
+                        </select>
+                    </div>
+                    <br>
+                    <div class="new-project-definition-container">
+                        <label class="new-project-definition-label" for="project-add-language-1"><a href="" disabled>Click to add another language</a></label>
+                        <span class="new-project-definition-input"></span>
+                    </div>
+                    <br>    
+                    <div class="new-project-definition-container">
+                        <label class="new-project-definition-label" for="project-language-comments">Comments about the languages used for the communication</label>
+                        <textarea class="new-project-definition-input" id="project-language-comments" name="project-language-comments" size="2000">                           
+                        </textarea>
+                    </div>        
                     ...
                     <br>
                     ...
@@ -139,8 +171,9 @@
             </form>            
         </div>
 
-
     </main>
+
+    <!-- /* ---------------------- FOOTER section ----------------------   */ -->
     <footer id="footer">
         <span id="footer-left"><a href="">About</a></span>
         <span id="footer-right"><a href="">Privacy</a></span>
