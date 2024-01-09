@@ -11,6 +11,8 @@ interface Language {
     alpha2: string
 }
 
+//  Leaving the code duplication to avoid cognitive load for code reviewers
+
 function getCountryList(): string{
     let country_list:string[] = [];
     const array = JSON.parse(country_data) as Country[];   

@@ -1,5 +1,6 @@
 import { country_data } from "./data/countries-datahub.io.mjs";
 import { language_data } from "./data/languages-datahub.io.mjs";
+//  Leaving the code duplication to avoid cognitive load for code reviewers
 function getCountryList() {
     let country_list = [];
     const array = JSON.parse(country_data);
@@ -23,7 +24,6 @@ function getLanguageList() {
     array.forEach(data => language_list.push(data.English));
     // TODO: to sort in the json file
     language_list.sort();
-    console.log(language_list.sort());
     let language_options = "";
     language_list.forEach(language => language_options += `<option value=${language}> ${language} </option>`);
     return language_options;
@@ -33,5 +33,5 @@ function add_language_options() {
     let html_options = getLanguageList();
     element.innerHTML = html_options;
 }
-//Add the options to the page
+//Adding the options to the page
 add_language_options();
