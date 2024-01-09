@@ -6,14 +6,14 @@
 }
 
 #dashboard_proj-rep{
-    margin-left: 20px;
+    margin-left: 10px;
     text-align: center;
 
 }
 
 #projects-main-content{
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 #new-project-definition-invite-button{
@@ -29,18 +29,22 @@
     max-width: fit-content;    
 }
 
+
 .new-project-definition-container{
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: left;
     align-items: flex-start;
+    overflow: auto;
 }
 
 .new-project-definition-label{
+    /* margin-left: 5px; */ /* Tested on Nokia 8110 4G, and there was an issue with the scrolling bar */
     width: 200px;
 }
 
 .new-project-definition-input{
+    /* margin-left: 5px; */ /* Tested on Nokia 8110 4G, and there was an issue with the scrolling bar */
     width: 100%;
     min-height: 20px;
 }
