@@ -23,25 +23,29 @@
 
 </head>
 
-<body aria-hidden="false">
+<body id="body" aria-hidden="false" >
     <!-- /* ---------------------- HEADER section ---------------------- */     -->
     <header id="header">
         <!-- Ability to skip to main content -->
         <a style="text-indent:-5000000px;" href="#main">Next is new account creation and login. Otherwise, you can skip to user testimonies (recommanded).</a>
         <!-- New account/login button  -->
 <!-- TODO: modal screen-reader accessibility to finish -->
+<!-- https://www.w3.org/WAI/GL/wiki/Using_ARIA_role%3Ddialog_to_implement_a_modal_dialog_box -->
         <button tabindex="0" aria-label="Click to create a new account or to login." id="new-account-or-login-access" onclick="openUserTypeOptionsModal()">
+            <!-- TODO: to understand the issue -->
+            <!-- <a style="text-indent:-5000000px;" href="#main">To skip to user testimonies (recommanded).</a> -->
             <span>New<br>account<br>-<br>Login</span>
         </button> 
                 <!-- Modal for the choice of type of user -->
-        <div aria-roledescription="dialog" aria-modal="true"  id="user-type-options-modal">            
-                    <!-- ➡️ Need to transmit the type of users -->
-            <div tabindex="0" aria-label=" Please choose the appropriate option between 'project representative' and 'contributor' "  id="user-type-options_modal-content">
-                <div>
+        <div  id="user-type-options-modal">            
+                    <!-- ➡️ Need to transmit the type of users -->            
+            <div id="user-type-options_modal-content" tabindex="0"  role="dialog" aria-modal="true" 
+                aria-describedby=" Please choose the appropriate option between 'project representative' and 'contributor' ">
                     <a href="./new-account_project-representative.html">Project representative</a> <br><br>
                     <span style="font-size:30px;color:white;"><strong> - </strong></span><br><br>
-                    <a style="text-decoration: none;">Contributor</a></div>
+                    <a style="text-decoration: none;">Contributor</a>
             </div>
+            
             <div tabindex="0" aria-label="Click to exit choice of type of user." id="user-type-options_modal-closing" onclick="closeUserTypeOptionsModal()">&times;</div>
         </div>    
  
@@ -54,7 +58,7 @@
     </header>
 
     <!-- /* ---------------------- MAIN section ----------------------  */ -->
-    <main tabindex="0" id="main">        
+    <main tabindex="0" id="main" >        
         <div style="text-align:center;margin:auto;margin-top: 300px;"><strong>Testimonies of satisfied users</strong></div>
     </main>
    
@@ -67,22 +71,24 @@
     <!-- /* ---------------------- SCRIPTS section ----------------------   */ -->
     <script>
         function openUserTypeOptionsModal(userType){     
+            document.getElementById("user-type-options-modal").style.visibility = "visible"; 
             //Switching the aria-hidden attribute to true  to make the main content not accessible to screen readers
-            let body_element = document.getElementsByTagName("body")[0];
+            let body_element = document.getElementById("body");
             body_element.setAttribute("aria-hidden", "true"); 
-            console.log(document.getElementById("main").getAttribute("aria-hidden"));
+
+            console.log('document.getElementById("body").getAttribute("aria-hidden")',document.getElementById("body").getAttribute("aria-hidden"));
 
             //Giving focus to the closing button of the modal
-            document.getElementById("user-type-options_modal-closing").focus();
+            document.getElementById("user-type-options_modal-content").focus();
             
-            document.getElementById("user-type-options-modal").style.visibility = "visible";            
+                       
         }
 
         function closeUserTypeOptionsModal(){
             // Run into an unsolved issue using display ="none". Chose visibility="hidden" instead.
             document.getElementById("user-type-options-modal").style.visibility = "hidden";
             //Switching the aria-hidden attribute back to false
-            let body_element = document.getElementsByTagName("body")[0];
+            let body_element = document.getElementById("body");
             body_element.setAttribute("aria-hidden", "false"); 
         }
     </script>
