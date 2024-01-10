@@ -23,11 +23,11 @@
     <!-- "OWASP recommends DOMPurify or the Sanitizer API for HTML sanitization." -->
     <!-- https://cheatsheetseries.owasp.org/cheatsheets/DOM_Clobbering_Prevention_Cheat_Sheet.html#mitigation-techniques -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js" integrity="sha512-5g2Nj3mqLOgClHi20oat1COW7jWvf7SyqnvwWUsMDwhjHeqeTl0C+uzjucLweruQxHbhDwiPLXlm8HBO0011pA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- integrity checked automatically by browser. Any error would be seen on the developper console. -->
-<!--TODO: SRI -->
-    <script src="../_js/common.js" ></script>
-    <script type="module" src="../_js/project_view.js"></script>
-   
+    <script src="../_js/common.js" integrity="sha512-KfjKVn9rMi4jfeTmH0ETWMjfbeN3sO1BCX2HhtIvmh3kI67o5BwVKkGWK0HiMbBq9lKcYFJ7Zw8g7LXv8ugE9A==" ></script>
+    <script type="module" src="../_js/project_view.js" integrity="sha512-A2i6VvtJpHpuwgWBq+bZhWLJh+ea17iqB6UwB9dulVyE4x3RNA3ifBv4B4GoXPmtlQfcl2LashOy2ZZ/8uXRVw=="></script>
+    <!-- Integrity is checked automatically by the browser. Any errors would be visible on the developer tools console. -->
+    <!-- The SRI of local js files was obtained by first providing a wrong SRI, and the browser console returned the expected SRI. -->
+    <!-- Verification on 3 browsers that the calculated SRIs are not rejected by any of them. -->
 </head>
 <body>
 
@@ -124,7 +124,6 @@
             <form id="new-project-definition" style="display:none;">
                 
                 <fieldset style="width:90%;padding-left:0px;padding-right:0px;" >
-<!-- TODO: the responsiveness of the form -->
                     <legend>New project declaration</legend>
                     <div class="new-project-definition-container">
                         <label class="new-project-definition-label" for="project-name">Project name </label>
