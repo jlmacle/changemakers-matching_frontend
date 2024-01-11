@@ -7,7 +7,7 @@
     --header-height:240px;
     --main-min-height:610px;
     --nav-height:60px;
-    --footer-height:60px;   
+    --footer-height:100px;   
 }
 
 
@@ -16,7 +16,7 @@
 #header{
     height:var(--header-height);
 
-    display:flex;
+    display:flex;    /* Necessary for the <a style="text-indent:-5000000px;" > to be taken into account */
     justify-content:center;
 
     border:solid 1px black;  

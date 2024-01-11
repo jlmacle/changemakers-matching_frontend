@@ -19,11 +19,12 @@
     <link rel="stylesheet" type="text/css" href="../_css/common.css"> 
     <link rel="stylesheet" type="text/css" href="../_css/authentication.css"> 
     <title>Looking to change the world? Find if your skills could be used to achieve the UN Sustainable Development Goals.</title>
-    
+    <script src="../_js/authentication.js"></script>
 
 </head>
 
 <body id="body" aria-hidden="false" >
+    
     <!-- /* ---------------------- HEADER section ---------------------- */     -->
     <header id="header">
         <!-- Ability to skip to main content -->
@@ -37,15 +38,14 @@
             <span>New<br>account<br>-<br>Login</span>
         </button> 
                 <!-- Modal for the choice of type of user -->
-        <div  id="user-type-options-modal">            
+        <div id="user-type-options-modal">            
                     <!-- ➡️ Need to transmit the type of users -->            
-            <div id="user-type-options_modal-content" tabindex="0"  role="dialog" aria-modal="true" 
+            <div id="user-type-options_modal-content" tabindex="0"  role="dialog" aria-modal="true" aria-hidden="true"
                 aria-describedby=" Please choose the appropriate option between 'project representative' and 'contributor' ">
                     <a href="./new-account_project-representative.html">Project representative</a> <br><br>
                     <span style="font-size:30px;color:white;"><strong> - </strong></span><br><br>
                     <a style="text-decoration: none;">Contributor</a>
-            </div>
-            
+            </div>            
             <div tabindex="0" aria-label="Click to exit choice of type of user." id="user-type-options_modal-closing" onclick="closeUserTypeOptionsModal()">&times;</div>
         </div>    
  
@@ -66,32 +66,7 @@
     <footer id="footer">
         <span id="footer-left" class="footer"><a href="">About</a></span>
         <span id="footer-right" class="footer"><a href="">Privacy</a></span>
-    </footer>
-
-    <!-- /* ---------------------- SCRIPTS section ----------------------   */ -->
-    <script>
-        function openUserTypeOptionsModal(userType){     
-            document.getElementById("user-type-options-modal").style.visibility = "visible"; 
-            //Switching the aria-hidden attribute to true  to make the main content not accessible to screen readers
-            let body_element = document.getElementById("body");
-            body_element.setAttribute("aria-hidden", "true"); 
-
-            console.log('document.getElementById("body").getAttribute("aria-hidden")',document.getElementById("body").getAttribute("aria-hidden"));
-
-            //Giving focus to the closing button of the modal
-            document.getElementById("user-type-options_modal-content").focus();
-            
-                       
-        }
-
-        function closeUserTypeOptionsModal(){
-            // Run into an unsolved issue using display ="none". Chose visibility="hidden" instead.
-            document.getElementById("user-type-options-modal").style.visibility = "hidden";
-            //Switching the aria-hidden attribute back to false
-            let body_element = document.getElementById("body");
-            body_element.setAttribute("aria-hidden", "false"); 
-        }
-    </script>
+    </footer>   
     
 </body>
 </html>

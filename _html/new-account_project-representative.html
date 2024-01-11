@@ -23,8 +23,9 @@
     <!-- "OWASP recommends DOMPurify or the Sanitizer API for HTML sanitization." -->
     <!-- https://cheatsheetseries.owasp.org/cheatsheets/DOM_Clobbering_Prevention_Cheat_Sheet.html#mitigation-techniques -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js" integrity="sha512-5g2Nj3mqLOgClHi20oat1COW7jWvf7SyqnvwWUsMDwhjHeqeTl0C+uzjucLweruQxHbhDwiPLXlm8HBO0011pA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="../_js/common.js" integrity="sha512-KfjKVn9rMi4jfeTmH0ETWMjfbeN3sO1BCX2HhtIvmh3kI67o5BwVKkGWK0HiMbBq9lKcYFJ7Zw8g7LXv8ugE9A==" ></script>
-    <script type="module" src="../_js/project_view.js" integrity="sha512-A2i6VvtJpHpuwgWBq+bZhWLJh+ea17iqB6UwB9dulVyE4x3RNA3ifBv4B4GoXPmtlQfcl2LashOy2ZZ/8uXRVw=="></script>
+    <script src="../_js/common.js" ></script>
+    <script src="../_js/authentication.js" ></script>
+    <script type="module" src="../_js/project_view.js" ></script>
     <!-- Integrity is checked automatically by the browser. Any errors would be visible on the developer tools console. -->
     <!-- The SRI of local js files was obtained by first providing a wrong SRI, and the browser console returned the expected SRI. -->
     <!-- Verification on 3 browsers that the calculated SRIs are not rejected by any of them. -->
@@ -119,15 +120,17 @@
                 </ul>
             </div>
                 <!-- Definition of a new project -->
-            <button tabindex="0" id="new-project-definition-invite-button" onclick='toggleElementVisibility("new-project-definition")'>                
-                <strong>Click to declare a new project</strong></button>
+            <button tabindex="0" id="new-project-definition-invite-button" style="font-weight:bold;"
+            onclick='toggleElementVisibility("new-project-definition");toggleElementBoldness("new-project-definition-invite-button")'>                
+                Click to declare a new project</button>
             <form id="new-project-definition" style="display:none;">
                 
-                <fieldset style="width:90%;padding-left:0px;padding-right:0px;" >
-                    <legend>New project declaration</legend>
+                <fieldset id="new-project-fieldset">
+                    <legend><strong>New project declaration</strong></legend>
                     <div class="new-project-definition-container">
                         <label class="new-project-definition-label" for="project-name">Project name </label>
-                        <textarea class="new-project-definition-input" id="project-name" name="project-name" rows="1"></textarea><br>
+                        <textarea  class="new-project-definition-input" id="project-name" name="project-name" rows="1">                            
+                        </textarea><br>
                     </div>
                     <div class="new-project-definition-container">
                         <label class="new-project-definition-label" for="project-mission-statement">Project mission statement</label>
@@ -141,21 +144,18 @@
                         <select class="new-project-definition-input" id="project-country" name="project-country">
                             <!-- here the options  -->
                         </select>                        
-                    </div>              
-                    <br>
-<!-- TODO  a dataset of languages per country -->                    
+                    </div>         
+<!-- Ideally, a dataset of languages per country -->                    
                     <div class="new-project-definition-container">
                         <label class="new-project-definition-label" for="project-language-1">Prefered language for communication</label>
                         <select class="new-project-definition-input" id="project-language-1" name="project-language-1">
                             <!-- here the options  -->
                         </select>
                     </div>
-                    <br>
                     <div class="new-project-definition-container">
                         <label class="new-project-definition-label" for="project-add-language-1"><a href="" disabled>Click to add another language</a></label>
-                        <span class="new-project-definition-input"></span>
+                        <!-- <span class="new-project-definition-input"></span> -->
                     </div>
-                    <br>    
                     <div class="new-project-definition-container">
                         <label class="new-project-definition-label" for="project-language-comments">Comments about the languages used for the communication</label>
                         <textarea class="new-project-definition-input" id="project-language-comments" name="project-language-comments" size="2000">                           
@@ -164,6 +164,7 @@
                     ...
                     <br>
                     ...
+                    <br>
                     <br>
                     <button type="submit" id="new-proj-def-form-submit"  disabled>Submit</button>
                 </fieldset>
