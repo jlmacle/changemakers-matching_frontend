@@ -38,15 +38,16 @@
             <span>New<br>account<br>-<br>Login</span>
         </button> 
                 <!-- Modal for the choice of type of user -->
-        <div id="user-type-options-modal">            
+        <div id="user-type-options-modal" role="dialog" aria-modal="true" aria-hidden="true">            
                     <!-- ➡️ Need to transmit the type of users -->            
-            <div id="user-type-options_modal-content" tabindex="0"  role="dialog" aria-modal="true" aria-hidden="true"
+            <div id="user-type-options_modal-content" tabindex="0"  
                 aria-describedby=" Please choose the appropriate option between 'project representative' and 'contributor' ">
                     <a href="./new-account_project-representative.html">Project representative</a> <br><br>
                     <span style="font-size:30px;color:white;"><strong> - </strong></span><br><br>
                     <a style="text-decoration: none;">Contributor</a>
             </div>            
-            <div tabindex="0" aria-label="Click to exit choice of type of user." id="user-type-options_modal-closing" onclick="closeUserTypeOptionsModal()">&times;</div>
+            <div tabindex="0" aria-label="Click to exit choice of type of user." id="user-type-options_modal-closing" 
+            onclick="closeUserTypeOptionsModal()">&times;</div>
         </div>    
  
         <!-- Header title -->
