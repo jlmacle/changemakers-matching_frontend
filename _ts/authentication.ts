@@ -30,8 +30,7 @@ function openUserTypeOptionsModal(){
 function closeUserTypeOptionsModal(){
     // Run into an unsolved issue using display ="none". Chose visibility="hidden" instead.
     let modal = document.getElementById("user-type-options-modal") as HTMLElement;
-    modal.setAttribute("visibility", "hidden");
-    // document.getElementById("user-type-options-modal").style.visibility = "hidden";
+    modal.style.visibility = "hidden";    
     //Switching the aria-hidden attribute back to false
     let body_element = document.getElementById("body") as HTMLElement;
     body_element.setAttribute("aria-hidden", "false"); 
