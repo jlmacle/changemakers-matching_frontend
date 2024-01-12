@@ -47,7 +47,7 @@
 #user-type-options_modal-closing{
     position:absolute;        
     right:20px;
-    z-index:2;
+    z-index:1;
     
     color:white;
     font-size:50px;    
@@ -57,7 +57,7 @@
 #user-type-options_modal-content{
     position:absolute;
     top:60px;
-    z-index:3;    /* To account for grammarly */    
+    z-index:1;      
     width:100%;
     text-align:center;
 }
@@ -67,14 +67,6 @@
     font-size:30px;
 }
 
-#new-account-or-login-modal{
-    display:block;
-    visibility:hidden;
-
-    position:fixed;
-    z-index:4; 
-
-}
 
 /* ---------------------- MAIN section ----------------------  */
 

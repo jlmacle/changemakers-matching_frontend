@@ -19,35 +19,39 @@
     <link rel="stylesheet" type="text/css" href="../_css/common.css"> 
     <link rel="stylesheet" type="text/css" href="../_css/authentication.css"> 
     <title>Looking to change the world? Find if your skills could be used to achieve the UN Sustainable Development Goals.</title>
-    <script src="../_js/authentication.js"></script>
-
+        <!-- ➡️ TODO: integrity hash to add before pushing the code ⬅️ -->
+    <script defer="true" src="../_js/index.js" ></script> 
+    <!-- The script integrity is checked automatically by the browser. Any errors would be visible on the developer tools console. -->
+    <!-- The SRI of local js files was obtained by first providing a wrong SRI, and the browser console returned the expected SRI. -->
+    <!-- Verification on 3 browsers that the calculated SRIs are not rejected by any of them. -->
 </head>
 
 <body id="body" aria-hidden="false" >
     
     <!-- /* ---------------------- HEADER section ---------------------- */     -->
     <header id="header">
-        <!-- Ability to skip to main content -->
-        <a style="text-indent:-5000000px;" href="#main">Next is new account creation and login. Otherwise, you can skip to user testimonies (recommanded).</a>
+        
+        <!-- Ability to skip to main content for screen readers -->
+        <a style="text-indent:-5000000px;" href="#main">Next is new account creation and login. 
+            Otherwise, you can skip to user testimonies.</a>
+
         <!-- New account/login button  -->
 <!-- TODO: modal screen-reader accessibility to finish -->
 <!-- https://www.w3.org/WAI/GL/wiki/Using_ARIA_role%3Ddialog_to_implement_a_modal_dialog_box -->
-        <button tabindex="0" aria-label="Click to create a new account or to login." id="new-account-or-login-access" onclick="openUserTypeOptionsModal()">
-            <!-- TODO: to understand the issue -->
-            <!-- <a style="text-indent:-5000000px;" href="#main">To skip to user testimonies (recommanded).</a> -->
-            <span>New<br>account<br>-<br>Login</span>
+        <button tabindex="0" aria-label="Click to create a new account or to login." id="new-account-or-login-access">            
+            <span aria-hidden="true">New<br>account<br>-<br>Login</span> 
+            <!-- aria-hidden used to avoid screen reader unecessary reading, after reading the aria-label -->
         </button> 
                 <!-- Modal for the choice of type of user -->
-        <div id="user-type-options-modal" role="dialog" aria-modal="true" aria-hidden="true">            
+        <div id="user-type-options-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="dialog1_label">            
                     <!-- ➡️ Need to transmit the type of users -->            
             <div id="user-type-options_modal-content" tabindex="0"  
                 aria-describedby=" Please choose the appropriate option between 'project representative' and 'contributor' ">
-                    <a href="./new-account_project-representative.html">Project representative</a> <br><br>
-                    <span style="font-size:30px;color:white;"><strong> - </strong></span><br><br>
-                    <a style="text-decoration: none;">Contributor</a>
+                <a href="./new-account_project-representative.html">Project representative</a> <br><br>
+                <span style="font-size:30px;color:white;"><strong> - </strong></span><br><br>
+                <a style="text-decoration: none;">Contributor</a>
             </div>            
-            <div tabindex="0" aria-label="Click to exit choice of type of user." id="user-type-options_modal-closing" 
-            onclick="closeUserTypeOptionsModal()">&times;</div>
+            <div tabindex="0" aria-label="Click to exit choice of type of user." id="user-type-options_modal-closing">&times;</div>
         </div>    
  
         <!-- Header title -->
@@ -56,11 +60,14 @@
                 <img src="../_media/header-picture.png" alt="">                
             </a>        
         </div>
+
     </header>
 
     <!-- /* ---------------------- MAIN section ----------------------  */ -->
     <main tabindex="0" id="main" >        
-        <div style="text-align:center;margin:auto;margin-top: 300px;"><strong>Testimonies of satisfied users</strong></div>
+        <div style="text-align:center;margin:auto;margin-top: 300px;">
+            <strong>Testimonies of satisfied users</strong>
+        </div>
     </main>
    
     <!-- /* ---------------------- FOOTER section ----------------------   */ -->

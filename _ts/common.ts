@@ -14,7 +14,7 @@ function toggleElementVisibility(elementId: string){
 }
 
 /**
- * Function used to toggle the font weigth of an element from bold to normal and vice-versa.
+ * Function used to toggle the font weight of an element from bold to normal and vice-versa.
  * @param elementId the id of the element to toggle
  */
 function toggleElementBoldness(elementId: string){
