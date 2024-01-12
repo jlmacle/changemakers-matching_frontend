@@ -1,45 +1,3 @@
-/**
- * Function opening the modal useful for differentiating project representatives from contributors.
- */
-function openUserTypeOptionsModal(){  
-    //Switching the aria-hidden attribute to true to make the main content inaccessible to screen readers
-    let body_element = document.getElementById("body") as HTMLElement;
-    body_element.setAttribute("aria-hidden", "true"); 
-    // TODO : to set to false and link list to check on Narrator
-
-    // Switching the modal aria-hidden attribute to false 
-    let modal_content = document.getElementById("user-type-options_modal-content") as HTMLElement;
-    modal_content.setAttribute("aria-hidden", "false");
-    modal_content.focus();
-    // TODO: to test after focus
-    let modal = document.getElementById("user-type-options-modal") as HTMLElement;
-    modal.style.visibility = "visible";             
-
-    let body = document.getElementById("body") as HTMLElement;
-    console.log('modal_content.getAttribute("aria-hidden")',modal_content.getAttribute("aria-hidden"));
-    console.log('body.getAttribute("aria-hidden")',body.getAttribute("aria-hidden"));
-
-    //Giving focus to the closing button of the modal
-    modal_content.focus();   
-               
-}
-
-/**
- * Function closing the modal useful for differentiating project representatives from contributors.
- */
-function closeUserTypeOptionsModal(){
-    // Run into an unsolved issue using display ="none". Chose visibility="hidden" instead.
-    let modal = document.getElementById("user-type-options-modal") as HTMLElement;
-    modal.style.visibility = "hidden";    
-    //Switching the aria-hidden attribute back to false
-    let body_element = document.getElementById("body") as HTMLElement;
-    body_element.setAttribute("aria-hidden", "false"); 
-}
-
-
-/* **************** Username / Password ************** */
-
-
 let username_is_valid:boolean = false;
 let password_is_valid:boolean = false;
 
@@ -49,7 +7,7 @@ let password_is_valid:boolean = false;
     ➡️ Treated at HTML level.
  */
 function checkUsername() {
-    let debug = true;
+    let debug = false;
 
     let username = document.getElementById("username") as HTMLInputElement; 
     let submit_button = document.getElementById("auth-form-submit") as HTMLButtonElement;
@@ -58,9 +16,8 @@ function checkUsername() {
     // Typing an invalid character was not detected when being the first input, when "input" was the event.
     // "keyup" solved the issue.
     username?.addEventListener("keyup", function(event){
-        let username_error = document.getElementById("username_error");           
-      
-        console.log("username?.value = " + username?.value);
+        let username_error = document.getElementById("username_error");    
+        
         if (username?.value && username_error) {  
            if (username.value.search(/\W/) !== -1) { // Equivalent to [^A-Za-z0-9_]
                 if (debug) console.log("Invalid character. The username can only contain unaccentuated letters, numbers and underscores.");
@@ -84,26 +41,25 @@ function checkUsername() {
                 if (username_is_valid && password_is_valid) submit_button.disabled = false;
             }
         }
-        else {
-            if (debug) 
-                {
-                    console.log("(username?.value && username_error) has false for value.");
-                    console.log("username?.value = " + username?.value);
-                    console.log("username_error = " + username_error);
-                    console.log("End of : (username?.value && username_error) has false for value.");
-                }
-
-        }
+        else if (debug) 
+        {
+            console.log("(username?.value && username_error) has false for value.");
+            console.log("username?.value = " + username?.value);
+            console.log("username_error = " + username_error);
+            console.log("End of : (username?.value && username_error) has false for value.");
+        }        
     });      
 }
 
+/* Listener for checking the username */
+checkUsername();
 
 
 /**
  * Function used to check if the password is acceptable.
  */
 function checkPassword() {
-    let debug = true;
+    let debug = false;
 
     let password = document.getElementById("password") as HTMLInputElement; 
     let submit_button = document.getElementById("auth-form-submit") as HTMLButtonElement;
@@ -153,7 +109,69 @@ function checkPassword() {
                 console.log("End of : (password?.value && password_error) has false for value.");
             }
         }
-    });
-   
+    });   
     
 }
+
+/* Listener for checking the password */
+checkPassword();
+
+
+/**
+ * Function used to push the username and password to the backend.
+ * @param event The event that triggered the function.
+ * @param url The url to send the data to.
+ * 
+ */
+function push_sign_up_data(event: Event, url: string) 
+{   
+    //TODO: to pass the url as a parameter. Impact on auth_form_submit?.addEventListener("click", push_sign_up_data);?
+    event.preventDefault(); // to avoid unexpected network behaviors causing network errors
+    let username_elem = document.getElementById("username") as HTMLInputElement;
+    let password_elem = document.getElementById("password") as HTMLInputElement; 
+    const username = username_elem.value;
+    const password = password_elem.value;                           
+
+    if (!username || !password) // if username or password are empty or null
+    
+    {
+        let submit_elem = document.getElementById("auth-form-submit") as HTMLButtonElement;
+        submit_elem.disabled = false;
+        console.log("username or password are empty. Treated in HTML page.");
+    }
+    else{
+        console.log("Entering push_sign_up_data() function");
+        fetch (url, {
+            method:'POST', 
+            headers: {'Content-Type': 'application/json'}, 
+            body: JSON.stringify({username: username, password: password})
+        })
+        .then(response => response.text())
+        .then(string_to_sanitize => {                 
+            //Toggling the visibility of the authentication form
+            let auth_form_elem = document.getElementById("data-entry_new-account_proj-rep") as HTMLElement;
+            auth_form_elem.style.display = "none";
+            
+            //TODO: from JSON string data to object to stylizable HTML
+            // "you can sanitize strings by executing the following code:"
+            // https://www.npmjs.com/package/dompurify
+            // string_to_sanitize = string_to_sanitize.replace(',',',<br>'); // to allow a line break for the data
+            // const sanitized_string = dompurify.sanitize(string_to_sanitize);                           
+            
+            // Welcome message
+            let welcome_elem = document.getElementById("welcome") as HTMLElement;
+            welcome_elem.innerHTML = "Welcome, " + username;
+
+            // Toggling the visibility of the project main content
+            let projects_elem = document.getElementById("projects-main-content") as HTMLElement;
+            projects_elem.style.display = "block";
+
+
+            })
+        .catch(error => console.log(error));
+    }
+}
+
+/* Listener that checks if username/password can be sent to the backend */
+let auth_form_submit = document.getElementById("auth-form-submit") as HTMLButtonElement;
+auth_form_submit?.addEventListener("click", (event) => push_sign_up_data(event,"http://127.0.0.1:8080/representatives/new-account"));

@@ -16,7 +16,7 @@
 #header{
     height:var(--header-height);
 
-    display:flex;    /* Necessary for the <a style="text-indent:-5000000px;" > to be taken into account */
+    display:flex;    /* Necessary for the <a style="text-indent:-5000000px;"> to be taken into account */
     justify-content:center;
 
     border:solid 1px black;  
