@@ -111,7 +111,6 @@ checkPassword();
  *
  */
 function push_sign_up_data(event, url) {
-    //TODO: to pass the url as a parameter. Impact on auth_form_submit?.addEventListener("click", push_sign_up_data);?
     event.preventDefault(); // to avoid unexpected network behaviors causing network errors
     let username_elem = document.getElementById("username");
     let password_elem = document.getElementById("password");
