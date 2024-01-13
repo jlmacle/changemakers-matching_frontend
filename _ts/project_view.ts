@@ -18,7 +18,7 @@ function getCountryList(): string{
     let country_list:string[] = [];
     const array = JSON.parse(country_data) as Country[];   
     array.forEach(data => country_list.push(data.Name)); 
-// TODO: to sort in the json file
+    // Should be already sorted. Just in case.
     country_list.sort();
     let  html_options = "";
     country_list.forEach(country => html_options += `<option value=${country}>${country}</option>`)    
@@ -38,7 +38,7 @@ function getLanguageList():string{
     let language_list:string[]=[];
     const array = JSON.parse(language_data) as Language[];    
     array.forEach(data => language_list.push(data.English));
-// TODO: to sort in the json file
+    // Should be already sorted. Just in case.
     language_list.sort();
     let language_options = "";
     language_list.forEach(language => language_options += `<option value=${language}> ${language} </option>`)

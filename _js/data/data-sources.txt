@@ -1,2 +1,2 @@
-https://www.datahub.io/core/country-list#data 
-https://www.datahub.io/core/language-codes
+Countries: https://www.datahub.io/core/country-list#data 
+Languages: from https://www.datahub.io/core/language-codes (after edition)
