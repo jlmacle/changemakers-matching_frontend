@@ -75,11 +75,14 @@
     background-color:white;
 }
 
-.footer{
-    margin-top:20px;
+#footer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
+    
 
-.footer a{
+#footer a{
     text-decoration:none;
 }
 
