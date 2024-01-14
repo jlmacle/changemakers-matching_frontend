@@ -21,9 +21,9 @@
     <link rel="stylesheet" type="text/css"  href="../_css/project-view.css">
     <title>Looking to change the world? Find if your skills could be used to achieve the UN Sustainable Development Goals.</title>
         <!-- ➡️ TODO: integrity hash to add before pushing the code ⬅️ -->
-    <script src="../_js/common.js" ></script>
-    <script defer="true" src="../_js/authentication.js" ></script>  
-    <script type="module" defer="true" src="../_js/project_view.js" ></script> <!-- type="module" is necessary because of the import -->
+    <script src="../_js/common.js" defer></script>
+    <script src="../_js/authentication.js" defer></script>  
+    <script type="module" src="../_js/project_view.js" defer></script> <!-- type="module" is necessary because of the import -->
 </head>
 
 <body>
@@ -75,7 +75,7 @@
                 </ul>
             </div>
                 <!-- Definition of a new project -->
-            <button tabindex="0" id="new-project-definition-invite-button" style="font-weight:bold;"
+            <button type='button'  tabindex="0" id="new-project-definition-invite-button" style="font-weight:bold;"
                 onclick='toggleElementVisibility("new-project-definition");toggleElementBoldness("new-project-definition-invite-button")'>                
                 Click to declare a new project
             </button>
@@ -84,44 +84,70 @@
                     <legend><strong>New project declaration</strong></legend>
                     <div class="new-project-definition-container">
                         <label class="new-project-definition-label" for="project-name">Project name </label>
-                        <textarea  class="new-project-definition-input" id="project-name" name="project-name" rows="1">                            
+                        <textarea  class="new-project-definition-input" id="project-name" name="project-name" rows="1" placeholder="" required>                            
                         </textarea><br>
                     </div>
+
+                    <div class="new-project-definition-container">
+                        <label class="new-project-definition-label" for="project-description">Project description</label>
+                        <textarea class="new-project-definition-input" size="2000" id="project-description" 
+                            name="project-description" rows="5" placeholder="" required>
+                        </textarea><br>
+                    </div>
+
                     <div class="new-project-definition-container">
                         <label class="new-project-definition-label" for="project-mission-statement">Project mission statement</label>
                         <textarea class="new-project-definition-input" size="2000" id="project-mission-statement" 
-                            name="project-mission-statement" rows="5">
+                            name="project-mission-statement" rows="5" placeholder="">
                         </textarea><br>
                     </div>
                     
                     <div class="new-project-definition-container">
                         <label class="new-project-definition-label" for="project-country">Country</label>
-                        <select class="new-project-definition-input" id="project-country" name="project-country">
+                        <select class="new-project-definition-input" id="project-country" name="project-country" required>
                             <!-- here the options  -->
                         </select>                        
                     </div>         
 <!-- Ideally, a dataset of languages per country -->                    
-                    <div class="new-project-definition-container">
-                        <label class="new-project-definition-label" for="project-language-1">Prefered language for communication</label>
-                        <select class="new-project-definition-input" id="project-language-1" name="project-language-1">
-                            <!-- here the options  -->
-                        </select>
-                    </div>
-                    <div class="new-project-definition-container">
-                        <label class="new-project-definition-label" for="project-add-language-1"><a href="" disabled>Click to add another language</a></label>
+                    <div class="new-project-definition-container">                        
+                        <label class="new-project-definition-label">Prefered languages for communication</label>
+                        <ul style="margin:0;">
+                            <li>
+                                <div class="new-project-definition-container">
+                                    <label class="new-project-definition-label prefered_language" for="project-language-1">Language 1</label>
+                                    <select class="new-project-definition-input" id="project-language-1" name="project-language-1" required>
+                                        <!-- here the options  -->
+                                    </select>  
+                                </div>  
+                            </li>                    
+                    
+                            <div id="new-language-addition-content" style="visibility: hidden;"></div>
+
+                            <li style="list-style: none;">
+                                <div tabindex="0" class="new-project-definition-container">
+                                    <label id="new-language-addition" class="new-project-definition-label" style="width: 100%;">                                        
+                                        <a href=javascript:void(0) > Click to add another language</a>
+                                    </label>                                
+                                </div>  
+                            </li>
+                        </ul>
+                                     
                         
-                    </div>
+                    </div>                                   
+                        
                     <div class="new-project-definition-container">
                         <label class="new-project-definition-label" for="project-language-comments">Comments about the languages used for the communication</label>
-                        <textarea class="new-project-definition-input" id="project-language-comments" name="project-language-comments" size="2000">                           
+                        <textarea class="new-project-definition-input" id="project-language-comments" name="project-language-comments" size="2000"  placeholder="">
                         </textarea>
                     </div>        
-                    ...
-                    <br>
-                    ...
-                    <br>
-                    <br>
-                    <button type="submit" id="new-proj-def-form-submit"  disabled>Submit</button>
+                    <div style="padding-left:10px;">
+                        ...
+                        <br>
+                        ...
+                        <br>
+                        <br>
+                        <button type="submit" id="new-proj-def-form-submit" disabled>Submit</button>
+                    </div>
                 </fieldset>
             </form>            
         </div>

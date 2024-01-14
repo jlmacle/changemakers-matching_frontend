@@ -1,45 +1,29 @@
 
 /* ---------------------- MAIN section :  ----------------------  */
 
-#data-entry_new-account_proj-rep{
-    text-align: center;
-    margin-top:20px;
-}
-
 #dashboard_proj-rep{
     margin-left: 10px;
     text-align: center;
 
 }
 
-#projects-main-content{
-    margin-left: 10px;
-    margin-right: 10px;
+#data-entry_new-account_proj-rep{
+    text-align: center;
+    margin-top:20px;
 }
 
-#new-project-definition-invite-button{
-    background-color: transparent;
-    border:0px;
-    font-family: "Times New Roman", Times, serif;
-    font-size: 16px;    
+#new-language-addition a{
+    width: 100%;
 }
 
-#new-project-definition-invite-button:hover{
-    border: solid 1px black;
-    border-radius: 5px;
-    max-width: fit-content;    
-}
+    @media screen and (min-width:239px) and (max-width:275px){
+        #new-language-addition a{
+            width: 170px;
+        }
+    }
 
 #new-project-definition{
     padding-right:5px;
-}
-
-#new-project-fieldset{
-    width:100%;
-    padding-left:0px;
-    padding-right:0px;
-    margin-right: 0px;
-    margin-top: 20px;
 }
 
 .new-project-definition-container{
@@ -54,13 +38,58 @@
     padding-right: 5px;
 }
 
-.new-project-definition-label{
-    width: 180px; /* To take into account the Nokia 8110 4G */
+.new-project-definition-container ul{
+    padding-left: 10px;
 }
 
 .new-project-definition-input{
     box-sizing: border-box;   /* to avoid a scrollbar in empty fields */
     width: 100%;
     min-height: 20px;
+}
+    @media screen and (min-width:239px) and (max-width:320px){
+        .new-project-definition-input{
+            width: 80%;
+        }
+    }
+
+#new-project-definition-invite-button{
+    background-color: transparent;
+    border:0px;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 16px;    
+}
+
+#new-project-definition-invite-button:hover{
+    border: solid 1px black;
+    border-radius: 5px;
+    max-width: fit-content;    
+}
+
+.new-project-definition-label{
+    width: 170px; /* To take into account the Nokia 8110 4G */
+}
+
+#new-project-fieldset{
+    width:100%;
+    padding-left:0px;
+    padding-right:0px;
+    margin-right: 0px;
+    margin-top: 20px;
+}
+
+@media screen and (min-width:239px) and (max-width:320px){
+    #new-project-fieldset{
+        width:100%;
+    }
+}
+
+.prefered_language{ /* To be able to count the number of prefered languages declared */
+
+}
+
+#projects-main-content{
+    margin-left: 10px;
+    margin-right: 10px;
 }
 

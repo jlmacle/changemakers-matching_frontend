@@ -21,16 +21,14 @@ function toggleElementBoldness(elementId: string){
     let element = document.getElementById(elementId) as HTMLElement;
 
     if(element.style.fontWeight == "bold"){
-        console.log("bold to normal");
         element.style.fontWeight = "normal";
     }
 
     else if (element.style.fontWeight ==  "normal"){
-        console.log("normal to bold");
         element.style.fontWeight = "bold";
     }
     else{
-        console.log(`Fontweight value: ${element.style.fontWeight}`);
+        console.log(`Unexpected fontweight value: ${element.style.fontWeight}`);
     }
 
 }
