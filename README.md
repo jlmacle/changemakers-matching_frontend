@@ -5,7 +5,7 @@ More information in the [wiki](https://github.com/jlmacle/changemakers-matchmaki
 
 If you are interested:
 <br>
-[Pre-demo1 video (before the actual demo1).](https://bit.ly/predemo1)<br>
+[Pre-demo1 video (before the actual demo1).](https://drive.google.com/file/d/1kvefhB9DvFzDO07ytHRwWgyBXMtwQXv-/view?usp=sharing)<br>
 (Make sure the video settings are on the highest quality setting.)
 
 
