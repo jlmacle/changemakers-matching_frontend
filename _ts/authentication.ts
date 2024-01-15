@@ -186,11 +186,11 @@ function logout(){
     let welcome_container2 = document.getElementById("welcome-container2") as HTMLElement;
     welcome_container2.innerHTML="";
 
-    // Toggling the visibility of the project main content
+    // Toggling the visibility of the projects main content
     let projects_main_content = document.getElementById("projects-main-content") as HTMLElement;
     projects_main_content.style.display = 'none';
 
-    // Toggling the visibility of the connection area
+    // Toggling the visibility of the new account area
     let login_proj_rep = document.getElementById("login_proj-rep") as HTMLElement;
     login_proj_rep.style.display = 'none';
    
