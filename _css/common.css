@@ -5,7 +5,7 @@
 /* Minimum size taken into account:Nokia 8110 4G (240 x 320 pixels) */
 :root{
     --header-height:240px;
-    --main-min-height:610px;
+    --main-min-height:640px;
     --nav-height:60px;
     --footer-height:100px;   
 }
@@ -25,8 +25,8 @@
 
 #header-title-container{
     display:flex;
-    justify-content:center;   /* For the container */
-    align-items:center;       /* For the items */
+    justify-content:center;   
+    align-items:center;       
 
     margin-top:10px;
     margin-bottom:10px;
