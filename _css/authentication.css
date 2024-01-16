@@ -24,11 +24,8 @@
             }            
         }
 
-
-
 #user-type-options-modal{
-    display:block; 
-    visibility:hidden;    
+    display:none; 
 
     position:fixed;    
     z-index:1;
@@ -40,7 +37,7 @@
     background-color:rgba(0,0,0,0.9); 
 
     width:100%;
-    height:1000%;  
+    height:100%;  
     
 }
 

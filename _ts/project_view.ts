@@ -59,12 +59,12 @@ add_language_options();
 /**
  * Function used to add another prefered language to the project.
  */
-function add_other_language(){
-    console.log("Entering add_other_language() function");
+function add_another_language(){
+    console.debug("Entering add_another_language() function");
     //Gettng the number of languages already added
     let languages_elem = document.getElementsByClassName("prefered_language") as HTMLCollectionOf<HTMLElement>;
     let language_number = languages_elem.length;
-    console.log(`Number of languages already added: ${language_number}`);
+    console.debug(`Number of languages already added: ${language_number}`);
     let language_number_incremented = language_number + 1;
 
     let html_to_add = `<li><div class="new-project-definition-container">
@@ -79,6 +79,6 @@ function add_other_language(){
     new_language_addition_content.insertAdjacentHTML('beforebegin',html_to_add);
 }
 
-// TODO : to add keyboard event listener to add_other_language() function
-let new_language_addition = document.getElementById("new-language-addition") as HTMLElement;
-new_language_addition.addEventListener("click", add_other_language);
+// TODO: issue with the a double event fired when using the Enter key
+let new_language_addition = document.getElementById("new-language-addition-link") as HTMLElement;
+new_language_addition.addEventListener("click", add_another_language);
