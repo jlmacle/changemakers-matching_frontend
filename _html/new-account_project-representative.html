@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css"  href="../_css/authentication.css">
     <link rel="stylesheet" type="text/css"  href="../_css/project-view.css">
     <title>Seeking ways to better the world? Find if your skills could be used to achieve the UN Sustainable Development Goals.</title>
-        <!-- ➡️ TODO: integrity hash to add before pushing the code ⬅️ -->
+        <!-- ➡️ TODO: AppSecurity: integrity hash to add before pushing the code ⬅️ -->
     <script src="../_js/common.js" defer></script>
     <script src="../_js/authentication.js" defer></script>  
     <script type="module" src="../_js/project_view.js" defer></script> <!-- type="module" is necessary because of the import -->
@@ -42,6 +42,8 @@
      <!-- /* ---------------------- MAIN section ----------------------  */ -->
     <main id="main">   
 
+        <!-- TODO: screenreader/keyboard navigation accessibility testing -->
+
             <!-- User/password creation -->
         <div id="new-account_proj-rep" style="display:block;">
             <h1 id="txt_account_creation" style="display:block;">New account creation</h1>
@@ -60,26 +62,7 @@
                     <button type="submit" id="auth-form-creation-submit" disabled>Submit</button>            
                 </fieldset>
             </form>
-        </div>
-
-        <!-- User login -->
-        <div id="login_proj-rep">
-            <form id="auth-form-login" style="display:none;">
-                <fieldset>
-                    <legend>Please enter username and password</legend>
-                    <label for="username">Username</label>
-                    <input type="text" name="username" id="username" autocomplete="off">
-<!--TODO: autocomplete "off" to remove eventually. A help with demos-->
-                    <div id="username_error"></div>
-                    <br>
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password"><br>
-                    <div id="password_error"></div>
-                    <br>
-                    <button type="submit" id="auth-form-login-submit" disabled>Submit</button>            
-                </fieldset>
-            </form>
-        </div>
+        </div>       
         
         <!-- Welcome greeting -->
         <div id="welcome-container">
@@ -92,10 +75,13 @@
             <h1 id="dashboard_proj-rep">Dashboard</h1>
             <div id="projects-list"><strong>Your projects</strong>
                 <ul>
-                    <li>You have no projects declared.</li>
+                    <li aria-label="You have no projects declared.">You have no projects declared.</li> 
+                    <!--aria-label="You have no projects declared, to avoid an 'edit' being voiced"
+                        Might be an issue with other screan readers
+                        TODO: complete testing-->
                 </ul>
             </div>
-                <!-- Definition of a new project -->
+                <!-- New project declaration -->
             <button type='button'  tabindex="0" id="new-project-definition-invite-button" style="font-weight:bold;"
                 onclick='toggleElementVisibility("new-project-definition");toggleElementBoldness("new-project-definition-invite-button")'>                
                 Click to declare a new project
@@ -104,29 +90,29 @@
                 <fieldset id="new-project-fieldset">
                     <legend><strong>New project declaration</strong></legend>
                     <div class="new-project-definition-container">
-                        <label class="new-project-definition-label" for="project-name">Project name </label>
-                        <textarea  class="new-project-definition-input" id="project-name" name="project-name" rows="1" placeholder="" required>                            
+                        <label aria-hidden="true" class="new-project-definition-label" for="project-name">Project name </label>
+                        <textarea  aria-label="Please enter the name of your project."  class="new-project-definition-input" id="project-name" name="project-name" rows="1" placeholder="" required>                            
                         </textarea><br>
                     </div>
 
                     <div class="new-project-definition-container">
-                        <label class="new-project-definition-label" for="project-description">Project description</label>
-                        <textarea class="new-project-definition-input" size="2000" id="project-description" 
+                        <label aria-hidden="true" class="new-project-definition-label" for="project-description">Project description</label>
+                        <textarea aria-label="Please enter the description of your project." class="new-project-definition-input" size="2000" id="project-description" 
                             name="project-description" rows="5" placeholder="" required>
                         </textarea><br>
                     </div>
 
                     <div class="new-project-definition-container">
-                        <label class="new-project-definition-label" for="project-mission-statement">Project mission statement</label>
-                        <textarea class="new-project-definition-input" size="2000" id="project-mission-statement" 
+                        <label aria-hidden="true" class="new-project-definition-label" for="project-mission-statement">Project mission statement</label>
+                        <textarea aria-label="Please enter the mission statement of your project." class="new-project-definition-input" size="2000" id="project-mission-statement" 
                             name="project-mission-statement" rows="5" placeholder="">
                         </textarea><br>
                     </div>
                     
                     <div class="new-project-definition-container">
-                        <label class="new-project-definition-label" for="project-country">Country</label>
-                        <select class="new-project-definition-input" id="project-country" name="project-country" required>
-                            <!-- here the options  -->
+                        <label aria-hidden="true" class="new-project-definition-label" for="project-country">Country</label>
+                        <select aria-label="Please declare the country of your project." class="new-project-definition-input" id="project-country" name="project-country" required>
+                            <!-- here the generated options  -->
                         </select>                        
                     </div>         
 <!-- Ideally, a dataset of languages per country -->                    
@@ -135,9 +121,9 @@
                         <ul style="margin:0;">
                             <li>
                                 <div class="new-project-definition-container">
-                                    <label class="new-project-definition-label prefered_language" for="project-language-1">Language 1</label>
-                                    <select class="new-project-definition-input" id="project-language-1" name="project-language-1" required>
-                                        <!-- here the options  -->
+                                    <label aria-hidden="true" class="new-project-definition-label prefered_language" for="project-language-1">Language 1</label>
+                                    <select aria-label="Please choose a prefered language for your project." class="new-project-definition-input" id="project-language-1" name="project-language-1" required>
+                                        <!-- here the generated options  -->
                                     </select>  
                                 </div>  
                             </li>                    
@@ -145,9 +131,9 @@
                             <div id="new-language-addition-content" style="visibility: hidden;"></div>
 
                             <li style="list-style: none;">
-                                <div tabindex="0" class="new-project-definition-container">
+                                <div class="new-project-definition-container">
                                     <label id="new-language-addition" class="new-project-definition-label" style="width: 100%;">                                        
-                                        <a href=javascript:void(0) > Click to add another language</a>
+                                        <a id="new-language-addition-link" href="javascript:void(0)"> Click to add another language</a>
                                     </label>                                
                                 </div>  
                             </li>
@@ -181,7 +167,6 @@
         <span id="footer-right"><a href="">Privacy</a></span>
     </footer>
 
-    
     
 </body>
 </html>

@@ -25,6 +25,6 @@ function toggleElementBoldness(elementId) {
         element.style.fontWeight = "bold";
     }
     else {
-        console.log(`Unexpected fontweight value: ${element.style.fontWeight}`);
+        console.warn(`Unexpected fontweight value: ${element.style.fontWeight}`);
     }
 }

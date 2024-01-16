@@ -24,11 +24,8 @@
             }            
         }
 
-
-
 #user-type-options-modal{
-    display:block; 
-    visibility:hidden;    
+    display:none; 
 
     position:fixed;    
     z-index:1;

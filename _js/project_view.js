@@ -38,12 +38,12 @@ add_language_options();
 /**
  * Function used to add another prefered language to the project.
  */
-function add_other_language() {
-    console.log("Entering add_other_language() function");
+function add_another_language() {
+    console.debug("Entering add_another_language() function");
     //Gettng the number of languages already added
     let languages_elem = document.getElementsByClassName("prefered_language");
     let language_number = languages_elem.length;
-    console.log(`Number of languages already added: ${language_number}`);
+    console.debug(`Number of languages already added: ${language_number}`);
     let language_number_incremented = language_number + 1;
     let html_to_add = `<li><div class="new-project-definition-container">
     <label class="new-project-definition-label prefered_language" for="project-language-${language_number_incremented}">
@@ -56,6 +56,12 @@ function add_other_language() {
     let new_language_addition_content = document.getElementById("new-language-addition-content");
     new_language_addition_content.insertAdjacentHTML('beforebegin', html_to_add);
 }
-// TODO : to add keyboard event listener to add_other_language() function
-let new_language_addition = document.getElementById("new-language-addition");
-new_language_addition.addEventListener("click", add_other_language);
+let new_language_addition = document.getElementById("new-language-addition-link");
+new_language_addition.addEventListener("click", add_another_language);
+new_language_addition.addEventListener("keyup", function (event) {
+    console.debug("Entered keyup event listener ");
+    if (event.key === "Enter" || event.key === " ") {
+        console.debug('event.key === "Enter" || event.key === " "');
+        add_another_language();
+    }
+});

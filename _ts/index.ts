@@ -11,7 +11,7 @@ function openUserTypeOptionsModal(){
 
     let modal = document.getElementById("user-type-options-modal") as HTMLElement;
     modal.setAttribute("aria-hidden", "false");
-    modal.style.visibility = "visible"; 
+    modal.style.display = "block";
     modal.focus();     
 }
 
@@ -24,16 +24,15 @@ new_account_or_login_access?.addEventListener("click", openUserTypeOptionsModal)
  * Function closing the modal used to differentiate project representatives from contributors.
  */
 function closeUserTypeOptionsModal(){
-    //Switching the aria-hidden attribute to false to make the main content inaccessible to screen readers
+    //Switching the aria-hidden attribute to false to make the main content accessible to screen readers
     let to_ignore_when_modal1_elems = document.getElementsByClassName("to-ignore-when-modal1") as HTMLCollectionOf<HTMLElement>;   
     for(let elem of to_ignore_when_modal1_elems){
         elem.setAttribute("aria-hidden", "false");
     }
 
-    // Run into an unsolved issue using display ="none". Chose visibility="hidden" instead.
-    let modal = document.getElementById("user-type-options-modal") as HTMLElement;
-    modal.style.visibility = "hidden";    
+    let modal = document.getElementById("user-type-options-modal") as HTMLElement;   
     modal.setAttribute("aria-hidden", "true");
+    modal.style.display = "none";
 
     // Bringing the focus back the the button that triggered the modal
     let new_account_or_login_access = document.getElementById("new-account-or-login-access");
