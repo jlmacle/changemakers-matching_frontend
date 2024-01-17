@@ -34,5 +34,12 @@ function toggleElementBoldness(elementId: string){
 
 }
 
-
-
+/**
+ * Function used to get the time elapsed in milliseconds since 1970.
+ * @returns 
+ */
+function getAbsoluteTime():number{
+    console.debug("Entering getAbsoluteTime() function");
+    const date = new Date();
+    return date.getTime();
+}

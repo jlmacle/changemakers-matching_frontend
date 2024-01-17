@@ -38,6 +38,17 @@
     padding-right: 5px;
 }
 
+
+.new-project-definition-container select{
+    width: 160px;
+}
+
+[id|="delete-language"]{
+    font-weight: bold;
+    font-size: 16px;   
+}
+
+
 .new-project-definition-container ul{
     padding-left: 10px;
 }
