@@ -28,3 +28,12 @@ function toggleElementBoldness(elementId) {
         console.warn(`Unexpected fontweight value: ${element.style.fontWeight}`);
     }
 }
+/**
+ * Function used to get the time elapsed in milliseconds since 1970.
+ * @returns
+ */
+function getAbsoluteTime() {
+    console.debug("Entering getAbsoluteTime() function");
+    const date = new Date();
+    return date.getTime();
+}
