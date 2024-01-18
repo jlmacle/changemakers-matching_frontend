@@ -26,7 +26,7 @@
     <script type="module" src="../_js/project_view.js" defer></script> <!-- type="module" is necessary because of the import -->
 </head>
 
-<body id="id_proj_rep_body">
+<body>
 
     <!-- /* ---------------------- HEADER section ---------------------- */     -->
     <header id="header">        
@@ -45,19 +45,19 @@
         <!-- TODO: some screenreader/keyboard navigation accessibility testing/coding -->
 
             <!-- User/password creation -->
-        <div id="new-account_proj-rep" style="display:block;">
-            <h1 id="txt_account_creation" style="display:block;">New account creation</h1>
+        <div id="new-accountProj-rep" style="display:block;">
+            <h1 style="display:block;">New account creation</h1>
             <form id="auth-form-creation" style="display:block;">
                 <fieldset>
                     <legend>Please enter username and password</legend>
                     <label for="username">Username</label>
                     <input type="text" name="username" id="username" autocomplete="off">
 <!--TODO: autocomplete "off" to remove eventually. A help with demos-->
-                    <div id="username_error">The username can only contain lowercase letters without accents, numbers and underscores.</div>
+                    <div id="usernameError">The username can only contain lowercase letters without accents, numbers and underscores.</div>
                     <br>
                     <label for="password">Password</label>
                     <input type="password" name="password" id="password"><br>
-                    <div id="password_error">The password should be at least 8 characters long.</div>
+                    <div id="passwordError">The password should be at least 8 characters long.</div>
                     <br>
                     <button type="submit" id="auth-form-creation-submit" disabled>Submit</button>            
                 </fieldset>
@@ -72,7 +72,7 @@
         <!-- Project main content -->
         <div id="projects-main-content" style="display:none;">         
                 <!-- Existing projects -->
-            <h1 id="dashboard_proj-rep">Dashboard</h1>
+            <h1 id="dashboardProj-rep">Dashboard</h1>
             <div id="projects-list"><strong>Your projects</strong>
                 <ul>
                     <li aria-label="You have no projects declared.">You have no projects declared.</li> 
@@ -119,10 +119,11 @@
                     <div class="new-project-definition-container">                        
                         <label class="new-project-definition-label">Prefered languages for communication</label>
                         <ul id="languages-list" style="margin:0;">
-                            <li>
-                                <div class="new-project-definition-container">
-                                    <label aria-hidden="true" class="new-project-definition-label prefered_language" for="project-language-1">Language 1</label>
-                                    <select aria-label="Please choose a prefered language for your project." class="new-project-definition-input" id="project-language-1" name="project-language-1" required>
+                            <li id="list-language-1">
+                                <div class="new-project-definition-container" style="padding-top:0px;">
+                                    <label aria-hidden="true" class="new-project-definition-label preferedLanguage" for="project-language-1">Language 1</label>
+                                    <select aria-label="Please choose a prefered language for your project."  
+                                        id="project-language-1" name="project-language-1" required>
                                         <!-- here the generated options  -->
                                     </select>  
                                 </div>  

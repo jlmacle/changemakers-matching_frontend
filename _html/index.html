@@ -37,21 +37,22 @@
             Otherwise, you can skip to user testimonies.</a>
 
         <!-- New account/login button  -->
+        <!-- TODO: to finish keyboard navigation for the modal -->
         <button tabindex="0" aria-label="Click to create a new account or to login." id="new-account-or-login-access" 
         class="to-ignore-when-modal1"  aria-hidden="false">            
             <span aria-hidden="true">New<br>account<br>-<br>Login</span> 
             <!-- aria-hidden used to avoid screen reader unecessary reading, after reading the aria-label -->
         </button> 
                 <!-- Modal for the choice of type of user --> 
-        <div id="user-type-options-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="dialog1_label">            
+        <div id="user-type-options-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="dialog1Label">            
                     <!-- ➡️ Need to transmit the type of users -->            
-            <div id="user-type-options_modal-content" tabindex="0"  
+            <div id="user-type-options-modal-content" tabindex="0"  
                 aria-describedby=" Please choose the appropriate option between 'project representative' and 'contributor' ">
-                <a href="./new-account_project-representative.html">Project representative</a> <br><br>
+                <a href="./new-accountProject-representative.html">Project representative</a> <br><br>
                 <span aria-hidden="true" style="font-size:30px;color:white;"><strong> - </strong></span><br><br>
                 <a style="text-decoration: none;">Contributor</a>
             </div>            
-            <div tabindex="0" aria-label="Click to exit choice of type of user." id="user-type-options_modal-closing"><span aria-hidden="true">&times;</span></div>
+            <div tabindex="0" aria-label="Click to exit choice of type of user." id="user-type-options-modal-closing"><span aria-hidden="true">&times;</span></div>
         </div>    
  
         <!-- Header title -->

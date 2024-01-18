@@ -4,8 +4,8 @@
  */
 function openUserTypeOptionsModal(){      
     //Switching the aria-hidden attribute to true to make the main content inaccessible to screen readers
-    let to_ignore_when_modal1_elems = document.getElementsByClassName("to-ignore-when-modal1") as HTMLCollectionOf<HTMLElement>;   
-    for(let elem of to_ignore_when_modal1_elems){
+    let toIgnoreWhenModal1IsOn = document.getElementsByClassName("to-ignore-when-modal1") as HTMLCollectionOf<HTMLElement>;   
+    for(let elem of toIgnoreWhenModal1IsOn){
         elem.setAttribute("aria-hidden", "true");
     }
 
@@ -16,8 +16,8 @@ function openUserTypeOptionsModal(){
 }
 
 /* Listener for the opening of the modal */
-let new_account_or_login_access = document.getElementById("new-account-or-login-access") as HTMLButtonElement;
-new_account_or_login_access?.addEventListener("click", openUserTypeOptionsModal);
+let newAccountOrLoginAccess = document.getElementById("new-account-or-login-access") as HTMLButtonElement;
+newAccountOrLoginAccess?.addEventListener("click", openUserTypeOptionsModal);
 
 
 /**
@@ -25,8 +25,8 @@ new_account_or_login_access?.addEventListener("click", openUserTypeOptionsModal)
  */
 function closeUserTypeOptionsModal(){
     //Switching the aria-hidden attribute to false to make the main content accessible to screen readers
-    let to_ignore_when_modal1_elems = document.getElementsByClassName("to-ignore-when-modal1") as HTMLCollectionOf<HTMLElement>;   
-    for(let elem of to_ignore_when_modal1_elems){
+    let toIgnoreWhenModal1IsOn = document.getElementsByClassName("to-ignore-when-modal1") as HTMLCollectionOf<HTMLElement>;   
+    for(let elem of toIgnoreWhenModal1IsOn){
         elem.setAttribute("aria-hidden", "false");
     }
 
@@ -35,10 +35,10 @@ function closeUserTypeOptionsModal(){
     modal.style.display = "none";
 
     // Bringing the focus back the the button that triggered the modal
-    let new_account_or_login_access = document.getElementById("new-account-or-login-access");
-    new_account_or_login_access?.focus();
+    let newAccountOrLoginAccess = document.getElementById("new-account-or-login-access");
+    newAccountOrLoginAccess?.focus();
 }
 
 /* Listener for the closing of the modal */
-let close_modal = document.getElementById("user-type-options_modal-closing") as HTMLElement;
-close_modal?.addEventListener("click", closeUserTypeOptionsModal);
+let closeModal = document.getElementById("user-type-options-modal-closing") as HTMLElement;
+closeModal?.addEventListener("click", closeUserTypeOptionsModal);

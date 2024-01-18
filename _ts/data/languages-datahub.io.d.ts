@@ -1,1 +1,1 @@
-export declare const language_data:string;
+export declare const languageData:string;

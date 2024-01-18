@@ -42,7 +42,7 @@
     
 }
 
-#user-type-options_modal-closing{
+#user-type-options-modal-closing{
     position:absolute;        
     right:20px;
     z-index:1;
@@ -52,7 +52,7 @@
 }
 
 
-#user-type-options_modal-content{
+#user-type-options-modal-content{
     position:absolute;
     top:60px;
     z-index:1;      
@@ -60,7 +60,7 @@
     text-align:center;
 }
 
-#user-type-options_modal-content a{
+#user-type-options-modal-content a{
     color:white;
     font-size:30px;
 }

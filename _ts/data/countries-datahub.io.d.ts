@@ -1,1 +1,1 @@
-export declare const country_data:string;
+export declare const countryData:string;
