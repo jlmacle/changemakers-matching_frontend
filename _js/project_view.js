@@ -1,105 +1,186 @@
-import { country_data } from "./data/countries-datahub.io.mjs";
-import { language_data } from "./data/languages-datahub.io.mjs";
-let absolute_time_since_last_language_addition = 0;
-let absolute_time_for_current_language_addition = 1000;
+import { countryData } from "./data/countries-datahub.io.mjs";
+import { languageData } from "./data/languages-datahub.io.mjs";
+let absoluteTimeSinceLastLanguageAddition = 0;
+let absoluteTimeForCurrentLanguageAddition = 1000;
+let addedLanguagesSelectedOptions = new Map();
 //  Leaving the code duplication to avoid cognitive load for code reviewers
 function getCountryList() {
-    let country_list = [];
-    const array = JSON.parse(country_data);
-    array.forEach(data => country_list.push(data.Name));
+    let countryList = [];
+    const array = JSON.parse(countryData);
+    array.forEach(data => countryList.push(data.Name));
     // Should be already sorted. Just in case.
-    country_list.sort();
-    let html_options = "";
-    country_list.forEach(country => html_options += `<option value=${country}>${country}</option>`);
-    return html_options;
+    countryList.sort();
+    let htmlOptions = "";
+    countryList.forEach(country => htmlOptions += `<option value=${country}>${country}</option>`);
+    return htmlOptions;
 }
-function add_country_options() {
+function addCountryOptions() {
     let element = document.getElementById("project-country");
-    let html_options = getCountryList();
-    element.innerHTML = html_options;
+    let htmlOptions = getCountryList();
+    element.innerHTML = htmlOptions;
 }
 // Adding the options to the page
-add_country_options();
+addCountryOptions();
 function getLanguageList() {
-    let language_list = [];
-    const array = JSON.parse(language_data);
-    array.forEach(data => language_list.push(data.English));
+    let languageList = [];
+    const array = JSON.parse(languageData);
+    array.forEach(data => languageList.push(data.English));
     // Should be already sorted. Just in case.
-    language_list.sort();
-    let language_options = "";
-    language_list.forEach(language => language_options += `<option value=${language}> ${language} </option>`);
-    return language_options;
+    languageList.sort();
+    let languageOptions = "";
+    languageList.forEach(language => languageOptions += `<option value=${language}> ${language} </option>`);
+    return languageOptions;
 }
-function add_language_options() {
+function addLanguageOptions() {
     let element = document.getElementById("project-language-1");
-    let html_options = getLanguageList();
-    element.innerHTML = html_options;
+    let htmlOptions = getLanguageList();
+    element.innerHTML = htmlOptions;
 }
 //Adding the options to the page
-add_language_options();
+addLanguageOptions();
+function renumberString(numberRemoved, totalNumberOfElements, patternStringToRenumber, patternToSubstitute) {
+    let debug = false;
+    let stringToReturn = "";
+    for (let i = numberRemoved; i <= totalNumberOfElements - 1; i++) {
+        let patternStringRenumbered = patternStringToRenumber.replaceAll(patternToSubstitute, "" + i);
+        stringToReturn += patternStringRenumbered;
+        if (debug)
+            console.debug(`for i=${i}, string=${patternStringRenumbered}`);
+    }
+    return stringToReturn;
+}
+function renumberKeyValueMap(numberRemoved, totalNumberOfElements, keyPattern, originalMap) {
+    let debug = true;
+    let mapToReturn = new Map();
+    for (let i = numberRemoved + 1; i <= totalNumberOfElements; i++) {
+        //Getting the original data
+        let renumberedKey = keyPattern + (i - 1);
+        let value = originalMap.get(keyPattern + i);
+        mapToReturn.set(renumberedKey, "" + value);
+    }
+    if (debug) {
+        mapToReturn.forEach((value, key) => { console.debug(`Key: ${key}, Value: ${value}`); });
+    }
+    return mapToReturn;
+}
 /**
 * Function used to remove one of the prefered languages
 * @param languageId The id of the language to remove
 */
-window.removePreferedLanguage = function (languageNumber) {
-    console.log("\n" + "Entering removePreferedLanguage() function");
-    // TODO: to renumber the languages after the removal to avoid id/name duplicates  
-    let parent_elem = document.getElementById("languages-list");
-    let html_elem_to_remove = document.getElementById(`list-${languageNumber}`);
-    parent_elem === null || parent_elem === void 0 ? void 0 : parent_elem.removeChild(html_elem_to_remove);
+window.removePreferedLanguage = function (number4LanguageToRemove) {
+    let debug = true;
+    console.debug("\n" + "Entering removePreferedLanguage() function");
+    let languagesAdded = document.getElementsByClassName("added-language-li");
+    let numberOfLanguages = languagesAdded.length + 1;
+    let parentElem = document.getElementById("languages-list");
+    let htmlElemToRemove = document.getElementById(`list-language-${number4LanguageToRemove}`);
+    parentElem?.removeChild(htmlElemToRemove);
+    // TODO: to renumber the languages after the removal to avoid id/name duplicates 
+    // E.g.: 3 languages added:  L1, L2, L3, L4
+    // Removing L2:              L1,     L3, L4
+    let patternToSubstitute = "**languageNumberIncremented**";
+    let referenceString = `<li id="list-language-**languageNumberIncremented**" class="added-language-li">
+        <div class="new-project-definition-container">
+            <label class="new-project-definition-label preferedLanguage" for="project-language-**languageNumberIncremented**">
+                Language **languageNumberIncremented**
+            </label>
+            <div class="new-project-definition-input" style="padding-top:1px;">
+                <select id="project-language-**languageNumberIncremented**" class="added-language-select"
+                    name="project-language-**languageNumberIncremented**">`
+        + getLanguageList() +
+        `</select>  
+                <span  tabindex="0"  id="delete-language-**languageNumberIncremented**" 
+                    onclick="window.removePreferedLanguage(**languageNumberIncremented**);">&times;
+                </span>                                   
+            </div>
+        </div>
+    </li>`;
+    let renumberedString = renumberString(number4LanguageToRemove, numberOfLanguages, referenceString, patternToSubstitute);
+    // Removing the languages added after the one removed, before adding the renumbered string
+    for (let i = number4LanguageToRemove + 1; i <= numberOfLanguages; i++) {
+        let htmlToRemove = document.getElementById(`list-language-${i}`);
+        parentElem?.removeChild(htmlToRemove);
+    }
+    // Adding the renumbered string
+    let numberBeforeLanguageToRemove = number4LanguageToRemove - 1;
+    let previousLanguageItem = document.getElementById(`list-language-${numberBeforeLanguageToRemove}`);
+    previousLanguageItem.insertAdjacentHTML("afterend", renumberedString);
+    // Renumbering the ids
+    let renumberedMap = renumberKeyValueMap(number4LanguageToRemove, numberOfLanguages, "project-language-", addedLanguagesSelectedOptions);
+    // Setting the recorded values for the options
+    if (debug)
+        console.debug(`About to set the recorded values for the options. Size of map: ${renumberedMap.size}`);
+    renumberedMap.forEach((value, key) => {
+        let elem = document.getElementById(key);
+        elem.selectedIndex = parseInt(value);
+    });
 };
 /**
  * Function used to add another prefered language to the project.
  */
-function add_another_language() {
-    console.debug("Entering add_another_language() function");
+function addAnotherLanguage() {
+    console.debug("Entering addAnotherLanguage() function");
     //Gettng the number of languages already added
-    let languages_elem = document.getElementsByClassName("prefered_language");
-    let language_number = languages_elem.length;
-    console.debug(`Number of languages already added: ${language_number}`);
-    let language_number_incremented = language_number + 1;
-    let html_to_add = `<li id="list-${language_number_incremented}">
+    let languagesElems = document.getElementsByClassName("preferedLanguage");
+    let languageNumber = languagesElems.length;
+    console.debug(`Number of languages already added: ${languageNumber}`);
+    let languageNumberIncremented = languageNumber + 1;
+    let htmlToAdd = `<li id="list-language-${languageNumberIncremented}" class="added-language-li">
                             <div class="new-project-definition-container">
-                                <label class="new-project-definition-label prefered_language" for="project-language-${language_number_incremented}">
-                                    Language ${language_number_incremented}
+                                <label class="new-project-definition-label preferedLanguage" for="project-language-${languageNumberIncremented}">
+                                    Language ${languageNumberIncremented}
                                 </label>
-                                <div class="new-project-definition-input" style="padding-top:1px;">
-                                    <select d="project-language-${language_number_incremented}" 
-                                        name="project-language-${language_number_incremented}">`
+                                <div class="new-project-definition-input">
+                                    <select id="project-language-${languageNumberIncremented}" 
+                                        name="project-language-${languageNumberIncremented}" class="added-language-select">`
         + getLanguageList() +
         `</select>  
-                                    <span  tabindex="0"  id="delete-language-${language_number_incremented}" 
-                                        onclick="window.removePreferedLanguage(${language_number_incremented});">&times;
+                                    <span  tabindex="0"  id="delete-language-${languageNumberIncremented}" 
+                                        onclick="removePreferedLanguage(${languageNumberIncremented});">&times;
                                     </span>                                   
                                 </div>
                             </div>
                         </li>`;
     // TODO: the 'X' accessibility to work on
-    let new_language_addition_content = document.getElementById("new-language-addition-content");
-    new_language_addition_content.insertAdjacentHTML('beforebegin', html_to_add);
+    let newLanguageAdditionContent = document.getElementById("new-language-addition-content");
+    newLanguageAdditionContent.insertAdjacentHTML('beforebegin', htmlToAdd);
 }
 /**
  * Function used to avoid issues with adding several languages on a single key press
  */
-function add_another_language_buffered() {
+function addAnotherLanguageUsingATimeBuffer() {
     let debug = true;
-    console.debug("\n" + "Entering add_another_language_buffered() function");
+    console.debug("\n" + "Entering addAnotherLanguageUsingATimeBuffer() function");
     //Saving the previously recorded time and recording the current time
-    absolute_time_since_last_language_addition = absolute_time_for_current_language_addition;
-    absolute_time_for_current_language_addition = getAbsoluteTime();
-    let time_difference = absolute_time_for_current_language_addition - absolute_time_since_last_language_addition;
-    if (time_difference > 500) {
-        console.debug(`Sufficient ime difference between two language additions: ${time_difference}
+    absoluteTimeSinceLastLanguageAddition = absoluteTimeForCurrentLanguageAddition;
+    absoluteTimeForCurrentLanguageAddition = getAbsoluteTime();
+    let timeDifference = absoluteTimeForCurrentLanguageAddition - absoluteTimeSinceLastLanguageAddition;
+    if (timeDifference > 500) {
+        console.debug(`Sufficient time difference between two language additions: ${timeDifference}
                         \n Adding another language.`);
-        add_another_language();
+        addAnotherLanguage();
     }
     else if (debug)
-        console.debug(`Time between two language additions too short: ${time_difference}. Not adding another language.`);
+        console.debug(`Time between two language additions too short: ${timeDifference}. Not adding another language.`);
 }
-let new_language_addition = document.getElementById("new-language-addition-link");
-new_language_addition.addEventListener("click", add_another_language_buffered);
-new_language_addition.addEventListener("keydown", function (event) {
+let newLanguageAddition = document.getElementById("new-language-addition-link");
+newLanguageAddition.addEventListener("click", addAnotherLanguageUsingATimeBuffer);
+newLanguageAddition.addEventListener("keydown", function (event) {
     if (event.key === "Enter" || event.key === " ") {
-        add_another_language_buffered();
+        addAnotherLanguageUsingATimeBuffer();
+    }
+});
+// Adding an event listener to monitor the values of the prefered languages
+document.addEventListener("change", function (event) {
+    let debug = true;
+    if (debug)
+        console.debug("\n" + "Entering change event listener for language selection");
+    let addedLanguageSelectElems = document.getElementsByClassName("added-language-select");
+    if (debug)
+        console.debug(`Number of added languages: ${addedLanguageSelectElems.length}`);
+    for (let elem of addedLanguageSelectElems) {
+        addedLanguagesSelectedOptions.set(elem.id, "" + elem.selectedIndex);
+        if (debug)
+            console.debug(`Index selected: ${addedLanguagesSelectedOptions.get(elem.id)} in ${elem.id}`);
     }
 });

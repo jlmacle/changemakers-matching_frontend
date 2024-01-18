@@ -1,13 +1,17 @@
 
 /* ---------------------- MAIN section :  ----------------------  */
 
-#dashboard_proj-rep{
+.added-language-select{
+    margin-top: 0;
+}
+
+#dashboardProj-rep{
     margin-left: 10px;
     text-align: center;
 
 }
 
-#new-account_proj-rep{
+#new-accountProj-rep{
     text-align: center;
     margin-top:20px;
 }
@@ -31,7 +35,7 @@
     flex-direction: column;
     justify-content: left;
     align-items: flex-start;
-    overflow: auto;   
+    overflow: clip;   
 
     padding-top: 10px;
     padding-left: 5px;
@@ -44,8 +48,9 @@
 }
 
 [id|="delete-language"]{
-    font-weight: bold;
-    font-size: 16px;   
+    font-size: 26px;   
+    line-height: 18px;
+    margin-left: 10px;
 }
 
 
@@ -55,6 +60,8 @@
 
 .new-project-definition-input{
     box-sizing: border-box;   /* to avoid a scrollbar in empty fields */
+    display: flex;
+    align-items: flex-start;
     width: 100%;
     min-height: 20px;
 }
@@ -79,8 +86,14 @@
 }
 
 .new-project-definition-label{
-    width: 170px; /* To take into account the Nokia 8110 4G */
+    width: 100%; /* To take into account the Nokia 8110 4G */
 }
+    @media screen and (min-width:239px) and (max-width:320px){
+        .new-project-definition-label{
+            width: 170px;
+        }
+        
+     }
 
 #new-project-fieldset{
     width:100%;
@@ -96,7 +109,7 @@
     }
 }
 
-.prefered_language{ /* To be able to count the number of prefered languages declared */
+.preferedLanguage{ /* To be able to count the number of prefered languages declared */
 
 }
 

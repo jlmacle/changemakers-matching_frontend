@@ -1,5 +1,5 @@
-let username_is_valid:boolean = false;
-let password_is_valid:boolean = false;
+let usernameIsValid:boolean = false;
+let passwordIsValid:boolean = false;
 
 /**
  * Function used to check if the username is acceptable.
@@ -9,47 +9,47 @@ let password_is_valid:boolean = false;
  */
 function checkUsername() {
     // "Make sure your usernames/user IDs are case-insensitive."
-    // AppSecurity: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#user-ids
+    // AppSecurity: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_CheatSheet.html#user-ids
     let debug = false;
 
     let username = document.getElementById("username") as HTMLInputElement; 
-    let submit_button = document.getElementById("auth-form-creation-submit") as HTMLButtonElement;
+    let submitButton = document.getElementById("auth-form-creation-submit") as HTMLButtonElement;
     
     // "Input" being the event, typing an invalid character, as a first input, was not detected .
     // "keyup" solved the issue.
     username?.addEventListener("keyup", function(event){
-        let username_error = document.getElementById("username_error") as HTMLElement;    
+        let usernameError = document.getElementById("usernameError") as HTMLElement;    
         
-        if (username?.value && username_error) {  
+        if (username?.value && usernameError) {  
             username.value = username.value.toLowerCase(); // "Make sure your usernames/user IDs are case-insensitive."
             if (username.value.search(/\W/) !== -1) { // Equivalent to [^A-Za-z0-9_]
                     if (debug) console.debug("Invalid character. The username can only contain lowercase letters without accents, numbers and underscores.");
-                    username_error.innerHTML = "⚠️ Invalid character present. <br>The username can only contain lowercase letters without accents, numbers and underscores.";
-                    submit_button.disabled = true;
-                    username_is_valid = false;
+                    usernameError.innerHTML = "⚠️ Invalid character present. <br>The username can only contain lowercase letters without accents, numbers and underscores.";
+                    submitButton.disabled = true;
+                    usernameIsValid = false;
                 }    
                 
                 else if (username.value.length < 4) {
                     if (debug) console.debug("Username is too short");
-                    username_error.innerHTML = "⚠️ The username must be at least 4 characters long, and in lowercase.";
-                    submit_button.disabled = true;
-                    username_is_valid = false;
+                    usernameError.innerHTML = "⚠️ The username must be at least 4 characters long, and in lowercase.";
+                    submitButton.disabled = true;
+                    usernameIsValid = false;
                 }
                         
                 else {
                     if (debug) console.debug("The username is valid:");
-                    username_error.innerHTML = "✅ The username is valid.";               
-                    username_is_valid = true;
+                    usernameError.innerHTML = "✅ The username is valid.";               
+                    usernameIsValid = true;
                     // Still need to check if the password is valid before enabling the submit button.
-                    if (username_is_valid && password_is_valid) submit_button.disabled = false;
+                    if (usernameIsValid && passwordIsValid) submitButton.disabled = false;
                 }
         }
         else if (debug) 
         {
-            console.debug("(username?.value && username_error) has false for value.");
+            console.debug("(username?.value && usernameError) has false for value.");
             console.debug("username?.value = " + username?.value);
-            console.debug("username_error = " + username_error);
-            console.debug("End of : (username?.value && username_error) has false for value.");
+            console.debug("usernameError = " + usernameError);
+            console.debug("End of : (username?.value && usernameError) has false for value.");
         }        
     });      
 }
@@ -65,48 +65,48 @@ function checkPassword() {
     let debug = false;
 
     let password = document.getElementById("password") as HTMLInputElement; 
-    let submit_button = document.getElementById("auth-form-creation-submit") as HTMLButtonElement;
+    let submitButton = document.getElementById("auth-form-creation-submit") as HTMLButtonElement;
 
     password?.addEventListener("keyup", function(event){                
-        let password_error = document.getElementById("password_error");  
+        let passwordError = document.getElementById("passwordError");  
         
         // "Minimum length of the passwords should be enforced by the application. 
         // Passwords shorter than 8 characters are considered to be weak (NIST SP800-63B).
         // Maximum password length should not be set too low, as it will prevent users from creating passphrases. 
         // A common maximum length is 64 characters due to limitations in certain hashing algorithms"
-        // AppSecurity: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#implement-proper-password-strength-controls 
+        // AppSecurity: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_CheatSheet.html#implement-proper-password-strength-controls 
 
-        if (password?.value && password_error) {
+        if (password?.value && passwordError) {
             if (password.value.length < 8) {
                 if (debug) console.debug("Password is too short");
-                password_error.innerHTML = "⚠️ The password should be at least 8 characters long.";
-                submit_button.disabled = true;          
-                password_is_valid = false;      
+                passwordError.innerHTML = "⚠️ The password should be at least 8 characters long.";
+                submitButton.disabled = true;          
+                passwordIsValid = false;      
             }        
             else if (password.value.length >=64) {
                 if (debug) console.debug("Password is too long");
-                password_error.innerHTML = "⚠️ The password should be less than 64 characters long.";
-                submit_button.disabled = true;          
-                password_is_valid = false;      
+                passwordError.innerHTML = "⚠️ The password should be less than 64 characters long.";
+                submitButton.disabled = true;          
+                passwordIsValid = false;      
             }   
             
             else {
                 if (debug) console.debug("The password is valid.");
                 // "There should be no password composition rules limiting the type of characters permitted."
-                // AppSecurity: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#implement-proper-password-strength-controls
-                password_error.innerHTML = "✅ The password is valid.";
-                password_is_valid = true;
+                // AppSecurity: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_CheatSheet.html#implement-proper-password-strength-controls
+                passwordError.innerHTML = "✅ The password is valid.";
+                passwordIsValid = true;
                 // Still need to check if the username is valid before enabling the submit button.
-                if (username_is_valid && password_is_valid) submit_button.disabled = false;
+                if (usernameIsValid && passwordIsValid) submitButton.disabled = false;
             }
 
         }
         else {
             if (debug) {
-                console.debug("(password?.value && password_error) has false for value.");
+                console.debug("(password?.value && passwordError) has false for value.");
                 console.debug("password?.value = " + password?.value);
-                console.debug("password_error = " + password_error);
-                console.debug("End of : (password?.value && password_error) has false for value.");
+                console.debug("passwordError = " + passwordError);
+                console.debug("End of : (password?.value && passwordError) has false for value.");
             }
         }
     });   
@@ -120,20 +120,20 @@ checkPassword();
  * Function used to display the project view
  * @param username The username of the user
  */
-function display_project_view(username: string){
+function displayProjectView(username: string){
     // Toggling the visibility of the authentication form
-    let auth_form_elem = document.getElementById("new-account_proj-rep") as HTMLElement;
-    auth_form_elem.style.display = "none";
+    let authFormElem = document.getElementById("new-accountProj-rep") as HTMLElement;
+    authFormElem.style.display = "none";
               
     // Welcome message
-    let welcome_elem = document.getElementById("welcome-container2") as HTMLElement;
-    let html_to_add =`<div aria-hidden="true">Welcome, ${username}</div>
+    let welcomeElem = document.getElementById("welcome-container2") as HTMLElement;
+    let htmlToAdd =`<div aria-hidden="true">Welcome, ${username}</div>
                       <div id="logout"><a id="logout-link" href="javascript:void(0)" onclick="logout()" >Logout</a></div>`
-    welcome_elem.innerHTML = html_to_add;
+    welcomeElem.innerHTML = htmlToAdd;
 
     // Toggling the visibility of the project main content
-    let projects_elem = document.getElementById("projects-main-content") as HTMLElement;
-    projects_elem.style.display = "block";
+    let projectsElem = document.getElementById("projects-main-content") as HTMLElement;
+    projectsElem.style.display = "block";
 }
 
 // TODO: to re-work the cookie part minding the security aspects
@@ -143,10 +143,10 @@ document.addEventListener("DOMContentLoaded", function(event){
 
     let cookie = document.cookie;
     if (cookie) {
-        let username_part = cookie.split(";")[0];
-        if (debug) console.debug("username_part = " + username_part);
-        let username = username_part.split("=")[1];
-        if (username !== "") display_project_view(username);
+        let usernamePart = cookie.split(";")[0];
+        if (debug) console.debug("usernamePart = " + usernamePart);
+        let username = usernamePart.split("=")[1];
+        if (username !== "") displayProjectView(username);
     }
     
 
@@ -158,33 +158,33 @@ document.addEventListener("DOMContentLoaded", function(event){
  * @param url The url to send the data to.
  * 
  */
-function sign_up_data_processing(event: Event, url: string) 
+function signUpDataProcessing(event: Event, url: string) 
 {   let debug = true;
 
     event.preventDefault(); // to avoid unexpected network behaviors causing network errors
-    let username_elem = document.getElementById("username") as HTMLInputElement;
-    let password_elem = document.getElementById("password") as HTMLInputElement; 
-    const username = username_elem.value;
-    const password = password_elem.value;                           
+    let usernameElem = document.getElementById("username") as HTMLInputElement;
+    let passwordElem = document.getElementById("password") as HTMLInputElement; 
+    const username = usernameElem.value;
+    const password = passwordElem.value;                           
 
     if (!username || !password) // if username or password are empty or null
     
     {
-        let submit_elem = document.getElementById("auth-form-creation-submit") as HTMLButtonElement;
-        submit_elem.disabled = false;
+        let submitElem = document.getElementById("auth-form-creation-submit") as HTMLButtonElement;
+        submitElem.disabled = false;
         if (debug) console.debug("Username or password are empty. Treated in HTML page.");
     }
     else{
-        if (debug) console.debug("Entering sign_up_data_processing() function");
+        if (debug) console.debug("Entering signUpDataProcessing() function");
         fetch (url, {
             method:'POST', 
             headers: {'Content-Type': 'application/json'}, 
             body: JSON.stringify({username: username, password: password})
         })
         .then(response => response.text())
-        .then(string_to_sanitize => {          
+        .then(stringToSanitize => {          
             // TODO: Setting a session cookie
-            // AppSecurity: https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html
+            // AppSecurity: https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_CheatSheet.html
 
             // TODO: (when using HTTPS)
             // AppSecurity: https://owasp.org/www-community/controls/SecureCookieAttribute
@@ -197,7 +197,7 @@ function sign_up_data_processing(event: Event, url: string)
             document.cookie = `username=${username}; path=/; max-age=3600;`;
             if (debug) console.debug("Cookie set: " + document.cookie);
 
-            display_project_view(username);          
+            displayProjectView(username);          
             
             })
         .catch(error => console.debug(error));
@@ -205,8 +205,8 @@ function sign_up_data_processing(event: Event, url: string)
 }
 
 /* Listener that checks if username/password can be sent to the backend */
-let auth_form_submit = document.getElementById("auth-form-creation-submit") as HTMLButtonElement;
-auth_form_submit?.addEventListener("click", (event) => sign_up_data_processing(event,"http://127.0.0.1:8080/representatives/new-account"));
+let authFormSubmit = document.getElementById("auth-form-creation-submit") as HTMLButtonElement;
+authFormSubmit?.addEventListener("click", (event) => signUpDataProcessing(event,"http://127.0.0.1:8080/representatives/new-account"));
 
 
 function logout(){
@@ -214,16 +214,16 @@ function logout(){
     link.style.backgroundColor = "purple";
 
     // Removing the HTML from the welcome message
-    let welcome_container2 = document.getElementById("welcome-container2") as HTMLElement;
-    welcome_container2.innerHTML="";
+    let welcomeContainer2 = document.getElementById("welcome-container2") as HTMLElement;
+    welcomeContainer2.innerHTML="";
 
     // Toggling the visibility of the projects main content
-    let projects_main_content = document.getElementById("projects-main-content") as HTMLElement;
-    projects_main_content.style.display = 'none';
+    let projectsMainContent = document.getElementById("projects-main-content") as HTMLElement;
+    projectsMainContent.style.display = 'none';
 
     // Toggling the visibility of the new account area
-    let new_account_proj_rep = document.getElementById("new-account_proj-rep") as HTMLElement;
-    new_account_proj_rep.style.display = 'block';
+    let newAccountProjRep = document.getElementById("new-accountProj-rep") as HTMLElement;
+    newAccountProjRep.style.display = 'block';
 
     // Removing the usernama data (TODO: to be done better later)
     document.cookie = "username=; path=/;";
@@ -233,10 +233,10 @@ function logout(){
 
 // Adding the event listeners for the logout link
 // TODO: to understand the issues with the event listeners that seem to not work
-let logout_link = document.getElementById("logout-link") as HTMLElement;
-logout_link?.addEventListener("click",logout);
-logout_link?.addEventListener("keydown", function(event){
-    console.debug("Entering logout_link?.addEventListener('keydown') function");
+let logoutLink = document.getElementById("logout-link") as HTMLElement;
+logoutLink?.addEventListener("click",logout);
+logoutLink?.addEventListener("keydown", function(event){
+    console.debug("Entering logoutLink?.addEventListener('keydown') function");
     if (event.key == "Enter" || event.key == "") {
         logout();
     }
