@@ -115,3 +115,4 @@ function checkPassword() {
 
 /* Listener for checking the password */
 checkPassword();
+

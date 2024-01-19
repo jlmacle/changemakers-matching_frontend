@@ -65,3 +65,5 @@ function getAbsoluteTime():number{
     const date = new Date();
     return date.getTime();
 }
+
+
