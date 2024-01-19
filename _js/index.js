@@ -35,3 +35,11 @@ function closeUserTypeOptionsModal() {
 /* Listener for the closing of the modal */
 let closeModal = document.getElementById("user-type-options-modal-closing");
 closeModal?.addEventListener("click", closeUserTypeOptionsModal);
+// Adding an event listener to help with keyboard navigation 
+// (a spacebar issue with a firefox version. Adding enter key in provision of another issue on another browser)
+let linkToProjRepPage = document.getElementById("link-to-proj-rep-page");
+linkToProjRepPage.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" || event.key === " ") {
+        document.location.href = "../_html/new-accountProject-representative.html";
+    }
+});
