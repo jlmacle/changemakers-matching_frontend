@@ -1,8 +1,10 @@
+import {addNewEventListnerForClickAndKeyboardNav } from './common.js';
 
 /**
  * Function opening the modal used to differentiate project representatives from contributors.
  */
-function openUserTypeOptionsModal(){      
+function openUserTypeOptionsModal(debug:boolean){      
+    if (debug) console.debug("openUserTypeOptionsModal() called");
     //Switching the aria-hidden attribute to true to make the main content inaccessible to screen readers
     let toIgnoreWhenModal1IsOn = document.getElementsByClassName("to-ignore-when-modal1") as HTMLCollectionOf<HTMLElement>;   
     for(let elem of toIgnoreWhenModal1IsOn){
@@ -14,16 +16,15 @@ function openUserTypeOptionsModal(){
     modal.style.display = "block";
     modal.focus();     
 }
-
-/* Listener for the opening of the modal */
-let newAccountOrLoginAccess = document.getElementById("new-account-or-login-access") as HTMLButtonElement;
-newAccountOrLoginAccess?.addEventListener("click", openUserTypeOptionsModal);
+/* Listener for the opening of the modal Boolean for debug mode.  */
+addNewEventListnerForClickAndKeyboardNav("new-account-or-login-access",openUserTypeOptionsModal, true);
 
 
 /**
  * Function closing the modal used to differentiate project representatives from contributors.
  */
-function closeUserTypeOptionsModal(){
+function closeUserTypeOptionsModal(debug:boolean){
+    if (debug) console.debug("closeUserTypeOptionsModal() called");
     //Switching the aria-hidden attribute to false to make the main content accessible to screen readers
     let toIgnoreWhenModal1IsOn = document.getElementsByClassName("to-ignore-when-modal1") as HTMLCollectionOf<HTMLElement>;   
     for(let elem of toIgnoreWhenModal1IsOn){
@@ -39,9 +40,12 @@ function closeUserTypeOptionsModal(){
     newAccountOrLoginAccess?.focus();
 }
 
-/* Listener for the closing of the modal */
-let closeModal = document.getElementById("user-type-options-modal-closing") as HTMLElement;
-closeModal?.addEventListener("click", closeUserTypeOptionsModal);
+/* Listener for the closing of the modal. Boolean for debug */
+addNewEventListnerForClickAndKeyboardNav("user-type-options-modal-closing", closeUserTypeOptionsModal, true);
+// TODO: to solve the generic issue of firing several events in one keystroke for example.
+// Current issue: closing and opening the modal with one keystroke.
+
+
 
 // Adding an event listener to help with keyboard navigation 
 // (a spacebar issue with a firefox version. Adding enter key in provision of another issue on another browser)
