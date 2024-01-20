@@ -1,5 +1,6 @@
 import { countryData } from "./data/countries-datahub.io.mjs";
 import { languageData } from "./data/languages-datahub.io.mjs";
+import { getAbsoluteTime } from "./common.js";
 let absoluteTimeSinceLastLanguageAddition = 0;
 let absoluteTimeForCurrentLanguageAddition = 1000;
 let addedLanguagesSelectedOptions = new Map();
