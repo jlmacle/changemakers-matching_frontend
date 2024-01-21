@@ -54,7 +54,7 @@ function checkUsername() {
     });      
 }
 
-/* Listener for checking the username */
+/* Calling the function to start the event listener for the username */
 checkUsername();
 
 
@@ -113,6 +113,6 @@ function checkPassword() {
     
 }
 
-/* Listener for checking the password */
+/* Calling the function to start the event listener for the password */
 checkPassword();
 

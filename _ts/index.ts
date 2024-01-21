@@ -1,7 +1,8 @@
-import {addNewEventListnerForClickAndKeyboardNav } from './common.js';
+import {addNewElementEventListenerForClickAndKeyboardNav } from './common.js';
 
 /**
  * Function opening the modal used to differentiate project representatives from contributors.
+ * debug A boolean for debug mode.
  */
 function openUserTypeOptionsModal(debug:boolean){      
     if (debug) console.debug("openUserTypeOptionsModal() called");
@@ -16,12 +17,10 @@ function openUserTypeOptionsModal(debug:boolean){
     modal.style.display = "block";
     modal.focus();     
 }
-/* Listener for the opening of the modal Boolean for debug mode.  */
-addNewEventListnerForClickAndKeyboardNav("new-account-or-login-access",openUserTypeOptionsModal, true);
-
 
 /**
  * Function closing the modal used to differentiate project representatives from contributors.
+ * debug A boolean for debug mode.
  */
 function closeUserTypeOptionsModal(debug:boolean){
     if (debug) console.debug("closeUserTypeOptionsModal() called");
@@ -40,20 +39,24 @@ function closeUserTypeOptionsModal(debug:boolean){
     newAccountOrLoginAccess?.focus();
 }
 
-/* Listener for the closing of the modal. Boolean for debug */
-addNewEventListnerForClickAndKeyboardNav("user-type-options-modal-closing", closeUserTypeOptionsModal, true);
-// TODO: to solve the generic issue of firing several events in one keystroke for example.
-// Current issue: closing and opening the modal with one keystroke.
+/**
+ * Function used to re-direct toward the project representative page 
+ */
+function redirectToProjRepPage(){
+    document.location.href = "../_html/new-accountProject-representative.html";
+}
 
+/****************************** Adding the event listeners to the index.html page  ********************************/
 
+/* Listener for the opening of the modal. Boolean for debug mode. */
+addNewElementEventListenerForClickAndKeyboardNav("new-account-or-login-access",openUserTypeOptionsModal, true);
 
-// Adding an event listener to help with keyboard navigation 
-// (a spacebar issue with a firefox version. Adding enter key in provision of another issue on another browser)
-let linkToProjRepPage = document.getElementById("link-to-proj-rep-page") as HTMLElement;
-linkToProjRepPage.addEventListener("keydown", function(event){
-    if (event.key === "Enter" || event.key === " "){
-        document.location.href = "../_html/new-accountProject-representative.html";
-    }
-})
+/* Listener for the closing of the modal. Boolean for debug mode. */
+addNewElementEventListenerForClickAndKeyboardNav("user-type-options-modal-closing", closeUserTypeOptionsModal, true);
+
+/* Listener for being re-directed toward the project representative page. */
+addNewElementEventListenerForClickAndKeyboardNav("link-to-proj-rep-page", redirectToProjRepPage, true);
+
+/* listeners for homepage and footer planned in common.ts */
 
 

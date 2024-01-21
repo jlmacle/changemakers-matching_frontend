@@ -1,6 +1,6 @@
 import { countryData } from "./data/countries-datahub.io.mjs"; 
 import { languageData } from "./data/languages-datahub.io.mjs";
-import { getAbsoluteTime } from "./common.js";
+import { addNewElementEventListenerForClickAndKeyboardNav, toggleElementVisibility, getAbsoluteTime } from "./common.js";
 
 declare global {
     interface Window {
@@ -17,18 +17,16 @@ let addedLanguagesSelectedOptions: Map<string,string> = new Map<string, string>(
 
 /****************** Signup toward project view  ***********************/
 
-/* Listener that checks if username/password can be sent to the backend */
-let authFormSubmit = document.getElementById("auth-form-creation-submit") as HTMLButtonElement;
-authFormSubmit?.addEventListener("click", (event) => signUpDataProcessing(event,"http://127.0.0.1:8080/representatives/new-account"));
 
 /**
  * Function used to push the username and password to the backend.
  * @param event The event that triggered the function.
  * @param url The url to send the data to.
+ * @param debug A boolean for debug mode.
  * 
  */
-function signUpDataProcessing(event: Event, url: string) 
-{   let debug = true;
+function signUpDataProcessing(event: Event, url: string, debug:boolean) {
+    if (debug) console.debug("signUpDataProcessing() called");
 
     event.preventDefault(); // to avoid unexpected network behaviors causing network errors
     let usernameElem = document.getElementById("username") as HTMLInputElement;
@@ -105,7 +103,7 @@ function displayProjectView(username: string){
     // Welcome message
     let welcomeElem = document.getElementById("welcome-container2") as HTMLElement;
     let htmlToAdd =`<div aria-hidden="true">Welcome, ${username}</div>
-                      <div id="logout"><a id="logout-link" href="javascript:void(0)" onclick="window.logout()" >Logout</a></div>`
+                      <div id="logout"><a id="logout-link" href="javascript:void(0)" onclick="window.logout()">Logout</a></div>`
     welcomeElem.innerHTML = htmlToAdd;
 
     // Toggling the visibility of the project main content
@@ -210,6 +208,8 @@ function renumberKeyValueMap(numberRemoved:number, totalNumberOfElements:number,
  * Function used to remove one of the prefered languages
  * @param languageId The id of the language to remove
  */
+
+  // TODO:  issue to correct in the code. Some deletions do not keep the selection value.
 window.removePreferedLanguage = function(number4LanguageToRemove:number){
     let debug = true;  
     
@@ -223,6 +223,7 @@ window.removePreferedLanguage = function(number4LanguageToRemove:number){
 
     // E.g.: 3 languages added:  L1, L2, L3, L4
     // Removing L2:              L1,     L3, L4
+    // TODO: referenceString code duplication to refactor
     let patternToSubstitute: string = "**languageNumberIncremented**";
     let referenceString: string = 
     `<li id="list-language-**languageNumberIncremented**" class="added-language-li">
@@ -252,6 +253,7 @@ window.removePreferedLanguage = function(number4LanguageToRemove:number){
     // Adding the renumbered string
     let numberBeforeLanguageToRemove = number4LanguageToRemove - 1;
     let previousLanguageItem = document.getElementById(`list-language-${numberBeforeLanguageToRemove}`) as HTMLElement;
+    // TODO: AppSecurity: use of insertAdjacentHTML ?
     previousLanguageItem.insertAdjacentHTML("afterend",renumberedString);    
 
     // Renumbering the ids
@@ -312,10 +314,10 @@ function addAnotherLanguage(){
 
 /**
  * Function used to avoid issues with adding several languages on a single key press
+ * @param debug A boolean for debug mode.
  */
-function addAnotherLanguageUsingATimeBuffer(){
-    let debug = true;
-    console.debug("\n"+"Entering addAnotherLanguageUsingATimeBuffer() function");
+function addAnotherLanguageUsingATimeBuffer(debug:boolean){
+    if (debug) console.debug("addAnotherLanguageUsingATimeBuffer() () called");
 
     //Saving the previously recorded time and recording the current time
     absoluteTimeSinceLastLanguageAddition = absoluteTimeForCurrentLanguageAddition;
@@ -332,13 +334,6 @@ function addAnotherLanguageUsingATimeBuffer(){
 }
 
 
-let newLanguageAddition = document.getElementById("new-language-addition-link") as HTMLElement;
-newLanguageAddition.addEventListener("click", addAnotherLanguageUsingATimeBuffer);
-newLanguageAddition.addEventListener("keydown", function(event){
-    if (event.key === "Enter" || event.key === " ") {
-        addAnotherLanguageUsingATimeBuffer();
-    }
-});
 
 
 // Adding an event listener to monitor the values of the prefered languages
@@ -353,9 +348,12 @@ document.addEventListener("change", function(event){
     }
 });
 
-/****************** Logout (to move eventually)  ***********************/
+/****************** Logout (to move eventually; common to the contributor page as well)  ***********************/
 
-window.logout = function(){
+window.logout = function(){    
+    let debug = true;
+    if (debug) console.debug("logout() called");
+
     let link = document.getElementById("logout-link") as HTMLElement;
     link.style.backgroundColor = "purple";
 
@@ -371,13 +369,28 @@ window.logout = function(){
     let newAccountProjRep = document.getElementById("new-accountProj-rep") as HTMLElement;
     newAccountProjRep.style.display = 'block';
 
-    // Removing the usernama data (TODO: to be done better later)
+    // Removing the username data (TODO: to be done better later)
     document.cookie = "username=; path=/;";
     window.location.reload();
 }
 
-// Adding the event listeners for the logout link
-// TODO: to understand the issues with the event listeners that seem to not work
+
+
+/******************  Event listeners (incl. for keyboard navigation) ***********************/
+
+/* Listener for the submit button */
+/* Listener that checks if username/password can be sent to the backend */
+// TDOD: use of the generic code if possible
+let authFormSubmit = document.getElementById("auth-form-creation-submit") as HTMLButtonElement;
+authFormSubmit?.addEventListener("click", (event) => signUpDataProcessing(event,"http://127.0.0.1:8080/representatives/new-account",true));
+
+/* Listener for the toggling of visibility in the project dashboard view */
+addNewElementEventListenerForClickAndKeyboardNav("new-project-definition-invite-button", toggleElementVisibility, "new-project-definition", true);
+
+/* Listener for adding a new language */ 
+addNewElementEventListenerForClickAndKeyboardNav("new-language-addition-link", addAnotherLanguageUsingATimeBuffer, true);
+
+/* Listener for the logout link */
 let logoutLink = document.getElementById("logout-link") as HTMLElement;
 logoutLink?.addEventListener("click",window.logout);
 logoutLink?.addEventListener("keydown", function(event){
@@ -386,9 +399,11 @@ logoutLink?.addEventListener("keydown", function(event){
         window.logout();
     }
 });
-
-/******************  Event listeners (incl. for keyboard navigation) ***********************/
-
-
+// TODO: the logout event listener is not functioning. Issue to understand
+// if (document.getElementById("logout") !== null) {
+//     console.debug('document.getElementById("logout") !== null');
+//     addNewElementEventListenerForClickAndKeyboardNav("logout", logout, true);
+// }
+// else console.debug('document.getElementById("logout") is null');
 
 

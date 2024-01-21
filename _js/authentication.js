@@ -51,7 +51,7 @@ function checkUsername() {
         }
     });
 }
-/* Listener for checking the username */
+/* Calling the function to start the event listener for the username */
 checkUsername();
 /**
  * Function used to check if the password is acceptable.
@@ -104,5 +104,5 @@ function checkPassword() {
         }
     });
 }
-/* Listener for checking the password */
+/* Calling the function to start the event listener for the password */
 checkPassword();
