@@ -1,8 +1,6 @@
 
 /****************** Generic code for event listeners  ***********************/
 
-// TODO: use of generic event listeners
-
 let timeSince1970WhenThePreviousEventIsFired:number = 0;
 let timeSince1970WhenTheCurrentEventIsFired:number = 1000;
 
@@ -15,9 +13,10 @@ let timeSince1970WhenTheCurrentEventIsFired:number = 1000;
  * @param ...args The arguments for the function.
  */
 function functionCallingAnotherFunctionUsingATimeBuffer<T>
-    (functionToCall: (...args: any[]) => T , 
-    // Function with an unknown number and types of arguments, and an unknown return type
-    ...args:any[]
+    (
+        functionToCall: (...args: any[]) => T , 
+        // Function with an unknown number and types of arguments, and an unknown return type
+        ...args:any[]
     )
     {
         let debug = false;
@@ -36,15 +35,17 @@ function functionCallingAnotherFunctionUsingATimeBuffer<T>
  * @param timeSince1970WhenTheEventIsFired A time reference for determining the time elapsed between two consecutive events.
  * @param debug A boolean for debug mode.
  */
-export const  addNewEventListnerForClickAndKeyboardNav 
+export const  addNewElementEventListenerForClickAndKeyboardNav 
     =  <T>
-        (   elementId:string, 
+        (   
+            elementId:string, 
             functionToCall: (...args: any[]) => T,
             ...args:any[]
+
         ) => {
             let element = document.getElementById(elementId) as HTMLElement;
             element.addEventListener("click", (event) => {
-                    console.log("\n"+"Event called with a click.");
+                    console.debug("\n"+"Event called with a click.");
                     let date = new Date();  
                     timeSince1970WhenTheCurrentEventIsFired = date.getTime();
                     functionCallingAnotherFunctionUsingATimeBuffer(functionToCall, ...args); 
@@ -66,39 +67,49 @@ export const  addNewEventListnerForClickAndKeyboardNav
 
 /**
  * Function used to toggle the visibility of an element.
- * @param elementId the id of the element to toggle
+ * @param elementId the id of the element to toggle.
+ * @param debug a boolean for debug mode.
  */
-function toggleElementVisibility(elementId: string){
-    let element = document.getElementById(elementId) as HTMLElement;
+export const toggleElementVisibility = 
+    (
+        elementId: string, 
+        debug:boolean
 
-    if (element.style.display == "block"){
-        element.style.display = "none";
-    }
-    else if (element.style.display == "none"){
-        element.style.display = "block";
-    }
-}
+    ) => {
+        if (debug) console.debug("toggleElementVisibility() called");
+        let element = document.getElementById(elementId) as HTMLElement;
+
+        if (element.style.display == "block"){
+            element.style.display = "none";
+        }
+        else if (element.style.display == "none"){
+            element.style.display = "block";
+        }
+    };
 
 /**
+ * NOT USED AFTER CODE REFACTORING
  * Function used to toggle the font weight of an element from bold to normal and vice-versa.
  * @param elementId the id of the element to toggle
  */
-function toggleElementBoldness(elementId: string){
-    let element = document.getElementById(elementId) as HTMLElement;
+function toggleElementBoldness 
+    (
+        elementId: string
+    ){
+        let element = document.getElementById(elementId) as HTMLElement;
 
-    if(element.style.fontWeight == "bold"){
-        element.style.fontWeight = "normal";
-    }
+        if(element.style.fontWeight == "bold"){
+            element.style.fontWeight = "normal";
+        }
 
-    else if (element.style.fontWeight ==  "normal"){
-        element.style.fontWeight = "bold";
-    }
-    else{
-        console.warn(`Unexpected fontweight value: ${element.style.fontWeight}`);
-        
-    }
-
-}
+        else if (element.style.fontWeight ==  "normal"){
+            element.style.fontWeight = "bold";
+        }
+        else{
+            console.warn(`Unexpected fontweight value: ${element.style.fontWeight}`);
+            
+        }
+};
 
 /****************** Misc.  ***********************/
 
@@ -111,4 +122,17 @@ export const getAbsoluteTime= ():number => {
     const date = new Date();
     return date.getTime();
 }
+
+
+/*********************** Adding the event listeners *****************************/
+/**
+ * Function used to re-direct toward the home page 
+ */
+function redirectToHomePage(){
+    document.location.href = "../_html/index.html";
+}
+
+addNewElementEventListenerForClickAndKeyboardNav("header-title-container",redirectToHomePage,true);
+
+/* TODO Event listeners for footer links */
 

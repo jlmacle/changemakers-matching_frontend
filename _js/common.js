@@ -1,5 +1,4 @@
 /****************** Generic code for event listeners  ***********************/
-// TODO: use of generic event listeners
 let timeSince1970WhenThePreviousEventIsFired = 0;
 let timeSince1970WhenTheCurrentEventIsFired = 1000;
 /**
@@ -32,10 +31,10 @@ function functionCallingAnotherFunctionUsingATimeBuffer(functionToCall,
  * @param timeSince1970WhenTheEventIsFired A time reference for determining the time elapsed between two consecutive events.
  * @param debug A boolean for debug mode.
  */
-export const addNewEventListnerForClickAndKeyboardNav = (elementId, functionToCall, ...args) => {
+export const addNewElementEventListenerForClickAndKeyboardNav = (elementId, functionToCall, ...args) => {
     let element = document.getElementById(elementId);
     element.addEventListener("click", (event) => {
-        console.log("\n" + "Event called with a click.");
+        console.debug("\n" + "Event called with a click.");
         let date = new Date();
         timeSince1970WhenTheCurrentEventIsFired = date.getTime();
         functionCallingAnotherFunctionUsingATimeBuffer(functionToCall, ...args);
@@ -54,9 +53,12 @@ export const addNewEventListnerForClickAndKeyboardNav = (elementId, functionToCa
 /****************** Toggle functions  ***********************/
 /**
  * Function used to toggle the visibility of an element.
- * @param elementId the id of the element to toggle
+ * @param elementId the id of the element to toggle.
+ * @param debug a boolean for debug mode.
  */
-function toggleElementVisibility(elementId) {
+export const toggleElementVisibility = (elementId, debug) => {
+    if (debug)
+        console.debug("toggleElementVisibility() called");
     let element = document.getElementById(elementId);
     if (element.style.display == "block") {
         element.style.display = "none";
@@ -64,8 +66,9 @@ function toggleElementVisibility(elementId) {
     else if (element.style.display == "none") {
         element.style.display = "block";
     }
-}
+};
 /**
+ * NOT USED AFTER CODE REFACTORING
  * Function used to toggle the font weight of an element from bold to normal and vice-versa.
  * @param elementId the id of the element to toggle
  */
@@ -81,6 +84,7 @@ function toggleElementBoldness(elementId) {
         console.warn(`Unexpected fontweight value: ${element.style.fontWeight}`);
     }
 }
+;
 /****************** Misc.  ***********************/
 /**
  * Function used to get the time elapsed in milliseconds since 1970.
@@ -91,3 +95,12 @@ export const getAbsoluteTime = () => {
     const date = new Date();
     return date.getTime();
 };
+/*********************** Adding the event listeners *****************************/
+/**
+ * Function used to re-direct toward the home page
+ */
+function redirectToHomePage() {
+    document.location.href = "../_html/index.html";
+}
+addNewElementEventListenerForClickAndKeyboardNav("header-title-container", redirectToHomePage, true);
+/* TODO Event listeners for footer links */
