@@ -85,6 +85,16 @@ function toggleElementBoldness(elementId) {
     }
 }
 ;
+/****************** Sign-up/Sign-in data ***********************/
+/**
+ * Function used to push the username and password to the backend, and to build the user dashboard when logged in.
+ * @param event The event that triggered the function.
+ * @param url The url to send the data to.
+ * @param displyViewFunction The function used to display the view.
+ * @param debug A boolean for debug mode.
+ *
+ */
+// TODO: a generic Sign-up/Sign-in function
 /****************** Misc.  ***********************/
 /**
  * Function used to get the time elapsed in milliseconds since 1970.
