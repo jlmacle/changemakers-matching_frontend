@@ -4,6 +4,7 @@ import { addNewElementEventListenerForClickAndKeyboardNav, toggleElementVisibili
 let absoluteTimeSinceLastLanguageAddition = 0;
 let absoluteTimeForCurrentLanguageAddition = 1000;
 let addedLanguagesSelectedOptions = new Map();
+let htmlToAdd4NewLanguage = "";
 /****************** Signup toward project view  ***********************/
 /**
  * Function used to push the username and password to the backend.
@@ -46,7 +47,7 @@ function signUpDataProcessing(event, url, debug) {
             // To accomplish this goal, browsers which support the secure attribute 
             // will only send cookies with the secure attribute when the request is going to an HTTPS page."
             // temp cookie for testing (to be done better later)
-            document.cookie = `username=${username}; path=/; max-age=3600;`;
+            document.cookie = `username=${username}; path=/; max-age=360000;`;
             if (debug)
                 console.debug("Cookie set: " + document.cookie);
             displayProjectView(username);
@@ -64,8 +65,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (debug)
             console.debug("usernamePart = " + usernamePart);
         let username = usernamePart.split("=")[1];
-        if (username !== "")
+        if (username !== "") {
             displayProjectView(username);
+            console.debug("Valid cookie found: project view dispalyed.");
+        }
     }
 });
 /****************** Project view display ***********************/
@@ -80,8 +83,10 @@ function displayProjectView(username) {
     // Welcome message
     let welcomeElem = document.getElementById("welcome-container2");
     let htmlToAdd = `<div aria-hidden="true">Welcome, ${username}</div>
-                      <div id="logout"><a id="logout-link" href="javascript:void(0)" onclick="window.logout()">Logout</a></div>`;
+                      <div id="logout"><a id="logout-link" href="javascript:void(0)">Logout</a></div>`;
     welcomeElem.innerHTML = htmlToAdd;
+    // Adding the event listener
+    addNewElementEventListenerForClickAndKeyboardNav("logout-link", logout, true);
     // Toggling the visibility of the project main content
     let projectsElem = document.getElementById("projects-main-content");
     projectsElem.style.display = "block";
@@ -135,6 +140,10 @@ function renumberString(numberRemoved, totalNumberOfElements, patternStringToRen
 }
 function renumberKeyValueMap(numberRemoved, totalNumberOfElements, keyPattern, originalMap) {
     let debug = true;
+    if (debug) {
+        console.debug("     Content of the original id-value map before renumbering.");
+        originalMap.forEach((value, key) => console.debug(`          Key: ${key}, value: ${value}`));
+    }
     let mapToReturn = new Map();
     for (let i = numberRemoved + 1; i <= totalNumberOfElements; i++) {
         //Getting the original data
@@ -143,64 +152,35 @@ function renumberKeyValueMap(numberRemoved, totalNumberOfElements, keyPattern, o
         mapToReturn.set(renumberedKey, "" + value);
     }
     if (debug) {
-        mapToReturn.forEach((value, key) => { console.debug(`Key: ${key}, Value: ${value}`); });
+        console.debug("     Content of the id-value map after renumbering.");
+        mapToReturn.forEach((value, key) => { console.debug(`           Key: ${key}, Value: ${value}`); });
     }
     return mapToReturn;
 }
 /**
-* Function used to remove one of the prefered languages
-* @param languageId The id of the language to remove
-*/
-// TODO:  issue to correct in the code. Some deletions do not keep the selection value.
-window.removePreferedLanguage = function (number4LanguageToRemove) {
-    let debug = true;
-    console.debug("\n" + "Entering removePreferedLanguage() function");
-    let languagesAdded = document.getElementsByClassName("added-language-li");
-    let numberOfLanguages = languagesAdded.length + 1;
-    let parentElem = document.getElementById("languages-list");
-    let htmlElemToRemove = document.getElementById(`list-language-${number4LanguageToRemove}`);
-    parentElem?.removeChild(htmlElemToRemove);
-    // E.g.: 3 languages added:  L1, L2, L3, L4
-    // Removing L2:              L1,     L3, L4
-    // TODO: referenceString code duplication to refactor
-    let patternToSubstitute = "**languageNumberIncremented**";
-    let referenceString = `<li id="list-language-**languageNumberIncremented**" class="added-language-li">
+ * Functions used to avoid code redundancy when working with strings related to adding a new language
+ * @param value_to_insert The value to substitute inside the string
+ * @returns The string to add to the HTML
+ */
+function getLanguageToAddString(value_to_insert) {
+    let html_to_return = `<li id="list-language-${value_to_insert}" class="added-language-li">
         <div class="new-project-definition-container">
-            <label class="new-project-definition-label preferedLanguage" for="project-language-**languageNumberIncremented**">
-                Language **languageNumberIncremented**
+            <label class="new-project-definition-label preferedLanguage" for="project-language-${value_to_insert}">
+                Language ${value_to_insert}
             </label>
             <div class="new-project-definition-input" style="padding-top:1px;">
-                <select id="project-language-**languageNumberIncremented**" class="added-language-select"
-                    name="project-language-**languageNumberIncremented**">`
+                <select id="project-language-${value_to_insert}" class="added-language-select"
+                    name="project-language-${value_to_insert}">`
         + getLanguageList() +
         `</select>  
-                <span  tabindex="0"  id="delete-language-**languageNumberIncremented**" class="added-language-delete"
-                    onclick="window.removePreferedLanguage(**languageNumberIncremented**);">&times;
+                <span  tabindex="0"  id="delete-language-${value_to_insert}" class="added-language-delete"
+                    onclick="window.removePreferedLanguage(${value_to_insert});">&times;
                 </span>                                   
             </div>
         </div>
     </li>`;
-    let renumberedString = renumberString(number4LanguageToRemove, numberOfLanguages, referenceString, patternToSubstitute);
-    // Removing the languages added after the one removed, before adding the renumbered string
-    for (let i = number4LanguageToRemove + 1; i <= numberOfLanguages; i++) {
-        let htmlToRemove = document.getElementById(`list-language-${i}`);
-        parentElem?.removeChild(htmlToRemove);
-    }
-    // Adding the renumbered string
-    let numberBeforeLanguageToRemove = number4LanguageToRemove - 1;
-    let previousLanguageItem = document.getElementById(`list-language-${numberBeforeLanguageToRemove}`);
-    // TODO: AppSecurity: use of insertAdjacentHTML ?
-    previousLanguageItem.insertAdjacentHTML("afterend", renumberedString);
-    // Renumbering the ids
-    let renumberedMap = renumberKeyValueMap(number4LanguageToRemove, numberOfLanguages, "project-language-", addedLanguagesSelectedOptions);
-    // Setting the recorded values for the options
-    if (debug)
-        console.debug(`About to set the recorded values for the options. Size of map: ${renumberedMap.size}`);
-    renumberedMap.forEach((value, key) => {
-        let elem = document.getElementById(key);
-        elem.selectedIndex = parseInt(value);
-    });
-};
+    return html_to_return;
+}
 /**
  * Function used to add another prefered language to the project.
  */
@@ -211,25 +191,10 @@ function addAnotherLanguage() {
     let languageNumber = languagesElems.length;
     console.debug(`Number of languages already added: ${languageNumber}`);
     let languageNumberIncremented = languageNumber + 1;
-    let htmlToAdd = `<li id="list-language-${languageNumberIncremented}" class="added-language-li">
-                            <div class="new-project-definition-container">
-                                <label class="new-project-definition-label preferedLanguage" for="project-language-${languageNumberIncremented}">
-                                    Language ${languageNumberIncremented}
-                                </label>
-                                <div class="new-project-definition-input">
-                                    <select id="project-language-${languageNumberIncremented}" 
-                                        name="project-language-${languageNumberIncremented}" class="added-language-select">`
-        + getLanguageList() +
-        `</select>  
-                                    <span  tabindex="0"  id="delete-language-${languageNumberIncremented}" class="added-language-delete"
-                                        onclick="removePreferedLanguage(${languageNumberIncremented});">&times;
-                                    </span>                                   
-                                </div>
-                            </div>
-                        </li>`;
+    htmlToAdd4NewLanguage = getLanguageToAddString("" + languageNumberIncremented);
     // TODO: the 'X' accessibility to work on
     let newLanguageAdditionContentElem = document.getElementById("new-language-addition-content");
-    newLanguageAdditionContentElem.insertAdjacentHTML('beforebegin', htmlToAdd);
+    newLanguageAdditionContentElem.insertAdjacentHTML('beforebegin', htmlToAdd4NewLanguage);
     //Adding an event listener to remove the language later
     // TODO: to extract the code into a method to avoid code duplication
     let deleteLanguageElem = document.getElementById(`delete-language-${languageNumberIncremented}`);
@@ -258,22 +223,62 @@ function addAnotherLanguageUsingATimeBuffer(debug) {
     else if (debug)
         console.debug(`Time between two language additions too short: ${timeDifference}. Not adding another language.`);
 }
-// Adding an event listener to monitor the values of the prefered languages
-document.addEventListener("change", function (event) {
+/**
+* Function used to remove one of the prefered languages
+* @param number4LanguageToRemove The number of the language to remove
+*/
+window.removePreferedLanguage = function (number4LanguageToRemove) {
     let debug = true;
+    // Getting the added languages elements
+    console.debug("\n" + `removePreferedLanguage() called on language number ${number4LanguageToRemove}.`);
+    let languagesAdded = document.getElementsByClassName("added-language-li");
+    let numberOfLanguages = languagesAdded.length + 1;
+    // Removing the language element
+    let parentElem = document.getElementById("languages-list");
+    let htmlElemToRemove = document.getElementById(`list-language-${number4LanguageToRemove}`);
+    parentElem?.removeChild(htmlElemToRemove);
+    // Before removing the next languages, storing the current id-value pairs:
     if (debug)
-        console.debug("\n" + "Entering change event listener for language selection");
+        console.debug("  Storing the current id-value pairs before removing following languages.");
     let addedLanguageSelectElems = document.getElementsByClassName("added-language-select");
-    if (debug)
-        console.debug(`Number of added languages: ${addedLanguageSelectElems.length}`);
     for (let elem of addedLanguageSelectElems) {
         addedLanguagesSelectedOptions.set(elem.id, "" + elem.selectedIndex);
         if (debug)
-            console.debug(`Index selected: ${addedLanguagesSelectedOptions.get(elem.id)} in ${elem.id}`);
+            console.debug(`      Added to map: Index selected: ${addedLanguagesSelectedOptions.get(elem.id)} for key ${elem.id}`);
     }
-});
+    // Building the renumbered language strings to add later
+    let patternToSubstitute = "**languageNumberIncremented**";
+    // Building a string similar to the one to insert when adding a new language 
+    let referenceString = getLanguageToAddString("**languageNumberIncremented**");
+    let renumberedStrings = renumberString(number4LanguageToRemove, numberOfLanguages, referenceString, patternToSubstitute);
+    // Removing the languages added after the one removed (the numbers need to be updated), 
+    // before adding the strings with updated numbers.
+    for (let i = number4LanguageToRemove + 1; i <= numberOfLanguages; i++) {
+        let languageToRemoveId = `list-language-${i}`;
+        if (debug)
+            console.debug(`  Removing language of id: ${languageToRemoveId}`);
+        let htmlToRemove = document.getElementById(languageToRemoveId);
+        parentElem?.removeChild(htmlToRemove);
+    }
+    // Adding the renumbered strings
+    let numberBeforeLanguageToRemove = number4LanguageToRemove - 1;
+    let previousLanguageItem = document.getElementById(`list-language-${numberBeforeLanguageToRemove}`);
+    // TODO: AppSecurity: use of insertAdjacentHTML ?
+    previousLanguageItem.insertAdjacentHTML("afterend", renumberedStrings);
+    // Renumbering the ids (only the languages after the one removed are taken into account in the returned map.)          
+    let renumberedMap = renumberKeyValueMap(number4LanguageToRemove, numberOfLanguages, "project-language-", addedLanguagesSelectedOptions);
+    // Setting the recorded values for the options
+    if (debug)
+        console.debug(`  Setting the recorded values for the options. Size of map: ${renumberedMap.size}`);
+    renumberedMap.forEach((value, key) => {
+        let elem = document.getElementById(key);
+        elem.selectedIndex = parseInt(value);
+    });
+    // Clearing the selected optons map 
+    addedLanguagesSelectedOptions.clear();
+};
 /****************** Logout (to move eventually; common to the contributor page as well)  ***********************/
-window.logout = function () {
+function logout() {
     let debug = true;
     if (debug)
         console.debug("logout() called");
@@ -291,8 +296,9 @@ window.logout = function () {
     // Removing the username data (TODO: to be done better later)
     document.cookie = "username=; path=/;";
     window.location.reload();
-};
+}
 /******************  Event listeners (incl. for keyboard navigation) ***********************/
+/* Listener for the logout link: added after the logout link addition */
 /* Listener for the submit button */
 /* Listener that checks if username/password can be sent to the backend */
 // TDOD: use of the generic code if possible
@@ -303,17 +309,19 @@ addNewElementEventListenerForClickAndKeyboardNav("new-project-definition-invite-
 /* Listener for adding a new language */
 addNewElementEventListenerForClickAndKeyboardNav("new-language-addition-link", addAnotherLanguageUsingATimeBuffer, true);
 /* Listener for the logout link */
-let logoutLink = document.getElementById("logout-link");
-logoutLink?.addEventListener("click", window.logout);
-logoutLink?.addEventListener("keydown", function (event) {
-    console.debug("Entering logoutLink?.addEventListener('keydown') function");
-    if (event.key === "Enter" || event.key === "") {
-        window.logout();
-    }
-});
-// TODO: the logout event listener is not functioning. Issue to understand
-// if (document.getElementById("logout") !== null) {
-//     console.debug('document.getElementById("logout") !== null');
-//     addNewElementEventListenerForClickAndKeyboardNav("logout", logout, true);
-// }
-// else console.debug('document.getElementById("logout") is null');
+// let logoutLink = document.getElementById("logout-link") as HTMLElement;
+// logoutLink?.addEventListener("click",window.logout);
+// logoutLink?.addEventListener("keydown", function(event){
+//     console.debug("Entering logoutLink?.addEventListener('keydown') function");
+//     if (event.key === "Enter" || event.key === "") {
+//         window.logout();
+//     }
+// });
+// TODO: to add the logout event listener when the element is available in the dom
+if (document.getElementById("logout-link") !== null) {
+    console.debug('document.getElementById("logout-link") !== null');
+}
+else {
+    console.debug('document.getEl  ementById("logout-link") is null');
+    console.debug("** The event listener wasn't added. **");
+}
