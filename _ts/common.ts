@@ -22,7 +22,7 @@ function functionCallingAnotherFunctionUsingATimeBuffer<T>
         let debug = false;
         if (debug) console.debug(`timeSince1970WhenThePreviousEventIsFired: ${timeSince1970WhenThePreviousEventIsFired}`+"\n"+
                                 `timeSince1970WhenTheCurrentEventIsFired: ${timeSince1970WhenTheCurrentEventIsFired}`);
-        let delayBetweenEvents = timeSince1970WhenTheCurrentEventIsFired -timeSince1970WhenThePreviousEventIsFired;
+        let delayBetweenEvents = timeSince1970WhenTheCurrentEventIsFired - timeSince1970WhenThePreviousEventIsFired;
         if (delayBetweenEvents < 500) console.debug(`Event ignored. Delay between the 2 events is < 500 ms (${delayBetweenEvents} ms).`);
         else {functionToCall(...args); console.debug(`Event responded to. Delay between the 2 events is > 500 ms (${delayBetweenEvents} ms).`);}
     }
@@ -35,7 +35,7 @@ function functionCallingAnotherFunctionUsingATimeBuffer<T>
  * @param timeSince1970WhenTheEventIsFired A time reference for determining the time elapsed between two consecutive events.
  * @param debug A boolean for debug mode.
  */
-export const  addNewElementEventListenerForClickAndKeyboardNav 
+export const  addElementEventListenerForClickAndKeyboardNav 
     =  <T>
         (   
             elementId:string, 
@@ -117,7 +117,7 @@ function toggleElementBoldness
  * Function used to push the username and password to the backend, and to build the user dashboard when logged in.
  * @param event The event that triggered the function.
  * @param url The url to send the data to.
- * @param displyViewFunction The function used to display the view.
+ * @param displayViewFunction The function used to display the view.
  * @param debug A boolean for debug mode.
  * 
  */
@@ -136,8 +136,6 @@ export const getAbsoluteTime= ():number => {
     return date.getTime();
 }
 
-
-/*********************** Adding the event listeners *****************************/
 /**
  * Function used to re-direct toward the home page 
  */
@@ -145,7 +143,9 @@ function redirectToHomePage(){
     document.location.href = "../_html/index.html";
 }
 
-addNewElementEventListenerForClickAndKeyboardNav("header-title-container",redirectToHomePage,true);
+/*********************** Adding the event listeners *****************************/
+
+addElementEventListenerForClickAndKeyboardNav("header-title-container",redirectToHomePage,true);
 
 /* TODO Event listeners for footer links */
 
