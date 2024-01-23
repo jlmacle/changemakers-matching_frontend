@@ -1,6 +1,6 @@
 import { countryData } from "./data/countries-datahub.io.mjs";
 import { languageData } from "./data/languages-datahub.io.mjs";
-import { addNewElementEventListenerForClickAndKeyboardNav, toggleElementVisibility, getAbsoluteTime } from "./common.js";
+import { addElementEventListenerForClickAndKeyboardNav, toggleElementVisibility, getAbsoluteTime } from "./common.js";
 let absoluteTimeSinceLastLanguageAddition = 0;
 let absoluteTimeForCurrentLanguageAddition = 1000;
 let addedLanguagesSelectedOptions = new Map();
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let username = usernamePart.split("=")[1];
         if (username !== "") {
             displayProjectView(username);
-            console.debug("Valid cookie found: project view dispalyed.");
+            console.debug("Valid cookie found: project view displayed.");
         }
     }
 });
@@ -86,7 +86,7 @@ function displayProjectView(username) {
                       <div id="logout"><a id="logout-link" href="javascript:void(0)">Logout</a></div>`;
     welcomeElem.innerHTML = htmlToAdd;
     // Adding the event listener
-    addNewElementEventListenerForClickAndKeyboardNav("logout-link", logout, true);
+    addElementEventListenerForClickAndKeyboardNav("logout-link", logout, true);
     // Toggling the visibility of the project main content
     let projectsElem = document.getElementById("projects-main-content");
     projectsElem.style.display = "block";
@@ -145,6 +145,7 @@ function renumberKeyValueMap(numberRemoved, totalNumberOfElements, keyPattern, o
         originalMap.forEach((value, key) => console.debug(`          Key: ${key}, value: ${value}`));
     }
     let mapToReturn = new Map();
+    // Need to renumber the languages that were after the language deleted, before re-displaying their data.
     for (let i = numberRemoved + 1; i <= totalNumberOfElements; i++) {
         //Getting the original data
         let renumberedKey = keyPattern + (i - 1);
@@ -158,11 +159,11 @@ function renumberKeyValueMap(numberRemoved, totalNumberOfElements, keyPattern, o
     return mapToReturn;
 }
 /**
- * Functions used to avoid code redundancy when working with strings related to adding a new language
+ * Function used to avoid code redundancy when working with strings related to adding a new language
  * @param value_to_insert The value to substitute inside the string
  * @returns The string to add to the HTML
  */
-function getLanguageToAddString(value_to_insert) {
+function getLanguageToAddHTMLString(value_to_insert) {
     let html_to_return = `<li id="list-language-${value_to_insert}" class="added-language-li">
         <div class="new-project-definition-container">
             <label class="new-project-definition-label preferedLanguage" for="project-language-${value_to_insert}">
@@ -173,8 +174,7 @@ function getLanguageToAddString(value_to_insert) {
                     name="project-language-${value_to_insert}">`
         + getLanguageList() +
         `</select>  
-                <span  tabindex="0"  id="delete-language-${value_to_insert}" class="added-language-delete"
-                    onclick="window.removePreferedLanguage(${value_to_insert});">&times;
+                <span  tabindex="0"  id="delete-language-${value_to_insert}" class="added-language-delete">&times;
                 </span>                                   
             </div>
         </div>
@@ -188,21 +188,15 @@ function addAnotherLanguage() {
     console.debug("Entering addAnotherLanguage() function");
     //Gettng the number of languages already added
     let languagesElems = document.getElementsByClassName("preferedLanguage");
-    let languageNumber = languagesElems.length;
-    console.debug(`Number of languages already added: ${languageNumber}`);
-    let languageNumberIncremented = languageNumber + 1;
-    htmlToAdd4NewLanguage = getLanguageToAddString("" + languageNumberIncremented);
-    // TODO: the 'X' accessibility to work on
+    let totalNumberOfLanguages = languagesElems.length;
+    console.debug(`Number of languages already added: ${totalNumberOfLanguages}`);
+    let number4TheLanguageToAdd = totalNumberOfLanguages + 1;
+    htmlToAdd4NewLanguage = getLanguageToAddHTMLString("" + number4TheLanguageToAdd);
+    // TODO: the 'X' accessibility to check on
     let newLanguageAdditionContentElem = document.getElementById("new-language-addition-content");
     newLanguageAdditionContentElem.insertAdjacentHTML('beforebegin', htmlToAdd4NewLanguage);
     //Adding an event listener to remove the language later
-    // TODO: to extract the code into a method to avoid code duplication
-    let deleteLanguageElem = document.getElementById(`delete-language-${languageNumberIncremented}`);
-    deleteLanguageElem?.addEventListener("keydown", function (event) {
-        if (event.key === "Enter" || event.key === " ") {
-            window.removePreferedLanguage(languageNumberIncremented);
-        }
-    });
+    addElementEventListenerForClickAndKeyboardNav(`delete-language-${number4TheLanguageToAdd}`, removePreferedLanguage, number4TheLanguageToAdd, true);
 }
 /**
  * Function used to avoid issues with adding several languages on a single key press
@@ -227,12 +221,12 @@ function addAnotherLanguageUsingATimeBuffer(debug) {
 * Function used to remove one of the prefered languages
 * @param number4LanguageToRemove The number of the language to remove
 */
-window.removePreferedLanguage = function (number4LanguageToRemove) {
+function removePreferedLanguage(number4LanguageToRemove) {
     let debug = true;
     // Getting the added languages elements
     console.debug("\n" + `removePreferedLanguage() called on language number ${number4LanguageToRemove}.`);
-    let languagesAdded = document.getElementsByClassName("added-language-li");
-    let numberOfLanguages = languagesAdded.length + 1;
+    let languagesAddedElems = document.getElementsByClassName("added-language-li");
+    let totalNumberOfLanguages = languagesAddedElems.length + 1;
     // Removing the language element
     let parentElem = document.getElementById("languages-list");
     let htmlElemToRemove = document.getElementById(`list-language-${number4LanguageToRemove}`);
@@ -247,13 +241,13 @@ window.removePreferedLanguage = function (number4LanguageToRemove) {
             console.debug(`      Added to map: Index selected: ${addedLanguagesSelectedOptions.get(elem.id)} for key ${elem.id}`);
     }
     // Building the renumbered language strings to add later
-    let patternToSubstitute = "**languageNumberIncremented**";
+    let patternToSubstitute = "**number4TheLanguageToAdd**";
     // Building a string similar to the one to insert when adding a new language 
-    let referenceString = getLanguageToAddString("**languageNumberIncremented**");
-    let renumberedStrings = renumberString(number4LanguageToRemove, numberOfLanguages, referenceString, patternToSubstitute);
+    let referenceString = getLanguageToAddHTMLString("**number4TheLanguageToAdd**");
+    let renumberedStrings = renumberString(number4LanguageToRemove, totalNumberOfLanguages, referenceString, patternToSubstitute);
     // Removing the languages added after the one removed (the numbers need to be updated), 
     // before adding the strings with updated numbers.
-    for (let i = number4LanguageToRemove + 1; i <= numberOfLanguages; i++) {
+    for (let i = number4LanguageToRemove + 1; i <= totalNumberOfLanguages; i++) {
         let languageToRemoveId = `list-language-${i}`;
         if (debug)
             console.debug(`  Removing language of id: ${languageToRemoveId}`);
@@ -266,7 +260,7 @@ window.removePreferedLanguage = function (number4LanguageToRemove) {
     // TODO: AppSecurity: use of insertAdjacentHTML ?
     previousLanguageItem.insertAdjacentHTML("afterend", renumberedStrings);
     // Renumbering the ids (only the languages after the one removed are taken into account in the returned map.)          
-    let renumberedMap = renumberKeyValueMap(number4LanguageToRemove, numberOfLanguages, "project-language-", addedLanguagesSelectedOptions);
+    let renumberedMap = renumberKeyValueMap(number4LanguageToRemove, totalNumberOfLanguages, "project-language-", addedLanguagesSelectedOptions);
     // Setting the recorded values for the options
     if (debug)
         console.debug(`  Setting the recorded values for the options. Size of map: ${renumberedMap.size}`);
@@ -274,16 +268,21 @@ window.removePreferedLanguage = function (number4LanguageToRemove) {
         let elem = document.getElementById(key);
         elem.selectedIndex = parseInt(value);
     });
-    // Clearing the selected optons map 
+    // Adding the event listeners that have been deleted
+    languagesAddedElems = document.getElementsByClassName("added-language-li");
+    totalNumberOfLanguages = languagesAddedElems.length + 1;
+    for (let i = number4LanguageToRemove; i <= totalNumberOfLanguages; i++) {
+        addElementEventListenerForClickAndKeyboardNav(`delete-language-${i}`, removePreferedLanguage, i, true);
+    }
+    // Clearing the selected options map 
     addedLanguagesSelectedOptions.clear();
-};
+}
+;
 /****************** Logout (to move eventually; common to the contributor page as well)  ***********************/
 function logout() {
     let debug = true;
     if (debug)
         console.debug("logout() called");
-    let link = document.getElementById("logout-link");
-    link.style.backgroundColor = "purple";
     // Removing the HTML from the welcome message
     let welcomeContainer2 = document.getElementById("welcome-container2");
     welcomeContainer2.innerHTML = "";
@@ -299,29 +298,11 @@ function logout() {
 }
 /******************  Event listeners (incl. for keyboard navigation) ***********************/
 /* Listener for the logout link: added after the logout link addition */
-/* Listener for the submit button */
-/* Listener that checks if username/password can be sent to the backend */
+/* Listener for the submit button: Listener that checks if username/password can be sent to the backend */
 // TDOD: use of the generic code if possible
 let authFormSubmit = document.getElementById("auth-form-creation-submit");
 authFormSubmit?.addEventListener("click", (event) => signUpDataProcessing(event, "http://127.0.0.1:8080/representatives/new-account", true));
 /* Listener for the toggling of visibility in the project dashboard view */
-addNewElementEventListenerForClickAndKeyboardNav("new-project-definition-invite-button", toggleElementVisibility, "new-project-definition", true);
+addElementEventListenerForClickAndKeyboardNav("new-project-definition-invite-button", toggleElementVisibility, "new-project-definition", true);
 /* Listener for adding a new language */
-addNewElementEventListenerForClickAndKeyboardNav("new-language-addition-link", addAnotherLanguageUsingATimeBuffer, true);
-/* Listener for the logout link */
-// let logoutLink = document.getElementById("logout-link") as HTMLElement;
-// logoutLink?.addEventListener("click",window.logout);
-// logoutLink?.addEventListener("keydown", function(event){
-//     console.debug("Entering logoutLink?.addEventListener('keydown') function");
-//     if (event.key === "Enter" || event.key === "") {
-//         window.logout();
-//     }
-// });
-// TODO: to add the logout event listener when the element is available in the dom
-if (document.getElementById("logout-link") !== null) {
-    console.debug('document.getElementById("logout-link") !== null');
-}
-else {
-    console.debug('document.getEl  ementById("logout-link") is null');
-    console.debug("** The event listener wasn't added. **");
-}
+addElementEventListenerForClickAndKeyboardNav("new-language-addition-link", addAnotherLanguageUsingATimeBuffer, true);

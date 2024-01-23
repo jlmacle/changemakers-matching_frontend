@@ -1,4 +1,4 @@
-import { addNewElementEventListenerForClickAndKeyboardNav } from './common.js';
+import { addElementEventListenerForClickAndKeyboardNav } from './common.js';
 /**
  * Function opening the modal used to differentiate project representatives from contributors.
  * debug A boolean for debug mode.
@@ -43,9 +43,9 @@ function redirectToProjRepPage() {
 }
 /****************************** Adding the event listeners to the index.html page  ********************************/
 /* Listener for the opening of the modal. Boolean for debug mode. */
-addNewElementEventListenerForClickAndKeyboardNav("new-account-or-login-access", openUserTypeOptionsModal, true);
+addElementEventListenerForClickAndKeyboardNav("new-account-or-login-access", openUserTypeOptionsModal, true);
 /* Listener for the closing of the modal. Boolean for debug mode. */
-addNewElementEventListenerForClickAndKeyboardNav("user-type-options-modal-closing", closeUserTypeOptionsModal, true);
-/* Listener for being re-directed toward the project representative page. */
-addNewElementEventListenerForClickAndKeyboardNav("link-to-proj-rep-page", redirectToProjRepPage, true);
-/* listeners for homepage and footer planned in common.ts */
+addElementEventListenerForClickAndKeyboardNav("user-type-options-modal-closing", closeUserTypeOptionsModal, true);
+/* Listener for being re-directed toward the project representative page. Boolean for debug mode. */
+addElementEventListenerForClickAndKeyboardNav("link-to-proj-rep-page", redirectToProjRepPage, true);
+/* listeners for homepage and footer to be found in common.ts */
