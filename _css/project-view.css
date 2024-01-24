@@ -5,6 +5,10 @@
     margin-top: 0;
 }
 
+#container-central-section{
+    display: flex;
+}
+
 #dashboardProj-rep{
     margin-left: 10px;
     text-align: center;
@@ -26,6 +30,16 @@
         }
     }
 
+#new-sdg-addition a{
+    width: 100%;
+}
+
+    @media screen and (min-width:239px) and (max-width:275px){
+        #new-sdg-addition a{
+            width: 170px;
+        }
+    }
+
 #new-project-definition{
     padding-right:5px;
 }
@@ -37,11 +51,15 @@
     align-items: flex-start;
     overflow: clip;   
 
-    padding-top: 10px;
+    padding-top: 20px;
     padding-left: 5px;
     padding-right: 5px;
 }
 
+.new-project-definition-container li{
+    
+    
+}
 
 .new-project-definition-container select{
     width: 160px;

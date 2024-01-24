@@ -5,6 +5,7 @@
 /* Minimum size taken into account:Nokia 8110 4G (240 x 320 pixels) */
 :root{
     --header-height:240px;
+    --side-width: 8%;
     --main-min-height:640px;
     --nav-height:60px;
     --footer-height:100px;   
@@ -60,23 +61,57 @@
 
 
 /* ---------------------- MAIN section ----------------------  */
+.grid{
+    box-sizing: border-box;
+    float: left;
+}
+
+.aside{
+    min-height:var(--main-min-height);
+    width: var(--side-width);
+    border:1px solid black;
+    background-color: white;
+    flex:1;  /* to have the sides of the same height as the main content */
+} 
+    @media screen and (max-width:500px) {
+        .aside{
+            display: none;
+        }        
+    }
+
+.aside img {
+    width:100%;
+}
+
+#container-central-section{
+    width: 100%;
+}
 
 #main{       
+    width:calc(100% - (2*var(--side-width)));
     min-height:var(--main-min-height);
     border:solid 1px black;   
     background-color:#fafad2;
+}
+    
+@media screen and (max-width:500px) {
+    #main{
+        width: 100%;
+    }
+    
 }
 
 /* ---------------------- FOOTER section ----------------------   */
 
 #footer{
-    height:var(--nav-height);
+    height:var(--footer-height);
+    width:100%;
     border:solid 1px black;     
     background-color:white;
     
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: center;    
 }
     
 
@@ -91,6 +126,6 @@
 }
 
 #footer-right{
-    position:absolute;
+    position:absolute;    
     right:30px;
 }

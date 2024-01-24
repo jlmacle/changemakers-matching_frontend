@@ -1,5 +1,6 @@
 import { countryData } from "./data/countries-datahub.io.mjs";
 import { languageData } from "./data/languages-datahub.io.mjs";
+import { sdgLabels } from "./data/sdg-labels.mjs";
 import { addElementEventListenerForClickAndKeyboardNav, toggleElementVisibility, getAbsoluteTime } from "./common.js";
 let absoluteTimeSinceLastLanguageAddition = 0;
 let absoluteTimeForCurrentLanguageAddition = 1000;
@@ -126,6 +127,23 @@ function addLanguageOptions() {
 }
 //Adding the options to the page
 addLanguageOptions();
+function getSDGList() {
+    console.debug("getSDGList() called.");
+    let sdgList = [];
+    const array = JSON.parse(sdgLabels);
+    array.forEach(data => sdgList.push(data.Label));
+    // Should be already sorted. Just in case.
+    sdgList.sort();
+    let sdgOptions = "";
+    sdgList.forEach(label => sdgOptions += `<option value=${label}> ${label} </option>`);
+    return sdgOptions;
+}
+function addSDGOptions() {
+    let element = document.getElementById("project-sdg-1");
+    let sdgOptions = getSDGList();
+    element.innerHTML = sdgOptions;
+}
+addSDGOptions();
 /******************  Addition/removal of prefered language options ***********************/
 function renumberString(numberRemoved, totalNumberOfElements, patternStringToRenumber, patternToSubstitute) {
     let debug = false;
@@ -164,7 +182,7 @@ function renumberKeyValueMap(numberRemoved, totalNumberOfElements, keyPattern, o
  * @returns The string to add to the HTML
  */
 function getLanguageToAddHTMLString(value_to_insert) {
-    let html_to_return = `<li id="list-language-${value_to_insert}" class="added-language-li">
+    let html_to_return = `<li id="li-language-${value_to_insert}" class="added-language-li">
         <div class="new-project-definition-container">
             <label class="new-project-definition-label preferedLanguage" for="project-language-${value_to_insert}">
                 Language ${value_to_insert}
@@ -229,7 +247,7 @@ function removePreferedLanguage(number4LanguageToRemove) {
     let totalNumberOfLanguages = languagesAddedElems.length + 1;
     // Removing the language element
     let parentElem = document.getElementById("languages-list");
-    let htmlElemToRemove = document.getElementById(`list-language-${number4LanguageToRemove}`);
+    let htmlElemToRemove = document.getElementById(`li-language-${number4LanguageToRemove}`);
     parentElem?.removeChild(htmlElemToRemove);
     // Before removing the next languages, storing the current id-value pairs:
     if (debug)
@@ -248,7 +266,7 @@ function removePreferedLanguage(number4LanguageToRemove) {
     // Removing the languages added after the one removed (the numbers need to be updated), 
     // before adding the strings with updated numbers.
     for (let i = number4LanguageToRemove + 1; i <= totalNumberOfLanguages; i++) {
-        let languageToRemoveId = `list-language-${i}`;
+        let languageToRemoveId = `li-language-${i}`;
         if (debug)
             console.debug(`  Removing language of id: ${languageToRemoveId}`);
         let htmlToRemove = document.getElementById(languageToRemoveId);
@@ -256,7 +274,7 @@ function removePreferedLanguage(number4LanguageToRemove) {
     }
     // Adding the renumbered strings
     let numberBeforeLanguageToRemove = number4LanguageToRemove - 1;
-    let previousLanguageItem = document.getElementById(`list-language-${numberBeforeLanguageToRemove}`);
+    let previousLanguageItem = document.getElementById(`li-language-${numberBeforeLanguageToRemove}`);
     // TODO: AppSecurity: use of insertAdjacentHTML ?
     previousLanguageItem.insertAdjacentHTML("afterend", renumberedStrings);
     // Renumbering the ids (only the languages after the one removed are taken into account in the returned map.)          
