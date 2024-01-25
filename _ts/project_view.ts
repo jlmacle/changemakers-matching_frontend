@@ -10,6 +10,9 @@ let absoluteTimeForCurrentLanguageAddition:number = 1000;
 let addedLanguagesSelectedOptions: Map<string,string> = new Map<string, string>();
 let htmlToAdd4NewLanguage = "";
 
+let sdgImageNames: string[] = [];
+let fileDir = "../_media/UN-graphics/";
+
 /****************** Signup toward project view  ***********************/
 
 
@@ -175,6 +178,7 @@ function getSDGList():string{
     let sdgList: string[] = [];
     const array = JSON.parse(sdgLabels) as SDG[];
     array.forEach(data => sdgList.push(data.Label));
+    array.forEach(data => sdgImageNames.push(data.Image));
     // Should be already sorted. Just in case.
     sdgList.sort();
     let sdgOptions = "";
@@ -189,7 +193,48 @@ function addSDGOptions(){
     element.innerHTML = sdgOptions;
 }
 
-addSDGOptions();
+addSDGOptions(); /* Will also build the list of sdg images names */
+
+/******************  sdgs-related methods ***********************/
+
+/**
+ * Function thats adds an sdg icon to the left sidebar when adding a sdg to the project profile.
+ * @param selectId the id of the select element
+ * @param debug A boolean for debug mode.
+ */
+
+function addImage(selectId:string, debug:boolean){
+    if (debug) {
+        console.debug("addImage() called");
+        console.debug(`selectId: ${selectId}`);
+    }
+    let elem = document.getElementById(selectId) as HTMLSelectElement;
+    let sdgNumber = elem.selectedIndex + 1;
+        // Getting the image name:
+    let sdgImageName =  sdgImageNames[sdgNumber-1];
+    if (debug) {
+        console.debug(`sdgNumber: ${sdgNumber}`);
+        console.debug(`sdgImageName: ${sdgImageName}`);
+    }
+    let filePath = fileDir+sdgImageName;
+    // Building/Updating the sidebar HTML
+    let imgId = `img-${selectId}`;
+    let potentialElem = document.getElementById(imgId);
+    if (potentialElem)
+    {
+        console.debug(`Element with id ${imgId} exists, and is being updated.`);
+        potentialElem.setAttribute("src",`${filePath}`);
+    }
+    else {
+        console.debug(`Element with id ${imgId} doesn't exist, and is being created.`);
+        let htmlToAdd = `<img id="img-${selectId}" aria-label="" src=${filePath} style="position:sticky;top:0px">`;
+        let parentElem = document.getElementById("sidebar_left");
+        parentElem?.insertAdjacentHTML("afterbegin", htmlToAdd);
+    }
+    
+
+}
+
 
 /******************  Addition/removal of prefered language options ***********************/
 function renumberString(numberRemoved:number, totalNumberOfElements:number, patternStringToRenumber:string, patternToSubstitute:string): string{
@@ -283,7 +328,7 @@ function addAnotherLanguage(){
  * @param debug A boolean for debug mode.
  */
 function addAnotherLanguageUsingATimeBuffer(debug:boolean){
-    if (debug) console.debug("addAnotherLanguageUsingATimeBuffer() () called");
+    if (debug) console.debug("addAnotherLanguageUsingATimeBuffer() called");
 
     //Saving the previously recorded time and recording the current time
     absoluteTimeSinceLastLanguageAddition = absoluteTimeForCurrentLanguageAddition;
@@ -403,7 +448,15 @@ authFormSubmit?.addEventListener("click", (event) => signUpDataProcessing(event,
 /* Listener for the toggling of visibility in the project dashboard view */
 addElementEventListenerForClickAndKeyboardNav("new-project-definition-invite-button", toggleElementVisibility, "new-project-definition", true);
 
+/* Listener for the addition of sdgs : for the declaration by default */
+let elem = document.getElementById("project-sdg-1") as HTMLElement;
+elem.addEventListener("change", (event) => {
+    addImage("project-sdg-1", true);
+})
+// addElementEventListenerForClickAndKeyboardNav("project-sdg-1", addImage, "project-sdg-1", true);
+
 /* Listener for adding a new language */ 
 addElementEventListenerForClickAndKeyboardNav("new-language-addition-link", addAnotherLanguageUsingATimeBuffer, true);
+
 
 

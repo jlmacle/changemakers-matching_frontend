@@ -73,7 +73,7 @@
     background-color: white;
     flex:1;  /* to have the sides of the same height as the main content */
 } 
-    @media screen and (max-width:500px) {
+    @media screen and (max-width:1300px) { /* couldn't use var(--break-value-for-sidebars) */
         .aside{
             display: none;
         }        
@@ -94,7 +94,7 @@
     background-color:#fafad2;
 }
     
-@media screen and (max-width:500px) {
+@media screen and (max-width:1300px) { /* couldn't use var(--break-value-for-sidebars) */
     #main{
         width: 100%;
     }

@@ -1,4 +1,3 @@
-
 /* ---------------------- MAIN section :  ----------------------  */
 
 .added-language-select{
@@ -56,10 +55,6 @@
     padding-right: 5px;
 }
 
-.new-project-definition-container li{
-    
-    
-}
 
 .new-project-definition-container select{
     width: 160px;

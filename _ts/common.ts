@@ -31,9 +31,7 @@ function functionCallingAnotherFunctionUsingATimeBuffer<T>
  * Function used to add an event listener to an element.
  * The event listener responds to clicks, “Enter” keystrokes, and “Space” keystrokes.
  * @param elementId The id of the single element to add an event listener to.
- * @param functionCalledByTheEventListener The function to call when the event is fired.
- * @param timeSince1970WhenTheEventIsFired A time reference for determining the time elapsed between two consecutive events.
- * @param debug A boolean for debug mode.
+ * @param functionCalledByTheEventListener The function to call when the event is fired. 
  */
 export const  addElementEventListenerForClickAndKeyboardNav 
     =  <T>
@@ -62,6 +60,7 @@ export const  addElementEventListenerForClickAndKeyboardNav
             });
 
         }
+
 
 /****************** Toggle functions  ***********************/
 
