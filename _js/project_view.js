@@ -1,7 +1,7 @@
 import { countryData } from "./data/countries-datahub.io.mjs";
 import { languageData } from "./data/languages-datahub.io.mjs";
 import { sdgLabels } from "./data/sdg-labels.mjs";
-import { addElementEventListenerForClickAndKeyboardNav, toggleElementVisibility, getAbsoluteTime } from "./common.js";
+import { addElementEventListenerForClickAndKeyboardNav, getAbsoluteTime, toggleElementVisibility, renumberKeyValueMap, renumberString } from "./common.js";
 let absoluteTimeSinceLastLanguageAddition = 0;
 let absoluteTimeForCurrentLanguageAddition = 1000;
 let addedLanguagesSelectedOptions = new Map();
@@ -152,9 +152,9 @@ addSDGOptions(); /* Will also build the list of sdg images names */
  * @param selectId the id of the select element
  * @param debug A boolean for debug mode.
  */
-function addImage(selectId, debug) {
+function addSDGImage(selectId, debug) {
     if (debug) {
-        console.debug("addImage() called");
+        console.debug("addSDGImage() called");
         console.debug(`selectId: ${selectId}`);
     }
     let elem = document.getElementById(selectId);
@@ -180,38 +180,31 @@ function addImage(selectId, debug) {
         parentElem?.insertAdjacentHTML("afterbegin", htmlToAdd);
     }
 }
+/**
+ * Function used to avoid code redundancy when working with strings related to adding a new sdg
+ * @param value_to_insert The value to substitute inside the string
+ * @returns The string to add to the HTML
+ */
+function getSdgToAddHTMLString(value_to_insert) {
+    let html_to_return = `<li id="li-sdg-${value_to_insert}" class="added-sdg-li">
+        <div class="new-project-definition-container">
+            <label class="new-project-definition-label" for="project-sdg-${value_to_insert}">
+                SDG ${value_to_insert}
+            </label>
+            <div id="project-sdg-${value_to_insert}-error"></div>
+            <div class="new-project-definition-input" style="padding-top:1px;">
+                <select id="project-sdg-${value_to_insert}" class="added-sdg-select"
+                    name="project-sdg-${value_to_insert}">`
+        + getSDGList() +
+        `</select>  
+                <span  tabindex="0"  id="delete-sdg-${value_to_insert}" class="added-sdg-delete">&times;
+                </span>                                   
+            </div>
+        </div>
+    </li>`;
+    return html_to_return;
+}
 /******************  Addition/removal of prefered language options ***********************/
-function renumberString(numberRemoved, totalNumberOfElements, patternStringToRenumber, patternToSubstitute) {
-    let debug = false;
-    let stringToReturn = "";
-    for (let i = numberRemoved; i <= totalNumberOfElements - 1; i++) {
-        let patternStringRenumbered = patternStringToRenumber.replaceAll(patternToSubstitute, "" + i);
-        stringToReturn += patternStringRenumbered;
-        if (debug)
-            console.debug(`for i=${i}, string=${patternStringRenumbered}`);
-    }
-    return stringToReturn;
-}
-function renumberKeyValueMap(numberRemoved, totalNumberOfElements, keyPattern, originalMap) {
-    let debug = true;
-    if (debug) {
-        console.debug("     Content of the original id-value map before renumbering.");
-        originalMap.forEach((value, key) => console.debug(`          Key: ${key}, value: ${value}`));
-    }
-    let mapToReturn = new Map();
-    // Need to renumber the languages that were after the language deleted, before re-displaying their data.
-    for (let i = numberRemoved + 1; i <= totalNumberOfElements; i++) {
-        //Getting the original data
-        let renumberedKey = keyPattern + (i - 1);
-        let value = originalMap.get(keyPattern + i);
-        mapToReturn.set(renumberedKey, "" + value);
-    }
-    if (debug) {
-        console.debug("     Content of the id-value map after renumbering.");
-        mapToReturn.forEach((value, key) => { console.debug(`           Key: ${key}, Value: ${value}`); });
-    }
-    return mapToReturn;
-}
 /**
  * Function used to avoid code redundancy when working with strings related to adding a new language
  * @param value_to_insert The value to substitute inside the string
@@ -223,6 +216,7 @@ function getLanguageToAddHTMLString(value_to_insert) {
             <label class="new-project-definition-label preferedLanguage" for="project-language-${value_to_insert}">
                 Language ${value_to_insert}
             </label>
+            <div id="project-language-${value_to_insert}-error"></div>
             <div class="new-project-definition-input" style="padding-top:1px;">
                 <select id="project-language-${value_to_insert}" class="added-language-select"
                     name="project-language-${value_to_insert}">`
@@ -236,6 +230,7 @@ function getLanguageToAddHTMLString(value_to_insert) {
     return html_to_return;
 }
 /**
+ * TODO: to prevent duplicated entries
  * Function used to add another prefered language to the project.
  */
 function addAnotherLanguage() {
@@ -361,8 +356,11 @@ addElementEventListenerForClickAndKeyboardNav("new-project-definition-invite-but
 /* Listener for the addition of sdgs : for the declaration by default */
 let elem = document.getElementById("project-sdg-1");
 elem.addEventListener("change", (event) => {
-    addImage("project-sdg-1", true);
+    addSDGImage("project-sdg-1", true);
 });
-// addElementEventListenerForClickAndKeyboardNav("project-sdg-1", addImage, "project-sdg-1", true);
+/* Listener for adding a new sdg */
+// addElementEventListenerForClickAndKeyboardNav("new-sdg-addition-linkk", addAnotherSdgUsingATimeBuffer, true);
+/* Listener for the detection of language duplicates */
+// document.addEventListener("change",isDuplicateSelectionPresent)
 /* Listener for adding a new language */
 addElementEventListenerForClickAndKeyboardNav("new-language-addition-link", addAnotherLanguageUsingATimeBuffer, true);
