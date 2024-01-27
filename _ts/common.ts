@@ -41,6 +41,7 @@ export const  addElementEventListenerForClickAndKeyboardNav
             ...args:any[]
 
         ) => {
+            console.debug("addElementEventListenerForClickAndKeyboardNav() called.");
             let element = document.getElementById(elementId) as HTMLElement;
             element.addEventListener("click", (event) => {
                     console.debug("\n"+"Event called with a click.");

@@ -1,3 +1,5 @@
+/* Responsiveness to fix */
+
 /* ---------------------- MAIN section :  ----------------------  */
 
 .added-language-select{
@@ -55,12 +57,17 @@
     padding-right: 5px;
 }
 
-
-.new-project-definition-container select{
-    width: 160px;
+.new-project-definition-container select{    
+    width: 300px;
 }
 
 [id|="delete-language"]{
+    font-size: 26px;   
+    line-height: 18px;
+    margin-left: 10px;
+}
+
+[id|="delete-sdg"]{
     font-size: 26px;   
     line-height: 18px;
     margin-left: 10px;
@@ -126,8 +133,16 @@
 
 }
 
+#project-country{
+    width: 314px;
+}
+
 #projects-main-content{
     margin-left: 10px;
     margin-right: 10px;
 }
 
+#sidebar-sticky-wrapper{
+    position: sticky;
+    top:0;
+}
