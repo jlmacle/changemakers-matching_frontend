@@ -30,6 +30,7 @@ function functionCallingAnotherFunctionUsingATimeBuffer(functionToCall,
  * @param functionCalledByTheEventListener The function to call when the event is fired.
  */
 export const addElementEventListenerForClickAndKeyboardNav = (elementId, functionToCall, ...args) => {
+    console.debug("addElementEventListenerForClickAndKeyboardNav() called.");
     let element = document.getElementById(elementId);
     element.addEventListener("click", (event) => {
         console.debug("\n" + "Event called with a click.");

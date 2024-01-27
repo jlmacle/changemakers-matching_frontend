@@ -6,9 +6,13 @@ import { addElementEventListenerForClickAndKeyboardNav, getAbsoluteTime, toggleE
 
 let absoluteTimeSinceLastLanguageAddition:number = 0;
 let absoluteTimeForCurrentLanguageAddition:number = 1000;
+let absoluteTimeSinceLastSdgAddition: number = 0;
+let absoluteTimeForCurrentSdgAddition:number = 1000;
 
 let addedLanguagesSelectedOptions: Map<string,string> = new Map<string, string>();
 let htmlToAdd4NewLanguage = "";
+let addedSdgsSelectedOptions: Map<string,string> = new Map<string, string>();
+let htmlToAdd4NewSdg = "";
 
 let sdgImageNames: string[] = [];
 let fileDir = "../_media/UN-graphics/";
@@ -197,6 +201,8 @@ addSDGOptions(); /* Will also build the list of sdg images names */
 
 /******************  sdgs-related methods ***********************/
 
+// TODO: image on the first selection
+
 /**
  * Function thats adds an sdg icon to the left sidebar when adding a sdg to the project profile.
  * @param selectId the id of the select element
@@ -226,38 +232,156 @@ function addSDGImage(selectId:string, debug:boolean){
         potentialElem.setAttribute("src",`${filePath}`);
     }
     else {
-        console.debug(`Element with id ${imgId} doesn't exist, and is being created.`);
-        let htmlToAdd = `<img id="img-${selectId}" aria-label="" src=${filePath} style="position:sticky;top:0px">`;
-        let parentElem = document.getElementById("sidebar_left");
-        parentElem?.insertAdjacentHTML("afterbegin", htmlToAdd);
+        console.debug(`Element with id ${imgId} doesn't exist, and is being created.`);        
+        let htmlToAdd = `<img id="img-${selectId}" aria-label="" src=${filePath}>`;
+        let parentElem = document.getElementById("sidebar-sticky-wrapper");
+        parentElem?.insertAdjacentHTML("beforeend", htmlToAdd);
     }
 }
 
-/**
- * Function used to avoid code redundancy when working with strings related to adding a new sdg
- * @param value_to_insert The value to substitute inside the string
- * @returns The string to add to the HTML 
- */
+/** Function used to avoid code redundancy when working with strings related to adding a new sdg
+* @param value_to_insert The value to substitute inside the string
+* @returns The string to add to the HTML 
+*/
 function getSdgToAddHTMLString(value_to_insert:string): string{
-    let html_to_return = 
-    `<li id="li-sdg-${value_to_insert}" class="added-sdg-li">
-        <div class="new-project-definition-container">
-            <label class="new-project-definition-label" for="project-sdg-${value_to_insert}">
-                SDG ${value_to_insert}
-            </label>
-            <div id="project-sdg-${value_to_insert}-error"></div>
-            <div class="new-project-definition-input" style="padding-top:1px;">
-                <select id="project-sdg-${value_to_insert}" class="added-sdg-select"
-                    name="project-sdg-${value_to_insert}">`
-                    + getSDGList() +
-                `</select>  
-                <span  tabindex="0"  id="delete-sdg-${value_to_insert}" class="added-sdg-delete">&times;
-                </span>                                   
-            </div>
-        </div>
-    </li>`;
-    return html_to_return;
+   let html_to_return = 
+   `<li id="li-sdg-${value_to_insert}" class="added-sdg-li">
+       <div class="new-project-definition-container">
+           <label class="new-project-definition-label declaredSdg" for="project-sdg-${value_to_insert}">
+               SDG ${value_to_insert}
+           </label>
+           <div id="project-sdg-${value_to_insert}-error"></div>
+           <div class="new-project-definition-input" style="padding-top:1px;">
+               <select id="project-sdg-${value_to_insert}" class="added-sdg-select"
+                   name="project-sdg-${value_to_insert}">`
+                   + getSDGList() +
+               `</select>  
+               <span  tabindex="0"  id="delete-sdg-${value_to_insert}" class="added-sdg-delete">&times;
+               </span>                                   
+           </div>
+       </div>
+   </li>`;
+   return html_to_return;
 
+}
+
+/**
+ * Function used to avoid issues with adding several languages on a single key press
+ * @param debug A boolean for debug mode.
+ */
+function addAnotherSdgUsingATimeBuffer(debug:boolean){
+    if (debug) console.debug("addAnotherSdgUsingATimeBuffer() called");
+
+    //Saving the previously recorded time and recording the current time
+    absoluteTimeSinceLastSdgAddition = absoluteTimeForCurrentSdgAddition;
+    absoluteTimeForCurrentSdgAddition = getAbsoluteTime();
+
+    let timeDifference = absoluteTimeForCurrentSdgAddition - absoluteTimeSinceLastSdgAddition ;
+    if(timeDifference > 500){        
+        console.debug(`Sufficient time difference between two sdg additions: ${timeDifference}
+                        \n Adding another sdg.`)
+        addAnotherSdg();
+    } 
+    else if (debug) console.debug(`Time between two sdg additions too short: ${timeDifference}. Not adding another sdg.`);
+    
+}
+
+/**
+ * Function used to remove one of the declared sdgs.
+ * @param number4SdgToRemove The number of the sdg to remove
+ */
+
+// TODO : image to remove
+function removeDeclaredSDG(number4SdgToRemove:number){
+    let debug = true;  
+    
+    // Getting the added languages elements
+    console.debug("\n"+`removeDeclaredSDG() called on sdg number ${number4SdgToRemove}.`);  
+    let sdgsAddedElems = document.getElementsByClassName("added-sdg-li") as HTMLCollectionOf<HTMLElement>;
+    let totalNumberOfSdgs = sdgsAddedElems.length + 1;
+    
+    // Removing the language element
+    let parentElem = document.getElementById("sdgs-list");
+    let htmlElemToRemove = document.getElementById(`li-sdg-${number4SdgToRemove}`) as HTMLElement;
+    parentElem?.removeChild(htmlElemToRemove);    
+
+    // Before removing the next languages, storing the current id-value pairs:
+    if (debug) console.debug("  Storing the current id-value pairs before removing following sdgs.");
+    let addedSdgSelectElems = document.getElementsByClassName("added-sdg-select") as HTMLCollectionOf<HTMLSelectElement>;
+    for (let elem of addedSdgSelectElems){        
+        addedSdgsSelectedOptions.set(elem.id,""+ elem.selectedIndex);
+        if (debug) console.debug(`      Added to map: Index selected: ${addedSdgsSelectedOptions.get(elem.id)} for key ${elem.id}`);
+    }
+
+    // Building the renumbered language strings to add later
+    let patternToSubstitute: string = "**number4TheSdgToAdd**";
+        // Building a string similar to the one to insert when adding a new language 
+    let referenceString: string = getSdgToAddHTMLString("**number4TheSdgToAdd**");   
+    let renumberedStrings = renumberString(number4SdgToRemove, totalNumberOfSdgs, referenceString, patternToSubstitute);
+
+    // Removing the languages added after the one removed (the numbers need to be updated), 
+    // before adding the strings with updated numbers.
+    for(let i=number4SdgToRemove+1; i<= totalNumberOfSdgs; i++){
+        let sdgToRemoveId = `li-sdg-${i}`;
+        if (debug) console.debug(`  Removing sdg of id: ${sdgToRemoveId}`);
+        let htmlToRemove = document.getElementById(sdgToRemoveId) as HTMLElement;
+        parentElem?.removeChild(htmlToRemove);
+    }    
+
+    // Adding the renumbered strings
+    let numberBeforeSdgToRemove = number4SdgToRemove - 1;
+    let previousSdgItem = document.getElementById(`li-sdg-${numberBeforeSdgToRemove}`) as HTMLElement;
+    // TODO: AppSecurity: use of insertAdjacentHTML ?
+    previousSdgItem.insertAdjacentHTML("afterend",renumberedStrings);    
+
+    // Renumbering the ids (only the languages after the one removed are taken into account in the returned map.)          
+    let renumberedMap = renumberKeyValueMap(number4SdgToRemove, totalNumberOfSdgs, "project-sdg-", addedSdgsSelectedOptions);
+       // Setting the recorded values for the options
+    if (debug) console.debug(`  Setting the recorded values for the options. Size of map: ${renumberedMap.size}`);     
+    renumberedMap.forEach((value,key) => { 
+        let elem = document.getElementById(key) as HTMLSelectElement;        
+        elem.selectedIndex = parseInt(value);       
+    });        
+
+    // Adding the event listeners that have been deleted
+    sdgsAddedElems = document.getElementsByClassName("added-sdg-li") as HTMLCollectionOf<HTMLElement>;
+    totalNumberOfSdgs = sdgsAddedElems.length + 1;
+    for(let i=number4SdgToRemove; i<= totalNumberOfSdgs; i++){
+        addElementEventListenerForClickAndKeyboardNav(`delete-sdg-${i}`, removeDeclaredSDG, i, true);
+    }
+
+    // Clearing the selected options map 
+    addedSdgsSelectedOptions.clear();   
+
+};
+
+/**
+ * TODO: to prevent duplicated entries
+ * Function used to add another sdg to the project.
+ */
+function addAnotherSdg(){
+    console.debug("Entering addAnotherSDG() function");    
+
+    //Gettng the number of languages already added
+    let sdgElems = document.getElementsByClassName("declaredSdg") as HTMLCollectionOf<HTMLElement>;
+    let totalNumberOfSdgs = sdgElems.length;
+    console.debug(`Number of sdgs already added: ${totalNumberOfSdgs}`);
+    let number4TheSDGToAdd = totalNumberOfSdgs + 1;
+
+    htmlToAdd4NewSdg = getSdgToAddHTMLString(""+number4TheSDGToAdd);    
+ 
+    // TODO: the 'X' accessibility to check on
+    let newSdgAdditionContentElem = document.getElementById("new-sdg-addition-content") as HTMLElement;
+    newSdgAdditionContentElem.insertAdjacentHTML('beforebegin',htmlToAdd4NewSdg);
+
+    // TODO: to externalize event listener in a generic function.
+    let elem = document.getElementById(`project-sdg-${number4TheSDGToAdd}`) as HTMLElement;
+    elem.addEventListener("change", (event) => {
+        addSDGImage(`project-sdg-${number4TheSDGToAdd}`, true);
+    })
+
+    //Adding an event listener to remove the language later
+    addElementEventListenerForClickAndKeyboardNav(`delete-sdg-${number4TheSDGToAdd}`, removeDeclaredSDG, number4TheSDGToAdd, true);
 }
 
 /******************  Addition/removal of prefered language options ***********************/
@@ -290,6 +414,7 @@ function getLanguageToAddHTMLString(value_to_insert:string): string{
 
 }
 
+
  
 /**
  * TODO: to prevent duplicated entries
@@ -308,7 +433,7 @@ function addAnotherLanguage(){
  
     // TODO: the 'X' accessibility to check on
     let newLanguageAdditionContentElem = document.getElementById("new-language-addition-content") as HTMLElement;
-    newLanguageAdditionContentElem.insertAdjacentHTML('beforebegin',htmlToAdd4NewLanguage);
+    newLanguageAdditionContentElem.insertAdjacentHTML('beforebegin',htmlToAdd4NewLanguage); 
 
     //Adding an event listener to remove the language later
     addElementEventListenerForClickAndKeyboardNav(`delete-language-${number4TheLanguageToAdd}`, removePreferedLanguage, number4TheLanguageToAdd, true);
@@ -447,7 +572,7 @@ elem.addEventListener("change", (event) => {
 })
 
 /* Listener for adding a new sdg */
-// addElementEventListenerForClickAndKeyboardNav("new-sdg-addition-linkk", addAnotherSdgUsingATimeBuffer, true);
+addElementEventListenerForClickAndKeyboardNav("new-sdg-addition-link", addAnotherSdgUsingATimeBuffer, true);
 
 /* Listener for the detection of language duplicates */
 // document.addEventListener("change",isDuplicateSelectionPresent)
