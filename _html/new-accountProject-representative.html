@@ -17,8 +17,8 @@
     With features like detailed contributor profiles, project needs assessments, and communication tool integration, 
     this platform is an innovative solution for collaborative social impact and community empowerment.">
     <link rel="stylesheet" type="text/css"  href="../_css/common.css"> 
-    <link rel="stylesheet" type="text/css"  href="../_css/authentication.css">
     <link rel="stylesheet" type="text/css"  href="../_css/project-view.css">
+    <link rel="stylesheet" type="text/css"  href="../_css/authentication.css">  
     <title>Seeking ways to better the world? Find if your skills could be used to achieve the UN Sustainable Development Goals.</title>
         <!-- ➡️ TODO: AppSecurity: integrity hash to add before pushing the code ⬅️ -->
     <script type="module" src="../_js/common.js" defer></script>
@@ -40,15 +40,15 @@
     </header>
     
      <!-- /* ---------------------- MAIN section ----------------------  */ -->
-    <div id="container-central-section">
+    <div id="container-main-section">
         <aside id="sidebar_left" class="grid aside"><div id="sidebar-sticky-wrapper"></div></aside>
         <main id="main" class="grid">          
             <!-- TODO: some screenreader/keyboard navigation accessibility testing/coding -->
 
                 <!-- User/password creation -->
-            <div id="new-accountProj-rep" style="display:block;">
+            <div id="new-accountProj-rep-title" style="display:block;">
                 <h1 style="display:block;">New account creation</h1>
-                <form id="auth-form-creation" style="display:block;">
+                <form id="auth-form-creation" method="post" style="display:block;">
                     <fieldset>
                         <legend>Please enter username and password</legend>
                         <label for="username">Username</label>
@@ -73,7 +73,7 @@
             <!-- Project main content -->
             <div id="projects-main-content" style="display:none;">         
                     <!-- Existing projects -->
-                <h1 id="dashboardProj-rep">Dashboard</h1>
+                <h1 id="dashboardProj-rep-title">Dashboard</h1>
                 <div id="projects-list"><strong>Your projects</strong>
                     <ul>
                         <li aria-label="You have no projects declared.">You have no projects declared.</li> 
@@ -86,7 +86,7 @@
                 <button type='button'  tabindex="0" id="new-project-definition-invite-button" style="font-weight:bold;">                
                     Click to declare a new project
                 </button>
-                <form id="new-project-definition" style="display:none;">                
+                <form id="new-project-definition-form" method="post" style="display:none;">                
                     <fieldset id="new-project-fieldset">
                         <legend><strong>New project declaration</strong></legend>
                         <!-- project name -->
@@ -110,7 +110,7 @@
                             </textarea><br>
                         </div>
                         <!-- country -->
-                        <div class="new-project-definition-container">
+                        <div id="country-container" class="new-project-definition-container">
                             <label aria-hidden="true" class="new-project-definition-label" for="project-country">Country:</label>
                             <select aria-label="Please declare the country of your project." class="new-project-definition-input" id="project-country" name="project-country" required>
                                 <!-- here the generated options  -->

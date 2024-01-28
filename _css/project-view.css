@@ -1,148 +1,134 @@
-/* Responsiveness to fix */
+/* TODO: code cleanup to finish and container/label for country to position better */
 
 /* ---------------------- MAIN section :  ----------------------  */
-
-.added-language-select{
-    margin-top: 0;
-}
-
-#container-central-section{
-    display: flex;
-}
-
-#dashboardProj-rep{
-    margin-left: 10px;
-    text-align: center;
-
-}
-
-#new-accountProj-rep{
-    text-align: center;
-    margin-top:20px;
-}
-
-#new-language-addition a{
-    width: 100%;
-}
-
-    @media screen and (min-width:239px) and (max-width:275px){
-        #new-language-addition a{
-            width: 170px;
+        /* Main structure : sidebars */
+        #sidebar-sticky-wrapper{
+            position: sticky;
+            top:0;
         }
-    }
 
-#new-sdg-addition a{
-    width: 100%;
-}
-
-    @media screen and (min-width:239px) and (max-width:275px){
-        #new-sdg-addition a{
-            width: 170px;
+        /* Main structure : project content */
+        #projects-main-content{ 
+            margin-left: 10px;
+            margin-right: 10px;
         }
-    }
 
-#new-project-definition{
-    padding-right:5px;
-}
-
-.new-project-definition-container{
-    display:flex;
-    flex-direction: column;
-    justify-content: left;
-    align-items: flex-start;
-    overflow: clip;   
-
-    padding-top: 20px;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-.new-project-definition-container select{    
-    width: 300px;
-}
-
-[id|="delete-language"]{
-    font-size: 26px;   
-    line-height: 18px;
-    margin-left: 10px;
-}
-
-[id|="delete-sdg"]{
-    font-size: 26px;   
-    line-height: 18px;
-    margin-left: 10px;
-}
-
-
-.new-project-definition-container ul{
-    padding-left: 10px;
-}
-
-.new-project-definition-input{
-    box-sizing: border-box;   /* to avoid a scrollbar in empty fields */
-    display: flex;
-    align-items: flex-start;
-    width: 100%;
-    min-height: 20px;
-}
-    @media screen and (min-width:239px) and (max-width:320px){
-        .new-project-definition-input{
-            width: 80%;
+        #container-main-section{  /* without this code, the sidebar wouldn't stretch when the main content would grow.*/
+            display: flex;
         }
-    }
 
-#new-project-definition-invite-button{
-    background-color: transparent;
-    border:0px;
-    font-family: "Times New Roman", Times, serif;
-    font-size: 16px;    
-}
+        /* Project dashboard */ 
+        #dashboardProj-rep-title{
+            margin-left: 10px;
+            text-align: center;                
+        }
 
-#new-project-definition-invite-button:hover{
-    border: solid 1px black;
-    border-radius: 5px;  
-    max-width: -moz-fit-content; /* 'width: fit-content' is not supported by Firefox, Firefox for Android. (Edge dev tools)*/
-    max-width: fit-content;                              
-}
-
-.new-project-definition-label{
-    width: 100%; /* To take into account the Nokia 8110 4G */
-}
-    @media screen and (min-width:239px) and (max-width:320px){
-        .new-project-definition-label{
-            width: 170px;
+        #new-project-definition-invite-button{
+            background-color: transparent;
+            border:0px;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 16px;    
         }
         
-     }
+        #new-project-definition-invite-button:hover{
+            border: solid 1px black;
+            border-radius: 5px;  
+            max-width: -moz-fit-content; /* 'width: fit-content' is not supported by Firefox, Firefox for Android. (Edge dev tools) */
+            max-width: fit-content;                              
+        }
 
-#new-project-fieldset{
-    width:100%;
-    padding-left:0px;
-    padding-right:0px;
-    margin-right: 0px;
-    margin-top: 20px;
+        /* Project definition  */
+                 /* Title */ 
+                 #new-accountProj-rep-title{
+                    text-align: center;
+                    margin-top:20px;
+                }
+
+                /* Form and inputs */
+                #new-project-definition-form{  
+                    padding-right:5px;
+                }
+
+                #new-project-fieldset{
+                    width:100%;
+                    padding-inline: 0px;  /* padding-left:0px; padding-right:0px; */
+                    margin-right: 0px;
+                    margin-top: 20px;
+                }
+
+                .new-project-definition-container{  /* to wrap label and input field */
+                    display:flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    overflow: clip;   
+                
+                    padding-top: 20px;
+                    padding-inline: 5px;
+                }
+
+                .new-project-definition-label{
+                    width: 100%; /* To take into account the Nokia 8110 4G */
+                }
+                    @media screen and (min-width:239px) and (max-width:320px){
+                        .new-project-definition-label{
+                            width: 170px;
+                        }                        
+                     }
+
+                #country-container{
+                    margin-left: 10px;   /* to catch up on the selects in lists */
+                }
+
+                .new-project-definition-container select{    
+                    width: 80%;
+                }
+                    @media screen and (min-width:386px){ 
+                        .new-project-definition-container select{    
+                            width: 300px;
+                        }
+                    }
+
+                .new-project-definition-container ul{
+                    padding-left: 10px;
+                }     
+
+                .new-project-definition-input{
+                    box-sizing: border-box;   /* to avoid a scrollbar in empty fields */
+                    display: flex;
+                    align-items: flex-start;
+                    width: 100%;
+                    min-height: 20px;
+                }
+                    @media screen and (min-width:239px) and (max-width:320px){
+                        .new-project-definition-input{
+                            width: 80%;
+                        }
+                    }
+               
+
+               .added-language-select{
+                    margin-top: 0;
+                }
+
+
+                [id|="delete-sdg"]{
+                    font-size: 26px;   
+                    line-height: 18px;
+                    margin-left: 10px;
+                }
+
+                [id|="delete-language"]{
+                    font-size: 26px;   
+                    line-height: 18px;
+                    margin-left: 10px;
+                }
+
+                .preferedLanguage{ /* To be able to count the number of prefered languages declared */
+
 }
 
-@media screen and (min-width:239px) and (max-width:320px){
-    #new-project-fieldset{
-        width:100%;
-    }
-}
 
-.preferedLanguage{ /* To be able to count the number of prefered languages declared */
 
-}
 
-#project-country{
-    width: 314px;
-}
 
-#projects-main-content{
-    margin-left: 10px;
-    margin-right: 10px;
-}
 
-#sidebar-sticky-wrapper{
-    position: sticky;
-    top:0;
-}

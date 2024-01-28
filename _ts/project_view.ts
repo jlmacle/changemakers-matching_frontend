@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function(event){
  */
 function displayProjectView(username: string){
     // Toggling the visibility of the authentication form
-    let authFormElem = document.getElementById("new-accountProj-rep") as HTMLElement;
+    let authFormElem = document.getElementById("new-accountProj-rep-title") as HTMLElement;
     authFormElem.style.display = "none";
               
     // Welcome message
@@ -545,7 +545,7 @@ function logout (){
     projectsMainContent.style.display = 'none';
 
     // Toggling the visibility of the new account area
-    let newAccountProjRep = document.getElementById("new-accountProj-rep") as HTMLElement;
+    let newAccountProjRep = document.getElementById("new-accountProj-rep-title") as HTMLElement;
     newAccountProjRep.style.display = 'block';
 
     // Removing the username data (TODO: to be done better later)
@@ -563,7 +563,7 @@ let authFormSubmit = document.getElementById("auth-form-creation-submit") as HTM
 authFormSubmit?.addEventListener("click", (event) => signUpDataProcessing(event,"http://127.0.0.1:8080/representatives/new-account",true));
 
 /* Listener for the toggling of visibility in the project dashboard view */
-addElementEventListenerForClickAndKeyboardNav("new-project-definition-invite-button", toggleElementVisibility, "new-project-definition", true);
+addElementEventListenerForClickAndKeyboardNav("new-project-definition-invite-button", toggleElementVisibility, "new-project-definition-form", true);
 
 /* Listener for the addition of sdgs : for the declaration by default */
 let elem = document.getElementById("project-sdg-1") as HTMLElement;
