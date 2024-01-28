@@ -1,3 +1,8 @@
 .to-ignore-when-modal1{
     
 }
+
+#container-main-section{
+    display: flex;
+    width: 100%;
+}
