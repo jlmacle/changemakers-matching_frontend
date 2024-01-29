@@ -94,7 +94,41 @@ function toggleElementBoldness(elementId) {
  *
  */
 // TODO: a generic Sign-up/Sign-in function
-/****************** Function used when adding elements/removing elements from a list (sdgs, languages,...) ***********************/
+/****************** Functions used when adding elements/removing elements from a list (sdgs, languages,...) ***********************/
+/**
+ * Function used to decrement the id of a related element (a sdg picture for ex.),
+ * when the select id is being decremented during a removal process.
+ * @param
+ */
+export const decrementRelatedElementId = (rootForIdToRenumber, idToRenumber) => {
+    let debug = true;
+    if (debug)
+        console.debug("      decrementRelatedElementId called.");
+    let elem = document.getElementById(idToRenumber);
+    // parsing and decrementing the number
+    let numberInId = parseInt(idToRenumber.replace(rootForIdToRenumber, ""));
+    let numberDecremented = numberInId - 1;
+    let newId = rootForIdToRenumber + numberDecremented;
+    // replacing the id
+    if (debug)
+        console.debug(`      Previous id: ${idToRenumber}`);
+    elem.setAttribute("id", newId);
+    if (debug)
+        console.debug(`      New id: ${elem.getAttribute("id")}`);
+};
+/**
+ * Function used to remove a child element from a container element, using ids.
+ * @param containerId the container id
+ * @param elementId the element id
+ */
+export const removeElement = (elementId, containerId) => {
+    let debug = true;
+    let containerElement = document.getElementById(containerId);
+    let element = document.getElementById(elementId);
+    if (debug)
+        console.debug(`  removeElement called with containerId: ${containerId}, and elementId:${elementId}`);
+    containerElement.removeChild(element);
+};
 /**
  * Function used to monitor if duplicate selections exist in a list, and used to display an error message in case of duplication.
  * @param className the name of the class the elements belong to.

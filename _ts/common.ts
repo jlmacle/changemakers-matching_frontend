@@ -124,7 +124,51 @@ function toggleElementBoldness
 
 // TODO: a generic Sign-up/Sign-in function
 
-/****************** Function used when adding elements/removing elements from a list (sdgs, languages,...) ***********************/
+/****************** Functions used when adding elements/removing elements from a list (sdgs, languages,...) ***********************/
+
+/**
+ * Function used to decrement the id of a related element (a sdg picture for ex.), 
+ * when the select id is being decremented during a removal process.
+ * @param 
+ */
+ export const decrementRelatedElementId = (
+    rootForIdToRenumber: string,
+    idToRenumber: string
+ ) => {
+    let debug = true;
+    if (debug) console.debug("      decrementRelatedElementId called.");
+    let elem = document.getElementById(idToRenumber) as HTMLElement;
+
+    // parsing and decrementing the number
+    let numberInId:number = parseInt(idToRenumber.replace(rootForIdToRenumber,""));
+    let numberDecremented = numberInId - 1;
+    let newId:string = rootForIdToRenumber + numberDecremented;
+
+    // replacing the id
+    if (debug) console.debug(`      Previous id: ${idToRenumber}`);
+    elem.setAttribute("id",newId);
+
+    if (debug) console.debug(`      New id: ${elem.getAttribute("id")}`);
+ }
+
+/**
+ * Function used to remove a child element from a container element, using ids.
+ * @param containerId the container id
+ * @param elementId the element id
+ */
+
+export const removeElement = 
+    (
+        elementId:string, 
+        containerId:string
+
+    ) => {
+        let debug = true;
+        let containerElement = document.getElementById(containerId) as HTMLElement;
+        let element = document.getElementById(elementId) as HTMLElement;
+        if (debug) console.debug(`  removeElement called with containerId: ${containerId}, and elementId:${elementId}`);
+        containerElement.removeChild(element);
+    }
 
 /**
  * Function used to monitor if duplicate selections exist in a list, and used to display an error message in case of duplication.

@@ -17,7 +17,7 @@
 #header{
     height:var(--header-height);
 
-    display:flex;    /* Necessary for the <a style="text-indent:-5000000px;"> to be taken into account */
+    display:flex;    /* Added for the <a style="text-indent:-5000000px;"> to be taken into account */
     justify-content:center;
 
     border:solid 1px black;  
@@ -73,6 +73,7 @@
     background-color: white;
     flex:1;  /* to have the sides of the same height as the main content */
 } 
+
     @media screen and (max-width:1300px) { /* couldn't use var(--break-value-for-sidebars) */
         .aside{
             display: none;
