@@ -1,7 +1,7 @@
 import { countryData } from "./data/countries-datahub.io.mjs";
 import { languageData } from "./data/languages-datahub.io.mjs";
 import { sdgLabels } from "./data/sdg-labels.mjs";
-import { addElementEventListenerForClickAndKeyboardNav, getAbsoluteTime, toggleElementVisibility, renumberKeyValueMap, renumberString } from "./common.js";
+import { addElementEventListenerForClickAndKeyboardNav, decrementRelatedElementId, getAbsoluteTime, toggleElementVisibility, removeElement, renumberKeyValueMap, renumberString } from "./common.js";
 let absoluteTimeSinceLastLanguageAddition = 0;
 let absoluteTimeForCurrentLanguageAddition = 1000;
 let absoluteTimeSinceLastSdgAddition = 0;
@@ -152,14 +152,15 @@ function addSDGOptions() {
 addSDGOptions(); /* Will also build the list of sdg images names */
 /******************  sdgs-related methods ***********************/
 // TODO: image on the first selection
+// TODO: image modification with selection modification
 /**
  * Function thats adds an sdg icon to the left sidebar when adding a sdg to the project profile.
  * @param selectId the id of the select element
  * @param debug A boolean for debug mode.
  */
-function addSDGImage(selectId, debug) {
+function addOrModifySDGImage(selectId, debug) {
     if (debug) {
-        console.debug("addSDGImage() called");
+        console.debug("addOrModifySDGImage() called");
         console.debug(`selectId: ${selectId}`);
     }
     let elem = document.getElementById(selectId);
@@ -228,16 +229,20 @@ function addAnotherSdgUsingATimeBuffer(debug) {
         console.debug(`Time between two sdg additions too short: ${timeDifference}. Not adding another sdg.`);
 }
 /**
+ * Function used to modify the sdg image displayed when the selection is modified
+ */
+/**
  * Function used to remove one of the declared sdgs.
  * @param number4SdgToRemove The number of the sdg to remove
  */
-// TODO : image to remove
 function removeDeclaredSDG(number4SdgToRemove) {
     let debug = true;
-    // Getting the added languages elements
+    // Getting the added sdgs elements
     console.debug("\n" + `removeDeclaredSDG() called on sdg number ${number4SdgToRemove}.`);
     let sdgsAddedElems = document.getElementsByClassName("added-sdg-li");
     let totalNumberOfSdgs = sdgsAddedElems.length + 1;
+    // Removing the image
+    removeElement(`img-project-sdg-${number4SdgToRemove}`, "sidebar-sticky-wrapper");
     // Removing the language element
     let parentElem = document.getElementById("sdgs-list");
     let htmlElemToRemove = document.getElementById(`li-sdg-${number4SdgToRemove}`);
@@ -264,6 +269,8 @@ function removeDeclaredSDG(number4SdgToRemove) {
             console.debug(`  Removing sdg of id: ${sdgToRemoveId}`);
         let htmlToRemove = document.getElementById(sdgToRemoveId);
         parentElem?.removeChild(htmlToRemove);
+        // Renaming the ids in the pictures
+        decrementRelatedElementId("img-project-sdg-", `img-project-sdg-${i}`);
     }
     // Adding the renumbered strings
     let numberBeforeSdgToRemove = number4SdgToRemove - 1;
@@ -307,7 +314,7 @@ function addAnotherSdg() {
     // TODO: to externalize event listener in a generic function.
     let elem = document.getElementById(`project-sdg-${number4TheSDGToAdd}`);
     elem.addEventListener("change", (event) => {
-        addSDGImage(`project-sdg-${number4TheSDGToAdd}`, true);
+        addOrModifySDGImage(`project-sdg-${number4TheSDGToAdd}`, true);
     });
     //Adding an event listener to remove the language later
     addElementEventListenerForClickAndKeyboardNav(`delete-sdg-${number4TheSDGToAdd}`, removeDeclaredSDG, number4TheSDGToAdd, true);
@@ -464,7 +471,7 @@ addElementEventListenerForClickAndKeyboardNav("new-project-definition-invite-but
 /* Listener for the addition of sdgs : for the declaration by default */
 let elem = document.getElementById("project-sdg-1");
 elem.addEventListener("change", (event) => {
-    addSDGImage("project-sdg-1", true);
+    addOrModifySDGImage("project-sdg-1", true);
 });
 /* Listener for adding a new sdg */
 addElementEventListenerForClickAndKeyboardNav("new-sdg-addition-link", addAnotherSdgUsingATimeBuffer, true);

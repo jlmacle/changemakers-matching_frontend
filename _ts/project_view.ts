@@ -2,7 +2,7 @@ import { countryData } from "./data/countries-datahub.io.mjs";
 import { languageData } from "./data/languages-datahub.io.mjs";
 import {sdgLabels} from "./data/sdg-labels.mjs";
 
-import { addElementEventListenerForClickAndKeyboardNav, getAbsoluteTime, toggleElementVisibility,  renumberKeyValueMap, renumberString, isDuplicateSelectionPresent } from "./common.js";
+import { addElementEventListenerForClickAndKeyboardNav, decrementRelatedElementId, getAbsoluteTime, toggleElementVisibility,  removeElement, renumberKeyValueMap, renumberString, isDuplicateSelectionPresent } from "./common.js";
 
 let absoluteTimeSinceLastLanguageAddition:number = 0;
 let absoluteTimeForCurrentLanguageAddition:number = 1000;
@@ -201,7 +201,7 @@ addSDGOptions(); /* Will also build the list of sdg images names */
 
 /******************  sdgs-related methods ***********************/
 
-// TODO: image on the first selection
+// TOD: to have the images in the same order as the sdgs
 
 /**
  * Function thats adds an sdg icon to the left sidebar when adding a sdg to the project profile.
@@ -209,9 +209,9 @@ addSDGOptions(); /* Will also build the list of sdg images names */
  * @param debug A boolean for debug mode.
  */
 
-function addSDGImage(selectId:string, debug:boolean){
+function addOrModifySDGImage(selectId:string, debug:boolean){
     if (debug) {
-        console.debug("addSDGImage() called");
+        console.debug("addOrModifySDGImage() called");
         console.debug(`selectId: ${selectId}`);
     }
     let elem = document.getElementById(selectId) as HTMLSelectElement;
@@ -287,24 +287,29 @@ function addAnotherSdgUsingATimeBuffer(debug:boolean){
 }
 
 /**
+ * Function used to modify the sdg image displayed when the selection is modified
+ */
+
+/**
  * Function used to remove one of the declared sdgs.
  * @param number4SdgToRemove The number of the sdg to remove
  */
-
-// TODO : image to remove
 function removeDeclaredSDG(number4SdgToRemove:number){
     let debug = true;  
     
-    // Getting the added languages elements
+    // Getting the added sdgs elements
     console.debug("\n"+`removeDeclaredSDG() called on sdg number ${number4SdgToRemove}.`);  
     let sdgsAddedElems = document.getElementsByClassName("added-sdg-li") as HTMLCollectionOf<HTMLElement>;
     let totalNumberOfSdgs = sdgsAddedElems.length + 1;
+
+    // Removing the image
+    removeElement(`img-project-sdg-${number4SdgToRemove}`, "sidebar-sticky-wrapper");
     
     // Removing the language element
     let parentElem = document.getElementById("sdgs-list");
     let htmlElemToRemove = document.getElementById(`li-sdg-${number4SdgToRemove}`) as HTMLElement;
     parentElem?.removeChild(htmlElemToRemove);    
-
+ 
     // Before removing the next languages, storing the current id-value pairs:
     if (debug) console.debug("  Storing the current id-value pairs before removing following sdgs.");
     let addedSdgSelectElems = document.getElementsByClassName("added-sdg-select") as HTMLCollectionOf<HTMLSelectElement>;
@@ -326,6 +331,9 @@ function removeDeclaredSDG(number4SdgToRemove:number){
         if (debug) console.debug(`  Removing sdg of id: ${sdgToRemoveId}`);
         let htmlToRemove = document.getElementById(sdgToRemoveId) as HTMLElement;
         parentElem?.removeChild(htmlToRemove);
+
+        // Renaming the ids in the pictures
+        decrementRelatedElementId("img-project-sdg-", `img-project-sdg-${i}`);
     }    
 
     // Adding the renumbered strings
@@ -377,7 +385,7 @@ function addAnotherSdg(){
     // TODO: to externalize event listener in a generic function.
     let elem = document.getElementById(`project-sdg-${number4TheSDGToAdd}`) as HTMLElement;
     elem.addEventListener("change", (event) => {
-        addSDGImage(`project-sdg-${number4TheSDGToAdd}`, true);
+        addOrModifySDGImage(`project-sdg-${number4TheSDGToAdd}`, true);
     })
 
     //Adding an event listener to remove the language later
@@ -568,7 +576,7 @@ addElementEventListenerForClickAndKeyboardNav("new-project-definition-invite-but
 /* Listener for the addition of sdgs : for the declaration by default */
 let elem = document.getElementById("project-sdg-1") as HTMLElement;
 elem.addEventListener("change", (event) => {
-    addSDGImage("project-sdg-1", true);
+    addOrModifySDGImage("project-sdg-1", true);
 })
 
 /* Listener for adding a new sdg */
