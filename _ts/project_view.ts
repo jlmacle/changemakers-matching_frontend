@@ -2,7 +2,7 @@ import { countryData } from "./data/countries-datahub.io.mjs";
 import { languageData } from "./data/languages-datahub.io.mjs";
 import {sdgLabels} from "./data/sdg-labels.mjs";
 
-import { addElementEventListenerForClickAndKeyboardNav, decrementRelatedElementId, getAbsoluteTime, toggleElementVisibility,  removeElement, renumberKeyValueMap, renumberString, isDuplicateSelectionPresent } from "./common.js";
+import { addElementEventListenerForChange, addElementEventListenerForClickAndKeyboardNav, decrementRelatedElementId, getAbsoluteTime, toggleElementVisibility,  removeElement, renumberKeyValueMap, renumberString, isDuplicateSelectionPresent } from "./common.js";
 
 let absoluteTimeSinceLastLanguageAddition:number = 0;
 let absoluteTimeForCurrentLanguageAddition:number = 1000;
@@ -16,6 +16,9 @@ let htmlToAdd4NewSdg = "";
 
 let sdgImageNames: string[] = [];
 let fileDir = "../_media/UN-graphics/";
+
+// TODO: to use HTML <template> instead of Template Strings ES6 (Anssi - R6)
+
 
 /****************** Signup toward project view  ***********************/
 
@@ -45,28 +48,18 @@ function signUpDataProcessing(event: Event, url: string, debug:boolean) {
     }
     else{
         if (debug) console.debug("Entering signUpDataProcessing() function");
-        fetch (url, {
+        fetch (url, {                                                          // 📖 AppSecurity: Use of Fetch over XMLHttpRequest, Anssi: R44
             method:'POST', 
             headers: {'Content-Type': 'application/json'}, 
             body: JSON.stringify({username: username, password: password})
         })
         .then(response => response.text())
-        .then(stringToSanitize => {          
-            // TODO: Setting a session cookie
-            // AppSecurity: https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_CheatSheet.html
-            // TODO: (when using HTTPS)
-            // AppSecurity: https://owasp.org/www-community/controls/SecureCookieAttribute
-            // "The purpose of the secure attribute is to prevent cookies from being observed by unauthorized parties 
-            // due to the transmission of the cookie in clear text. 
-            // To accomplish this goal, browsers which support the secure attribute 
-            // will only send cookies with the secure attribute when the request is going to an HTTPS page."
-
+        .then(stringToSanitize => {     
             // temp cookie for testing (to be done better later)
-            document.cookie = `username=${username}; path=/; max-age=360000;`;
-            if (debug) console.debug("Cookie set: " + document.cookie);
-
-            displayProjectView(username);          
-            
+            document.cookie = `username=${username}; path=/; max-age=360000;`; // 📖 AppSecurity: Setting a session cookie https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_CheatSheet.html
+            if (debug) console.debug("Cookie set: " + document.cookie);        // 📖 AppSecurity: (when using HTTPS) "The purpose of the secure attribute is to prevent cookies from being observed by unauthorized parties due to the transmission of the cookie in clear text. To accomplish this goal, browsers which support the secure attribute will only send cookies with the secure attribute when the request is going to an HTTPS page." https://owasp.org/www-community/controls/SecureCookieAttribute 
+  
+            displayProjectView(username); 
             })
         .catch(error => console.debug(error));
     }
@@ -201,8 +194,6 @@ addSDGOptions(); /* Will also build the list of sdg images names */
 
 /******************  sdgs-related methods ***********************/
 
-// TOD: to have the images in the same order as the sdgs
-
 /**
  * Function thats adds an sdg icon to the left sidebar when adding a sdg to the project profile.
  * @param selectId the id of the select element
@@ -287,10 +278,6 @@ function addAnotherSdgUsingATimeBuffer(debug:boolean){
 }
 
 /**
- * Function used to modify the sdg image displayed when the selection is modified
- */
-
-/**
  * Function used to remove one of the declared sdgs.
  * @param number4SdgToRemove The number of the sdg to remove
  */
@@ -368,7 +355,7 @@ function removeDeclaredSDG(number4SdgToRemove:number){
  * Function used to add another sdg to the project.
  */
 function addAnotherSdg(){
-    console.debug("Entering addAnotherSDG() function");    
+    console.debug("addAnotherSDG() called");    
 
     //Gettng the number of languages already added
     let sdgElems = document.getElementsByClassName("declaredSdg") as HTMLCollectionOf<HTMLElement>;
@@ -382,12 +369,9 @@ function addAnotherSdg(){
     let newSdgAdditionContentElem = document.getElementById("new-sdg-addition-content") as HTMLElement;
     newSdgAdditionContentElem.insertAdjacentHTML('beforebegin',htmlToAdd4NewSdg);
 
-    // TODO: to externalize event listener in a generic function.
-    let elem = document.getElementById(`project-sdg-${number4TheSDGToAdd}`) as HTMLElement;
-    elem.addEventListener("change", (event) => {
-        addOrModifySDGImage(`project-sdg-${number4TheSDGToAdd}`, true);
-    })
 
+    addElementEventListenerForChange(`project-sdg-${number4TheSDGToAdd}`, addOrModifySDGImage, `project-sdg-${number4TheSDGToAdd}`, true);
+  
     //Adding an event listener to remove the language later
     addElementEventListenerForClickAndKeyboardNav(`delete-sdg-${number4TheSDGToAdd}`, removeDeclaredSDG, number4TheSDGToAdd, true);
 }
@@ -574,17 +558,10 @@ authFormSubmit?.addEventListener("click", (event) => signUpDataProcessing(event,
 addElementEventListenerForClickAndKeyboardNav("new-project-definition-invite-button", toggleElementVisibility, "new-project-definition-form", true);
 
 /* Listener for the addition of sdgs : for the declaration by default */
-let elem = document.getElementById("project-sdg-1") as HTMLElement;
-elem.addEventListener("change", (event) => {
-    addOrModifySDGImage("project-sdg-1", true);
-})
+addElementEventListenerForChange("project-sdg-1", addOrModifySDGImage, "project-sdg-1", true);
 
 /* Listener for adding a new sdg */
 addElementEventListenerForClickAndKeyboardNav("new-sdg-addition-link", addAnotherSdgUsingATimeBuffer, true);
-
-/* Listener for the detection of language duplicates */
-// document.addEventListener("change",isDuplicateSelectionPresent)
-
 
 /* Listener for adding a new language */ 
 addElementEventListenerForClickAndKeyboardNav("new-language-addition-link", addAnotherLanguageUsingATimeBuffer, true);

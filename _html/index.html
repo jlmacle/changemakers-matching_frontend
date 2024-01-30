@@ -20,8 +20,8 @@
     <link rel="stylesheet" type="text/css" href="../_css/index.css">
     <link rel="stylesheet" type="text/css" href="../_css/authentication.css"> 
     <title>Seeking ways to better the world? Find if your skills could be used to achieve the UN Sustainable Development Goals.</title>
-        <!-- ➡️ TODO: AppSecurity: integrity hash to add before pushing the code ⬅️ -->
-    <script type="module" src="../_js/common.js" defer></script> 
+        <!-- ➡️ TODO: AppSecurity: integrity hash to add (css/js) - Time consuming - Not done at development time ⬅️ -->
+    <script type="module" src="../_js/common.js" defer></script> <!-- 📖 AppSecurity: Integrity check of internal content, Anssi R11 -->
     <script type="module"  src="../_js/index.js" defer></script> 
     <!-- The script integrity is checked automatically by the browser. Any errors would be visible on the developer tools console. -->
     <!-- The SRI of local js files was obtained by first providing a wrong SRI, and the browser console returned the expected SRI. -->
@@ -68,13 +68,13 @@
 
     <!-- /* ---------------------- MAIN section ----------------------  */ -->
     <div id="container-main-section">
-        <aside id="sidebar_left" class="grid aside"></aside>
+        <aside id="sidebar_left" aria-label=""  class="grid aside"></aside>
         <main tabindex="0" id="main" class="to-ignore-when-modal1"  aria-hidden="false">        
             <div role="text" aria-readonly="true" style="text-align:center;margin:auto;margin-top: 300px;">
                 <strong>Testimonies of satisfied users</strong>
             </div>
         </main>
-        <aside class="grid aside"></aside>
+        <aside aria-label="" class="grid aside"></aside>
     </div>
 
     <!-- /* ---------------------- FOOTER section ----------------------   */ -->

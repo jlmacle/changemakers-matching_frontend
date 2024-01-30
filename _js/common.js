@@ -27,10 +27,10 @@ function functionCallingAnotherFunctionUsingATimeBuffer(functionToCall,
  * Function used to add an event listener to an element.
  * The event listener responds to clicks, “Enter” keystrokes, and “Space” keystrokes.
  * @param elementId The id of the single element to add an event listener to.
- * @param functionCalledByTheEventListener The function to call when the event is fired.
+ * @param functionToCall The function to call when the event is fired.
  */
 export const addElementEventListenerForClickAndKeyboardNav = (elementId, functionToCall, ...args) => {
-    console.debug("addElementEventListenerForClickAndKeyboardNav() called.");
+    console.debug("addElementEventListenerForClickAndKeyboardNav() called");
     let element = document.getElementById(elementId);
     element.addEventListener("click", (event) => {
         console.debug("\n" + "Event called with a click.");
@@ -47,6 +47,19 @@ export const addElementEventListenerForClickAndKeyboardNav = (elementId, functio
             functionCallingAnotherFunctionUsingATimeBuffer(functionToCall, ...args);
             timeSince1970WhenThePreviousEventIsFired = timeSince1970WhenTheCurrentEventIsFired;
         }
+    });
+};
+/**
+ * Function used to add an event listener to an element.
+ * The event listener responds to "change".
+ * @param elementId The id of the single element to add an event listener to.
+ * @param functionToCall The function to call when the event is fired.  *
+ */
+export const addElementEventListenerForChange = (elementId, functionToCall, ...args) => {
+    console.debug("addElementEventListenerForChange() called");
+    let elem = document.getElementById(elementId);
+    elem.addEventListener("change", () => {
+        functionToCall(...args);
     });
 };
 /****************** Toggle functions  ***********************/
@@ -103,7 +116,7 @@ function toggleElementBoldness(elementId) {
 export const decrementRelatedElementId = (rootForIdToRenumber, idToRenumber) => {
     let debug = true;
     if (debug)
-        console.debug("      decrementRelatedElementId called.");
+        console.debug("      decrementRelatedElementId called");
     let elem = document.getElementById(idToRenumber);
     // parsing and decrementing the number
     let numberInId = parseInt(idToRenumber.replace(rootForIdToRenumber, ""));
@@ -136,7 +149,7 @@ export const removeElement = (elementId, containerId) => {
  */
 export const isDuplicateSelectionPresent = (className, errorElementId, debug) => {
     if (debug)
-        console.debug("isDuplicateSelectionPresent() called.");
+        console.debug("isDuplicateSelectionPresent() called");
     let elems = document.getElementsByClassName(className);
     let selectedValues = [];
     let selectedValuesSet = new Set(selectedValues);
@@ -152,7 +165,7 @@ export const isDuplicateSelectionPresent = (className, errorElementId, debug) =>
             console.debug("Duplicated values exist. Displaying error message.");
         }
         let errorElem = document.getElementById(errorElementId);
-        errorElem.innerHTML = "⚠️ Duplicate selection. Please correct your choice.";
+        errorElem.innerText = "⚠️ Duplicate selection. Please correct your choice."; // 📖 AppSecurity: 
     }
 };
 /**
