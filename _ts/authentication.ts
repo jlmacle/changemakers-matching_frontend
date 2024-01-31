@@ -7,9 +7,8 @@ let passwordIsValid:boolean = false;
  *      and the submit button was enabled even so.
         ➡️ The issue was solved at HTML level.
  */
-function checkUsername() {
-    // "Make sure your usernames/user IDs are case-insensitive."
-    // AppSecurity: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_CheatSheet.html#user-ids
+function checkUsername() { // 📖 AppSecurity: "Make sure your usernames/user IDs are case-insensitive.", https://cheatsheetseries.owasp.org/cheatsheets/Authentication_CheatSheet.html#user-ids
+ 
     let debug = false;
 
     let username = document.getElementById("username") as HTMLInputElement; 
@@ -18,27 +17,28 @@ function checkUsername() {
     // "Input" being the event, typing an invalid character, as a first input, was not detected .
     // "keyup" solved the issue.
     username?.addEventListener("keyup", function(event){
-        let usernameError = document.getElementById("usernameError") as HTMLElement;    
+        let usernameError = document.getElementById("error-in-username") as HTMLElement;  
+        usernameError.setAttribute("style","background-color: rgb(255, 251, 251)");  
         
         if (username?.value && usernameError) {  
             username.value = username.value.toLowerCase(); // "Make sure your usernames/user IDs are case-insensitive."
             if (username.value.search(/\W/) !== -1) { // Equivalent to [^A-Za-z0-9_]
                     if (debug) console.debug("Invalid character. The username can only contain lowercase letters without accents, numbers and underscores.");
-                    usernameError.innerHTML = "⚠️ Invalid character present. <br>The username can only contain lowercase letters without accents, numbers and underscores.";
+                    usernameError.innerHTML = "⚠️ Invalid character present. <br>The username can only contain lowercase letters without accents, numbers and underscores.";                    
                     submitButton.disabled = true;
                     usernameIsValid = false;
                 }    
                 
                 else if (username.value.length < 4) {
                     if (debug) console.debug("Username is too short");
-                    usernameError.innerHTML = "⚠️ The username must be at least 4 characters long, and in lowercase.";
+                    usernameError.innerText = "⚠️ The username must be at least 4 characters long, and in lowercase.";
                     submitButton.disabled = true;
                     usernameIsValid = false;
                 }
                         
                 else {
                     if (debug) console.debug("The username is valid:");
-                    usernameError.innerHTML = "✅ The username is valid.";               
+                    usernameError.innerText = "✅ The username is valid.";            
                     usernameIsValid = true;
                     // Still need to check if the password is valid before enabling the submit button.
                     if (usernameIsValid && passwordIsValid) submitButton.disabled = false;
@@ -61,40 +61,33 @@ checkUsername();
 /**
  * Function used to check if the password is acceptable.
  */
-function checkPassword() {
+function checkPassword() {  // 📖 AppSecurity: "Passwords shorter than 8 characters are considered to be weak (NIST SP800-63B)" "A common maximum length is 64 characters due to limitations in certain hashing algorithms" https://cheatsheetseries.owasp.org/cheatsheets/Authentication_CheatSheet.html#implement-proper-password-strength-controls 
     let debug = false;
 
     let password = document.getElementById("password") as HTMLInputElement; 
     let submitButton = document.getElementById("auth-form-creation-submit") as HTMLButtonElement;
 
     password?.addEventListener("keyup", function(event){                
-        let passwordError = document.getElementById("passwordError");  
-        
-        // "Minimum length of the passwords should be enforced by the application. 
-        // Passwords shorter than 8 characters are considered to be weak (NIST SP800-63B).
-        // Maximum password length should not be set too low, as it will prevent users from creating passphrases. 
-        // A common maximum length is 64 characters due to limitations in certain hashing algorithms"
-        // AppSecurity: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_CheatSheet.html#implement-proper-password-strength-controls 
+        let passwordError = document.getElementById("error-in-password");  
+        passwordError?.setAttribute("style","background-color: rgb(255, 251, 251)");
 
         if (password?.value && passwordError) {
             if (password.value.length < 8) {
                 if (debug) console.debug("Password is too short");
-                passwordError.innerHTML = "⚠️ The password should be at least 8 characters long.";
+                passwordError.innerText = "⚠️ The password should be at least 8 characters long.";                
                 submitButton.disabled = true;          
                 passwordIsValid = false;      
             }        
             else if (password.value.length >=64) {
                 if (debug) console.debug("Password is too long");
-                passwordError.innerHTML = "⚠️ The password should be less than 64 characters long.";
+                passwordError.innerText = "⚠️ The password should be less than 64 characters long.";
                 submitButton.disabled = true;          
                 passwordIsValid = false;      
             }   
             
             else {
-                if (debug) console.debug("The password is valid.");
-                // "There should be no password composition rules limiting the type of characters permitted."
-                // AppSecurity: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_CheatSheet.html#implement-proper-password-strength-controls
-                passwordError.innerHTML = "✅ The password is valid.";
+                if (debug) console.debug("The password is valid."); // 📖 AppSecurity:  "There should be no password composition rules limiting the type of characters permitted.", https://cheatsheetseries.owasp.org/cheatsheets/Authentication_CheatSheet.html#implement-proper-password-strength-controls 
+                passwordError.innerText = "✅ The password is valid.";
                 passwordIsValid = true;
                 // Still need to check if the username is valid before enabling the submit button.
                 if (usernameIsValid && passwordIsValid) submitButton.disabled = false;

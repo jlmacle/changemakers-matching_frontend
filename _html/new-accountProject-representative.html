@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css"  href="../_css/project-view.css">
     <link rel="stylesheet" type="text/css"  href="../_css/authentication.css">  
     <title>Seeking ways to better the world? Find if your skills could be used to achieve the UN Sustainable Development Goals.</title>
-        <!-- ➡️ TODO: AppSecurity: integrity hash to add before pushing the code ⬅️ -->
+        <!-- ➡️ TODO: AppSecurity: integrity hash to add (css/js) - Time consuming - Not done at development time ⬅️ -->
     <script type="module" src="../_js/common.js" defer></script>
     <script src="../_js/authentication.js" defer></script>  
     <script type="module" src="../_js/project_view.js" defer></script> <!-- type="module" is necessary because of the import -->
@@ -49,16 +49,16 @@
             <div id="new-accountProj-rep-title" style="display:block;">
                 <h1 style="display:block;">New account creation</h1>
                 <form id="auth-form-creation" method="post" style="display:block;">
-                    <fieldset>
+                    <fieldset id="auth-form-creation-fieldset">
                         <legend>Please enter username and password</legend>
                         <label for="username">Username</label>
                         <input type="text" name="username" id="username" autocomplete="off">
     <!--TODO: autocomplete "off" to remove eventually. A help with demos-->
-                        <div id="usernameError">The username can only contain lowercase letters without accents, numbers and underscores.</div>
+                        <div id="error-in-username">The username can only contain lowercase letters without accents, numbers and underscores.</div>
                         <br>
                         <label for="password">Password</label>
                         <input type="password" name="password" id="password"><br>
-                        <div id="passwordError">The password should be at least 8 characters long.</div>
+                        <div id="error-in-password">The password should be at least 8 characters long.</div>
                         <br>
                         <button type="submit" id="auth-form-creation-submit" disabled>Submit</button>            
                     </fieldset>
@@ -119,6 +119,7 @@
                         <!-- sdg goals -->
                         <div class="new-project-definition-container">
                             <label aria-hidden="true" class="new-project-definition-label" for="project-sdg-1">Main Sustainable Development Goals the project is related to:</label>
+                            <div id="error-in-sdg-selection"></div>
                             <ul id="sdgs-list" style="margin:0;">
                                 <li id="li-sdg-1">
                                     <div class="new-project-definition-container" style="padding-top:0px;">
@@ -143,14 +144,15 @@
 
                         <!-- languages -->
     <!-- Ideally, a dataset of languages per country -->                    
-                        <div class="new-project-definition-container">                        
+                        <div class="new-project-definition-container">     
+                            <div id="error-in-language-selection"></div>                   
                             <label class="new-project-definition-label">Prefered languages for communication:</label>
                             <ul id="languages-list" style="margin:0;">
                                 <li id="li-language-1">
                                     <div class="new-project-definition-container" style="padding-top:0px;">
-                                        <label aria-hidden="true" class="new-project-definition-label preferedLanguage" for="project-language-1">Language 1</label>
+                                        <label aria-hidden="true" class="new-project-definition-label" for="project-language-1">Language 1</label>
                                         <select aria-label="Please choose a prefered language for your project."  
-                                            id="project-language-1" name="project-language-1" required>
+                                            id="project-language-1" name="project-language-1" class="preferedLanguage"  required>
                                             <!-- here the generated options  -->
                                         </select>  
                                     </div>  

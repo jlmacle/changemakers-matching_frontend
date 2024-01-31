@@ -94,6 +94,7 @@ auth-form-login input{
 }
 
 #welcome-container div{
+    width: -moz-fit-content; /* 'width: fit-content' is not supported by Firefox, Firefox for Android. (Edge dev tools) */
     width: fit-content;
 }
 

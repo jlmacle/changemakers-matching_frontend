@@ -1,11 +1,27 @@
 /* ---------------------- MAIN section :  ----------------------  */
-        /* Main structure : sidebars */
+        /* Main structure: sidebars */
         #sidebar-sticky-wrapper{
             position: sticky;
             top:0;
         }
 
-        /* Main structure : project content */
+        /* Main structure: account creation */
+        #auth-form-creation-fieldset{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #error-in-username{
+            margin-top: 1px;
+        }
+
+        #error-in-password{
+            margin-top: 1px;
+        }
+
+        /* Main structure: project content */
         #projects-main-content{ 
             margin-left: 10px;
             margin-right: 10px;

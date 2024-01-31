@@ -73,7 +73,6 @@
     background-color: white;
     flex:1;  /* to have the sides of the same height as the main content */
 } 
-
     @media screen and (max-width:1300px) { /* couldn't use var(--break-value-for-sidebars) */
         .aside{
             display: none;
@@ -83,7 +82,6 @@
 .aside img {
     width:100%;
 }
-
 
 
 #main{       
@@ -97,6 +95,13 @@
     #main{
         width: 100%;
     }
+    
+}
+
+[id|="error"]{    
+    padding: 5px 5px 5px 5px;
+    width: -moz-fit-content;
+    width: fit-content;
     
 }
 

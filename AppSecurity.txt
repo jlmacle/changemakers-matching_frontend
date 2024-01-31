@@ -1,0 +1,8 @@
+Application Security: references
+
+https://owasp.org/
+
+"Recommandations pour la mise en œuvre d'un site web : 
+maîtriser les standards de sécurité côté navigateur"
+Guide ANSSI 
+https://cyber.gouv.fr/sites/default/files/2013/05/anssi-guide-recommandations_mise_en_oeuvre_site_web_maitriser_standards_securite_cote_navigateur-v2.0.pdf
