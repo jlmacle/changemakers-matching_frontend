@@ -55,12 +55,27 @@ export const addElementEventListenerForClickAndKeyboardNav = (elementId, functio
  * @param elementId The id of the single element to add an event listener to.
  * @param functionToCall The function to call when the event is fired.  *
  */
-export const addElementEventListenerForChange = (elementId, functionToCall, ...args) => {
-    console.debug("addElementEventListenerForChange() called");
+export const addElementEventListenerForChangeEvent = (elementId, functionToCall, ...args) => {
+    console.debug("addElementEventListenerForChangeEvent() called");
     let elem = document.getElementById(elementId);
     elem.addEventListener("change", () => {
         functionToCall(...args);
     });
+};
+/**
+ * Function used to add an event listener to the elements of a class.
+ * The event listener responds to "change".
+ * @param className The id of the class of elements to add an event listener to.
+ * @param functionToCall The function to call when the event is fired.
+ */
+export const addClassEventListenerForChangeEvent = (className, functionToCall, ...args) => {
+    console.debug("addClassEventListenerForChangeEvent() called");
+    let elems = document.getElementsByClassName(className);
+    for (let elem of elems) {
+        elem.addEventListener("change", () => {
+            functionToCall(...args);
+        });
+    }
 };
 /****************** Toggle functions  ***********************/
 /**
@@ -151,21 +166,25 @@ export const isDuplicateSelectionPresent = (className, errorElementId, debug) =>
     if (debug)
         console.debug("isDuplicateSelectionPresent() called");
     let elems = document.getElementsByClassName(className);
+    let errorElem = document.getElementById(errorElementId);
     let selectedValues = [];
     let selectedValuesSet = new Set(selectedValues);
     for (let elem of elems) {
         selectedValues.push(elem.selectedIndex);
+        selectedValuesSet.add(elem.selectedIndex);
     }
     if (selectedValuesSet.size == selectedValues.length) {
         if (debug)
-            console.debug("No duplicated values.");
+            console.debug("  No duplicated values.");
+        errorElem.innerText = ""; // in case of previously displayed error
+        errorElem.setAttribute("style", "background-color: transparent");
     }
     else {
         if (debug) {
-            console.debug("Duplicated values exist. Displaying error message.");
+            console.debug(` Duplicated values exist within the ${selectedValues.length} elements:  ${selectedValues.toString()}. Displaying error message.`);
         }
-        let errorElem = document.getElementById(errorElementId);
-        errorElem.innerText = "⚠️ Duplicate selection. Please correct your choice."; // 📖 AppSecurity: 
+        errorElem.innerText = "⚠️ Duplicate selection. Please correct your choice.";
+        errorElem.setAttribute("style", "background-color: rgb(255, 251, 251)");
     }
 };
 /**

@@ -2,7 +2,7 @@ import { countryData } from "./data/countries-datahub.io.mjs";
 import { languageData } from "./data/languages-datahub.io.mjs";
 import {sdgLabels} from "./data/sdg-labels.mjs";
 
-import { addElementEventListenerForChange, addElementEventListenerForClickAndKeyboardNav, decrementRelatedElementId, getAbsoluteTime, toggleElementVisibility,  removeElement, renumberKeyValueMap, renumberString, isDuplicateSelectionPresent } from "./common.js";
+import { addClassEventListenerForChangeEvent, addElementEventListenerForChangeEvent, addElementEventListenerForClickAndKeyboardNav, decrementRelatedElementId, getAbsoluteTime, toggleElementVisibility,  removeElement, renumberKeyValueMap, renumberString, isDuplicateSelectionPresent } from "./common.js";
 
 let absoluteTimeSinceLastLanguageAddition:number = 0;
 let absoluteTimeForCurrentLanguageAddition:number = 1000;
@@ -351,7 +351,7 @@ function removeDeclaredSDG(number4SdgToRemove:number){
 };
 
 /**
- * TODO: to prevent duplicated entries
+ * TODO: to prevent duplicated entries + sorted by numbers.
  * Function used to add another sdg to the project.
  */
 function addAnotherSdg(){
@@ -370,7 +370,7 @@ function addAnotherSdg(){
     newSdgAdditionContentElem.insertAdjacentHTML('beforebegin',htmlToAdd4NewSdg);
 
 
-    addElementEventListenerForChange(`project-sdg-${number4TheSDGToAdd}`, addOrModifySDGImage, `project-sdg-${number4TheSDGToAdd}`, true);
+    addElementEventListenerForChangeEvent(`project-sdg-${number4TheSDGToAdd}`, addOrModifySDGImage, `project-sdg-${number4TheSDGToAdd}`, true);
   
     //Adding an event listener to remove the language later
     addElementEventListenerForClickAndKeyboardNav(`delete-sdg-${number4TheSDGToAdd}`, removeDeclaredSDG, number4TheSDGToAdd, true);
@@ -388,12 +388,12 @@ function getLanguageToAddHTMLString(value_to_insert:string): string{
     let html_to_return = 
     `<li id="li-language-${value_to_insert}" class="added-language-li">
         <div class="new-project-definition-container">
-            <label class="new-project-definition-label preferedLanguage" for="project-language-${value_to_insert}">
+            <label class="new-project-definition-label" for="project-language-${value_to_insert}">
                 Language ${value_to_insert}
             </label>
             <div id="project-language-${value_to_insert}-error"></div>
             <div class="new-project-definition-input" style="padding-top:1px;">
-                <select id="project-language-${value_to_insert}" class="added-language-select"
+                <select id="project-language-${value_to_insert}" class="added-language-select preferedLanguage"
                     name="project-language-${value_to_insert}">`
                     + getLanguageList() +
                 `</select>  
@@ -409,7 +409,6 @@ function getLanguageToAddHTMLString(value_to_insert:string): string{
 
  
 /**
- * TODO: to prevent duplicated entries
  * Function used to add another prefered language to the project.
  */
 function addAnotherLanguage(){
@@ -429,6 +428,11 @@ function addAnotherLanguage(){
 
     //Adding an event listener to remove the language later
     addElementEventListenerForClickAndKeyboardNav(`delete-language-${number4TheLanguageToAdd}`, removePreferedLanguage, number4TheLanguageToAdd, true);
+
+    //Adding an event listener for duplicated selections (change event)
+    addElementEventListenerForChangeEvent(`project-language-${number4TheLanguageToAdd}`, isDuplicateSelectionPresent, "preferedLanguage", "error-in-language-selection", true);
+        // The case of non-selection at start-up is ignored. The feature is only informative. A malicious actor could bypass any front-end input validation. Treatment planned on the back-end side.  
+
 }
 
 /**
@@ -558,13 +562,16 @@ authFormSubmit?.addEventListener("click", (event) => signUpDataProcessing(event,
 addElementEventListenerForClickAndKeyboardNav("new-project-definition-invite-button", toggleElementVisibility, "new-project-definition-form", true);
 
 /* Listener for the addition of sdgs : for the declaration by default */
-addElementEventListenerForChange("project-sdg-1", addOrModifySDGImage, "project-sdg-1", true);
+addElementEventListenerForChangeEvent("project-sdg-1", addOrModifySDGImage, "project-sdg-1", true);
 
 /* Listener for adding a new sdg */
 addElementEventListenerForClickAndKeyboardNav("new-sdg-addition-link", addAnotherSdgUsingATimeBuffer, true);
 
 /* Listener for adding a new language */ 
 addElementEventListenerForClickAndKeyboardNav("new-language-addition-link", addAnotherLanguageUsingATimeBuffer, true);
+
+/* Listener for dupilcation selection (other listeners at code generation) */
+addElementEventListenerForChangeEvent("project-language-1", isDuplicateSelectionPresent, "preferedLanguage", "error-in-language-selection", true);
 
 
 

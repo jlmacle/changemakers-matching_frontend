@@ -70,18 +70,43 @@ export const  addElementEventListenerForClickAndKeyboardNav
  * @param functionToCall The function to call when the event is fired.  * 
  */
 
-export const addElementEventListenerForChange = <T>
+export const addElementEventListenerForChangeEvent = <T>
         (
             elementId: string,
             functionToCall: (...args:any[]) => T,
             ...args:any[]
         ) =>  {
-            console.debug("addElementEventListenerForChange() called");
+            console.debug("addElementEventListenerForChangeEvent() called");
             let elem = document.getElementById(elementId) as HTMLElement;
             elem.addEventListener("change", () => {
                 functionToCall(...args);
             });
         };
+
+/**
+ * Function used to add an event listener to the elements of a class.
+ * The event listener responds to "change".
+ * @param className The id of the class of elements to add an event listener to.
+ * @param functionToCall The function to call when the event is fired.  
+ */
+
+export const addClassEventListenerForChangeEvent = <T>
+        (
+            className: string,
+            functionToCall: (...args:any[]) => T,
+            ...args:any[]
+
+        ) => {
+            console.debug("addClassEventListenerForChangeEvent() called");
+            let elems = document.getElementsByClassName(className) as HTMLCollectionOf<HTMLElement>;
+            for (let elem of elems){
+                elem.addEventListener("change", () => {
+                    functionToCall(...args);
+                 });
+            }
+        };
+
+
 
 /****************** Toggle functions  ***********************/
 
@@ -204,20 +229,26 @@ export const isDuplicateSelectionPresent =
     ) => {
         if (debug) console.debug("isDuplicateSelectionPresent() called");
         let elems = document.getElementsByClassName(className) as HTMLCollectionOf<HTMLSelectElement>;  
+        let errorElem = document.getElementById(errorElementId) as HTMLElement;
         let selectedValues: number[] = [];
         let selectedValuesSet = new Set(selectedValues);
 
         for (let elem of elems) {
             selectedValues.push(elem.selectedIndex);
+            selectedValuesSet.add(elem.selectedIndex);
         }
 
         if (selectedValuesSet.size == selectedValues.length){
-            if (debug) console.debug("No duplicated values.")
+            if (debug) console.debug("  No duplicated values.")
+            errorElem.innerText =""; // in case of previously displayed error
+            errorElem.setAttribute("style","background-color: transparent");
         }
         else {
-            if (debug) {console.debug("Duplicated values exist. Displaying error message.");}            
-            let errorElem = document.getElementById(errorElementId) as HTMLElement;
-            errorElem.innerText ="⚠️ Duplicate selection. Please correct your choice."; // 📖 AppSecurity: 
+            if (debug) {
+                console.debug(` Duplicated values exist within the ${selectedValues.length} elements:  ${selectedValues.toString()}. Displaying error message.`); 
+            } 
+            errorElem.innerText ="⚠️ Duplicate selection. Please correct your choice."; 
+            errorElem.setAttribute("style","background-color: rgb(255, 251, 251)");
         }    
     }
 

@@ -17,13 +17,14 @@ function checkUsername() { // 📖 AppSecurity: "Make sure your usernames/user I
     // "Input" being the event, typing an invalid character, as a first input, was not detected .
     // "keyup" solved the issue.
     username?.addEventListener("keyup", function(event){
-        let usernameError = document.getElementById("usernameError") as HTMLElement;    
+        let usernameError = document.getElementById("error-in-username") as HTMLElement;  
+        usernameError.setAttribute("style","background-color: rgb(255, 251, 251)");  
         
         if (username?.value && usernameError) {  
             username.value = username.value.toLowerCase(); // "Make sure your usernames/user IDs are case-insensitive."
             if (username.value.search(/\W/) !== -1) { // Equivalent to [^A-Za-z0-9_]
                     if (debug) console.debug("Invalid character. The username can only contain lowercase letters without accents, numbers and underscores.");
-                    usernameError.innerText = "⚠️ Invalid character present. <br>The username can only contain lowercase letters without accents, numbers and underscores.";
+                    usernameError.innerHTML = "⚠️ Invalid character present. <br>The username can only contain lowercase letters without accents, numbers and underscores.";                    
                     submitButton.disabled = true;
                     usernameIsValid = false;
                 }    
@@ -37,7 +38,7 @@ function checkUsername() { // 📖 AppSecurity: "Make sure your usernames/user I
                         
                 else {
                     if (debug) console.debug("The username is valid:");
-                    usernameError.innerText = "✅ The username is valid.";               
+                    usernameError.innerText = "✅ The username is valid.";            
                     usernameIsValid = true;
                     // Still need to check if the password is valid before enabling the submit button.
                     if (usernameIsValid && passwordIsValid) submitButton.disabled = false;
@@ -67,13 +68,13 @@ function checkPassword() {  // 📖 AppSecurity: "Passwords shorter than 8 chara
     let submitButton = document.getElementById("auth-form-creation-submit") as HTMLButtonElement;
 
     password?.addEventListener("keyup", function(event){                
-        let passwordError = document.getElementById("passwordError");  
-       
+        let passwordError = document.getElementById("error-in-password");  
+        passwordError?.setAttribute("style","background-color: rgb(255, 251, 251)");
 
         if (password?.value && passwordError) {
             if (password.value.length < 8) {
                 if (debug) console.debug("Password is too short");
-                passwordError.innerText = "⚠️ The password should be at least 8 characters long.";
+                passwordError.innerText = "⚠️ The password should be at least 8 characters long.";                
                 submitButton.disabled = true;          
                 passwordIsValid = false;      
             }        
