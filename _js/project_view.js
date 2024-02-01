@@ -10,6 +10,7 @@ let addedLanguagesSelectedOptions = new Map();
 let htmlToAdd4NewLanguage = "";
 let addedSdgsSelectedOptions = new Map();
 let htmlToAdd4NewSdg = "";
+let htmlToAdd4NewSdgImg = "";
 let sdgImageNames = [];
 let fileDir = "../_media/UN-graphics/";
 // TODO: to use HTML <template> instead of Template Strings ES6 (Anssi - R6)
@@ -134,7 +135,7 @@ function getSDGList() {
     // Should be already sorted. Just in case.
     sdgList.sort();
     let sdgOptions = "";
-    sdgList.forEach(label => sdgOptions += `<option value=${label}> ${label} </option>`);
+    sdgList.forEach(label => sdgOptions += `<option value='${label}'> ${label} </option>`);
     return sdgOptions;
 }
 function addSDGOptions() {
@@ -144,39 +145,121 @@ function addSDGOptions() {
 }
 addSDGOptions(); /* Will also build the list of sdg images names */
 /******************  sdgs-related methods ***********************/
+/** Function used to avoid code redundancy when working with strings related to adding a new sdg image
+* @param id The first value to substitute inside the string
+* @param filePath The second value to substitute inside the string
+* @returns The string to add to the HTML
+*/
+function getSdgImgToAddHTMLString(id, filePath) {
+    let html_to_return = `<img id='${id}' aria-label='' src='${filePath}' class='sdgImg'>`;
+    return html_to_return;
+}
 /**
- * Function thats adds an sdg icon to the left sidebar when adding a sdg to the project profile.
- * @param selectId the id of the select element
+ * Function thats adds or modifies an sdg icon in the left sidebar when selecting a sdg for the project profile.
+ * The function sorts the sdg images by ascending order of sdg number.
+ * @param selectId the id of the select that fired the event
  * @param debug A boolean for debug mode.
  */
 function addOrModifySDGImage(selectId, debug) {
+    // new selection in element.
+    // if selected already, replacement and sorting
+    // if not selected already, addition and sorting
+    let htmlImgStringsMap = new Map();
+    let arrayToSort = [];
+    let selectedElement = document.getElementById(selectId);
+    // Building from the images already displayed.
+    let displayedImgsElems = document.getElementsByClassName("sdgImg");
+    for (let elem of displayedImgsElems) {
+        // Adding to the map using img-project-sdg-* as key, and the HTML string as value
+        // Key: img-project-sdg-2, value:<img id='img-project-sdg-2' aria-label='' src='../_media/UN-graphics/G5.png' class='sdgImg'>
+        let imgId = elem.getAttribute("Id");
+        let filePath = elem.getAttribute("src");
+        htmlImgStringsMap.set(imgId + "", getSdgImgToAddHTMLString(imgId + "", filePath + ""));
+        // Expected output: <img id='img-project-sdg-1' aria-label='' src='../_media/UN-graphics/G1.png' class='sdgImg'> 
+        // Building the strings to add to the array
+        // let sdgRoot = elem.getAttribute("src")?.replace("../_media/UN-graphics/","").replace(".png","");
+        // console.debug(sdgRoot);
+        // let stringToAdd = elem.
+    }
+    // At this point, the hashmap might be empty
+    // Adding the selected data to the hashmap; The value is updated in case of duplicated key.
+    let builtId = "img-" + selectedElement.getAttribute("id");
+    let selectedSDGNumber = selectedElement.selectedIndex + 1;
+    let builtFilePath = fileDir + "G" + selectedSDGNumber + ".png";
+    htmlImgStringsMap.set(builtId, getSdgImgToAddHTMLString(builtId, builtFilePath));
     if (debug) {
-        console.debug("addOrModifySDGImage() called");
-        console.debug(`selectId: ${selectId}`);
+        console.debug("hashmap: begin");
+        htmlImgStringsMap.forEach((value, key) => console.debug(`Key: ${key}, value:${value}`));
+        console.debug("hashmap: end");
     }
-    let elem = document.getElementById(selectId);
-    let sdgNumber = elem.selectedIndex + 1;
-    // Getting the image name:
-    let sdgImageName = sdgImageNames[sdgNumber - 1];
-    if (debug) {
-        console.debug(`sdgNumber: ${sdgNumber}`);
-        console.debug(`sdgImageName: ${sdgImageName}`);
+    // Adding the hashmap data to the array
+    htmlImgStringsMap.forEach((value, key) => {
+        //Getting the SDGNumber
+        let gSdgNumber = (value.split("UN-graphics/")[1]).split(".png")[0];
+        //Building the data to add
+        // Pattern used: G1*<img id='img-project-sdg-1' aria-label='' src='../_media/UN-graphics/G1.png' class='sdgImg'>
+        let dataToAdd = gSdgNumber + "*" + value;
+        arrayToSort.push(dataToAdd);
+    });
+    //G1*<img id='img-project-sdg-1' aria-label='' src='../_media/UN-graphics/G1.png' class='sdgImg'>
+    // Sorting the array (TODO)
+    let sortedArray = arrayToSort.sort(function (a, b) {
+        let extractedValueFromA = (a.split("*")[0]).replace("G", "");
+        let extractedValueFromB = (b.split("*")[0]).replace("G", "");
+        return parseInt(extractedValueFromA) - parseInt(extractedValueFromB);
+    });
+    // Going through the sorted array and building the HTML
+    let htmlToAddToWrapper = "";
+    let arrayLength = sortedArray.length;
+    for (let i = 0; i < arrayLength; i++) {
+        let arrayData = sortedArray[i];
+        let builtstring = arrayData.split("*")[1];
+        htmlToAddToWrapper += builtstring;
     }
-    let filePath = fileDir + sdgImageName;
-    // Building/Updating the sidebar HTML
-    let imgId = `img-${selectId}`;
-    let potentialElem = document.getElementById(imgId);
-    if (potentialElem) {
-        console.debug(`Element with id ${imgId} exists, and is being updated.`);
-        potentialElem.setAttribute("src", `${filePath}`);
-    }
-    else {
-        console.debug(`Element with id ${imgId} doesn't exist, and is being created.`);
-        let htmlToAdd = `<img id="img-${selectId}" aria-label="" src=${filePath}>`;
-        let parentElem = document.getElementById("sidebar-sticky-wrapper");
-        parentElem?.insertAdjacentHTML("beforeend", htmlToAdd);
-    }
+    ;
+    // if (debug) console.debug(htmlToAddToWrapper);
+    // Removing the current child element if any to add the generated HTML
+    let parentElem = document.getElementById("sidebar-sticky-wrapper");
+    parentElem.innerHTML = "";
+    parentElem?.insertAdjacentHTML("beforeend", htmlToAddToWrapper);
 }
+/**
+ * Function thats adds or modifies an sdg icon to the left sidebar when selecting a sdg for the project profile.
+ * The function sorts the sdg images by ascending order of sdg number.
+ * @param selectId the id of the select element
+ * @param debug A boolean for debug mode.
+ */
+// function addOrModifySDGImage(selectId:string, debug:boolean){
+//     if (debug) {
+//         console.debug("addOrModifySDGImage() called");
+//         console.debug(`selectId: ${selectId}`);
+//     }
+//     let elem = document.getElementById(selectId) as HTMLSelectElement;
+//     let sdgNumber = elem.selectedIndex + 1;
+//         // Getting the image name:
+//     let sdgImageName =  sdgImageNames[sdgNumber-1];
+//     if (debug) {
+//         console.debug(`sdgNumber: ${sdgNumber}`);
+//         console.debug(`sdgImageName: ${sdgImageName}`);
+//     }
+//     let filePath = fileDir+sdgImageName;
+//     // Building/Updating the sidebar HTML
+//     let imgId = `img-${selectId}`;
+//     let potentialElem = document.getElementById(imgId);
+//     if (potentialElem)
+//     {
+//         console.debug(`Element with id ${imgId} exists, and is being updated.`);
+//         // TODO: updating and sorting
+//         potentialElem.setAttribute("src",`${filePath}`);
+//     }
+//     else {
+//         console.debug(`Element with id ${imgId} doesn't exist, and is being created.`);        
+//         let htmlToAdd = getSdgImgToAddHTMLString(selectId, filePath);
+//         let parentElem = document.getElementById("sidebar-sticky-wrapper");
+//         // TODO: sorting
+//         parentElem?.insertAdjacentHTML("beforeend", htmlToAdd);
+//     }
+// }
 /** Function used to avoid code redundancy when working with strings related to adding a new sdg
 * @param value_to_insert The value to substitute inside the string
 * @returns The string to add to the HTML
@@ -184,12 +267,12 @@ function addOrModifySDGImage(selectId, debug) {
 function getSdgToAddHTMLString(value_to_insert) {
     let html_to_return = `<li id="li-sdg-${value_to_insert}" class="added-sdg-li">
        <div class="new-project-definition-container">
-           <label class="new-project-definition-label declaredSdg" for="project-sdg-${value_to_insert}">
+           <label class="new-project-definition-label" for="project-sdg-${value_to_insert}">
                SDG ${value_to_insert}
            </label>
            <div id="project-sdg-${value_to_insert}-error"></div>
            <div class="new-project-definition-input" style="padding-top:1px;">
-               <select id="project-sdg-${value_to_insert}" class="added-sdg-select"
+               <select id="project-sdg-${value_to_insert}" class="added-sdg-select declaredSdg"
                    name="project-sdg-${value_to_insert}">`
         + getSDGList() +
         `</select>  
@@ -285,7 +368,7 @@ function removeDeclaredSDG(number4SdgToRemove) {
 }
 ;
 /**
- * TODO: to prevent duplicated entries
+ * TODO: to prevent duplicated entries + sorted by numbers.
  * Function used to add another sdg to the project.
  */
 function addAnotherSdg() {
@@ -329,7 +412,6 @@ function getLanguageToAddHTMLString(value_to_insert) {
     return html_to_return;
 }
 /**
- * TODO: to prevent duplicated entries
  * Function used to add another prefered language to the project.
  */
 function addAnotherLanguage() {

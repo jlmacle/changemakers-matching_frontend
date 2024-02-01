@@ -28,7 +28,7 @@ function checkUsername() {
             else if (username.value.length < 4) {
                 if (debug)
                     console.debug("Username is too short");
-                usernameError.innerText = "⚠️ The username must be at least 4 characters long, and in lowercase.";
+                usernameError.innerText = "⚠️ The username must be at least 4 characters long.";
                 submitButton.disabled = true;
                 usernameIsValid = false;
             }
@@ -52,6 +52,7 @@ function checkUsername() {
 }
 /* Calling the function to start the event listener for the username */
 checkUsername();
+// TODO: to avoid space keys, and enter keys in the password (for persons using keyboard navigation)
 /**
  * Function used to check if the password is acceptable.
  */
