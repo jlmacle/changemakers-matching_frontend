@@ -59,7 +59,7 @@ function signUpDataProcessing(event, url, debug) {
 // TODO: to re-work the cookie part minding the security aspects
 document.addEventListener("DOMContentLoaded", function (event) {
     console.debug('Entering addEventListener("DOMContentLoaded") function');
-    let debug = true;
+    let debug = false;
     let cookie = document.cookie;
     if (cookie) {
         let usernamePart = cookie.split(";")[0];
@@ -307,7 +307,7 @@ function addAnotherSdgUsingATimeBuffer(debug) {
  * @param number4SdgToRemove The number of the sdg to remove
  */
 function removeDeclaredSDG(number4SdgToRemove) {
-    let debug = true;
+    let debug = false;
     // Getting the added sdgs elements
     console.debug("\n" + `removeDeclaredSDG() called on sdg number ${number4SdgToRemove}.`);
     let sdgsAddedElems = document.getElementsByClassName("added-sdg-li");
@@ -455,7 +455,7 @@ function addAnotherLanguageUsingATimeBuffer(debug) {
 * @param number4LanguageToRemove The number of the language to remove
 */
 function removePreferedLanguage(number4LanguageToRemove) {
-    let debug = true;
+    let debug = false;
     // Getting the added languages elements
     console.debug("\n" + `removePreferedLanguage() called on language number ${number4LanguageToRemove}.`);
     let languagesAddedElems = document.getElementsByClassName("added-language-li");
@@ -513,7 +513,7 @@ function removePreferedLanguage(number4LanguageToRemove) {
 ;
 /****************** Logout (to move eventually; common to the contributor page as well)  ***********************/
 function logout() {
-    let debug = true;
+    let debug = false;
     if (debug)
         console.debug("logout() called");
     // Removing the HTML from the welcome message
@@ -543,5 +543,6 @@ addElementEventListenerForChangeEvent("project-sdg-1", addOrModifySDGImage, "pro
 addElementEventListenerForClickAndKeyboardNav("new-sdg-addition-link", addAnotherSdgUsingATimeBuffer, true);
 /* Listener for adding a new language */
 addElementEventListenerForClickAndKeyboardNav("new-language-addition-link", addAnotherLanguageUsingATimeBuffer, true);
-/* Listener for dupilcation selection (other listeners at code generation) */
+/* Listener for dupilcated selection of language (other listeners at code generation) */
 addElementEventListenerForChangeEvent("project-language-1", isDuplicateSelectionPresent, "preferedLanguage", "error-in-language-selection", true);
+/* No listener for dupilcated selection of sdgs. Deciding to consider that the visual clues will be sufficient */

@@ -2,10 +2,9 @@ let usernameIsValid:boolean = false;
 let passwordIsValid:boolean = false;
 
 /**
- * Function used to check if the username is acceptable.
- *  ➡️ Witnessed a case where the fields were empty (by selecting and suppressing), 
- *      and the submit button was enabled even so.
-        ➡️ The issue was solved at HTML level.
+ * Function used to check if the username is consistent with the imposed conditions.
+ *  A potentiality: the fields are empty (by selecting, then suppressing the values), and the submit button is enabled even so.
+    The issue has been solved at HTML level.
  */
 function checkUsername() { // 📖 AppSecurity: "Make sure your usernames/user IDs are case-insensitive.", https://cheatsheetseries.owasp.org/cheatsheets/Authentication_CheatSheet.html#user-ids
  
@@ -14,9 +13,9 @@ function checkUsername() { // 📖 AppSecurity: "Make sure your usernames/user I
     let username = document.getElementById("username") as HTMLInputElement; 
     let submitButton = document.getElementById("auth-form-creation-submit") as HTMLButtonElement;
     
-    // "Input" being the event, typing an invalid character, as a first input, was not detected .
+    // Typing an invalid character, as first input, was not detected using  "input".
     // "keyup" solved the issue.
-    username?.addEventListener("keyup", function(event){
+    username?.addEventListener("keyup", function(){
         let usernameError = document.getElementById("error-in-username") as HTMLElement;  
         usernameError.setAttribute("style","background-color: rgb(255, 251, 251)");  
         
@@ -59,7 +58,7 @@ checkUsername();
 
 // TODO: to avoid space keys, and enter keys in the password (for persons using keyboard navigation)
 /** 
- * Function used to check if the password is acceptable.
+ * Function used to check if the password is valid.
  */
 function checkPassword() {  // 📖 AppSecurity: "Passwords shorter than 8 characters are considered to be weak (NIST SP800-63B)" "A common maximum length is 64 characters due to limitations in certain hashing algorithms" https://cheatsheetseries.owasp.org/cheatsheets/Authentication_CheatSheet.html#implement-proper-password-strength-controls 
     let debug = false;
@@ -67,7 +66,7 @@ function checkPassword() {  // 📖 AppSecurity: "Passwords shorter than 8 chara
     let password = document.getElementById("password") as HTMLInputElement; 
     let submitButton = document.getElementById("auth-form-creation-submit") as HTMLButtonElement;
 
-    password?.addEventListener("keyup", function(event){                
+    password?.addEventListener("keyup", function(){                
         let passwordError = document.getElementById("error-in-password");  
         passwordError?.setAttribute("style","background-color: rgb(255, 251, 251)");
 

@@ -9,7 +9,6 @@ let timeSince1970WhenTheCurrentEventIsFired:number = 1000;
  * Function used to avoid several events fired on a single keystroke.
  * The function passed in parameter is called only if the delay between 2 events is > 500 ms.
  * @param functionToCall The function to call potentially.
- * @param debug A boolean for debug mode.
  * @param ...args The arguments for the function.
  */
 function functionCallingAnotherFunctionUsingATimeBuffer<T>
@@ -32,6 +31,7 @@ function functionCallingAnotherFunctionUsingATimeBuffer<T>
  * The event listener responds to clicks, “Enter” keystrokes, and “Space” keystrokes.
  * @param elementId The id of the single element to add an event listener to.
  * @param functionToCall The function to call when the event is fired. 
+ * @param ...args The arguments for the function.
  */
 export const  addElementEventListenerForClickAndKeyboardNav 
     =  <T>
@@ -43,7 +43,7 @@ export const  addElementEventListenerForClickAndKeyboardNav
         ) => {
             console.debug("addElementEventListenerForClickAndKeyboardNav() called");
             let element = document.getElementById(elementId) as HTMLElement;
-            element.addEventListener("click", (event) => {
+            element.addEventListener("click", () => {
                     console.debug("\n"+"Event called with a click.");
                     let date = new Date();  
                     timeSince1970WhenTheCurrentEventIsFired = date.getTime();
@@ -66,8 +66,9 @@ export const  addElementEventListenerForClickAndKeyboardNav
 /**
  * Function used to add an event listener to an element.
  * The event listener responds to "change".
- * @param elementId The id of the single element to add an event listener to.
- * @param functionToCall The function to call when the event is fired.  * 
+ * @param elementId The id of the element to add an event listener to.
+ * @param functionToCall The function to call when the event is fired.  
+ * @param ...args The arguments for the function. 
  */
 
 export const addElementEventListenerForChangeEvent = <T>
@@ -87,7 +88,8 @@ export const addElementEventListenerForChangeEvent = <T>
  * Function used to add an event listener to the elements of a class.
  * The event listener responds to "change".
  * @param className The id of the class of elements to add an event listener to.
- * @param functionToCall The function to call when the event is fired.  
+ * @param functionToCall The function to call when the event is fired. 
+ * @param ...args The arguments for the function. 
  */
 
 export const addClassEventListenerForChangeEvent = <T>
@@ -132,30 +134,6 @@ export const toggleElementVisibility =
         }
     };
 
-/**
- * NOT USED AFTER CODE REFACTORING
- * Function used to toggle the font weight of an element from bold to normal and vice-versa.
- * @param elementId the id of the element to toggle
- */
-function toggleElementBoldness 
-    (
-        elementId: string
-    ){
-        let element = document.getElementById(elementId) as HTMLElement;
-
-        if(element.style.fontWeight == "bold"){
-            element.style.fontWeight = "normal";
-        }
-
-        else if (element.style.fontWeight ==  "normal"){
-            element.style.fontWeight = "bold";
-        }
-        else{
-            console.warn(`Unexpected fontweight value: ${element.style.fontWeight}`);
-            
-        }
-};
-
 /****************** Sign-up/Sign-in data ***********************/
 
 /**
@@ -172,15 +150,16 @@ function toggleElementBoldness
 /****************** Functions used when adding elements/removing elements from a list (sdgs, languages,...) ***********************/
 
 /**
- * Function used to decrement the id of a related element (a sdg picture for ex.), 
- * when the select id is being decremented during a removal process.
- * @param 
+ * Function used to decrement the number, when the id of an element is numbered, for ex. img-project-sdg-3
+ * The function is useful when removing an element from a list (language, sdg). // TODO: to refactor the code removing a prefered language
+ * @param rootForIdToRenumber the root of the numbered string.
+ * @param idToRenumber the string that will be renumbered.
  */
  export const decrementRelatedElementId = (
     rootForIdToRenumber: string,
     idToRenumber: string
  ) => {
-    let debug = true;
+    let debug = false;
     if (debug) console.debug("      decrementRelatedElementId called");
     let elem = document.getElementById(idToRenumber) as HTMLElement;
 
@@ -196,35 +175,38 @@ function toggleElementBoldness
     if (debug) console.debug(`      New id: ${elem.getAttribute("id")}`);
  }
 
+
+
 /**
  * Function used to remove a child element from a container element, using ids.
  * @param containerId the container id
  * @param elementId the element id
  */
-
 export const removeElement = 
     (
         elementId:string, 
         containerId:string
 
     ) => {
-        let debug = true;
+        let debug = false;
         let containerElement = document.getElementById(containerId) as HTMLElement;
         let element = document.getElementById(elementId) as HTMLElement;
         if (debug) console.debug(`  removeElement called with containerId: ${containerId}, and elementId:${elementId}`);
         containerElement.removeChild(element);
     }
 
+
 /**
  * Function used to monitor if duplicate selections exist in a list, and used to display an error message in case of duplication.
- * @param className the name of the class the elements belong to.
+ * @param className the name of the class the select elements belong to.
  * @param errorElementId the id of the element used to display an error message.
+ * @param debug A boolean for debug mode.
  */
-
 export const isDuplicateSelectionPresent = 
     (
         className: string, 
-        errorElementId:string, debug:boolean
+        errorElementId:string, 
+        debug:boolean
         
     ) => {
         if (debug) console.debug("isDuplicateSelectionPresent() called");
@@ -257,7 +239,7 @@ export const isDuplicateSelectionPresent =
  * @param numberRemoved the number of the element to remove from the list.
  * @param totalNumberOfElements the total number of elements present in the list.
  * @param patternStringToRenumber the reference HTML string that will be used when re-adding content in the document. 
- * @param patternToSubstitute the pattern to subtitute when renumbering.
+ * @param patternToSubstitute the pattern to substitute when renumbering.
  * @returns the string renumbered
  */
 export const renumberString = 
@@ -282,12 +264,12 @@ export const renumberString =
     }
 
 /**
- * Function used to renumber the labels of an item list (e.g. "Language 1", "SDG 2"), whiile keeping the previously selected values.
+ * Function used to renumber the labels of an item list (e.g. "Language 1", "SDG 2"), while keeping the previously selected values.
  * @param numberRemoved the number of the element that was removed from the list.
  * @param totalNumberOfElements the total number of elements present in the list.
  * @param idPattern the pattern used in ids (e.g. "project-language-").
- * @param originalMap the map containing the (ids:selectedvalues) pairs, built after an element was removed from the list.
- * @returns a map that contains renumbered ids with kept selected values.
+ * @param originalMap the map containing the (ids:selectedvalues) pairs, built after the element is removed from the list.
+ * @returns a map that contains the renumbered ids with the selected values.
  */
 
 export const renumberKeyValueMap = 
@@ -298,7 +280,7 @@ export const renumberKeyValueMap =
         originalMap:Map<string,string>
         
     ) => {
-        let debug = true;
+        let debug = false;
         if (debug) {
             console.debug("     Content of the original id-value map before renumbering.");
             originalMap.forEach((value,key) => console.debug(`          Key: ${key}, value: ${value}`));

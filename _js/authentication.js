@@ -2,18 +2,17 @@
 let usernameIsValid = false;
 let passwordIsValid = false;
 /**
- * Function used to check if the username is acceptable.
- *  ➡️ Witnessed a case where the fields were empty (by selecting and suppressing),
- *      and the submit button was enabled even so.
-        ➡️ The issue was solved at HTML level.
+ * Function used to check if the username is consistent with the imposed conditions.
+ *  A potentiality: the fields are empty (by selecting, then suppressing the values), and the submit button is enabled even so.
+    The issue has been solved at HTML level.
  */
 function checkUsername() {
     let debug = false;
     let username = document.getElementById("username");
     let submitButton = document.getElementById("auth-form-creation-submit");
-    // "Input" being the event, typing an invalid character, as a first input, was not detected .
+    // Typing an invalid character, as first input, was not detected using  "input".
     // "keyup" solved the issue.
-    username?.addEventListener("keyup", function (event) {
+    username?.addEventListener("keyup", function () {
         let usernameError = document.getElementById("error-in-username");
         usernameError.setAttribute("style", "background-color: rgb(255, 251, 251)");
         if (username?.value && usernameError) {
@@ -54,13 +53,13 @@ function checkUsername() {
 checkUsername();
 // TODO: to avoid space keys, and enter keys in the password (for persons using keyboard navigation)
 /**
- * Function used to check if the password is acceptable.
+ * Function used to check if the password is valid.
  */
 function checkPassword() {
     let debug = false;
     let password = document.getElementById("password");
     let submitButton = document.getElementById("auth-form-creation-submit");
-    password?.addEventListener("keyup", function (event) {
+    password?.addEventListener("keyup", function () {
         let passwordError = document.getElementById("error-in-password");
         passwordError?.setAttribute("style", "background-color: rgb(255, 251, 251)");
         if (password?.value && passwordError) {

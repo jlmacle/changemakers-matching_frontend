@@ -2,7 +2,7 @@ import { countryData } from "./data/countries-datahub.io.mjs";
 import { languageData } from "./data/languages-datahub.io.mjs";
 import {sdgLabels} from "./data/sdg-labels.mjs";
 
-import { addClassEventListenerForChangeEvent, addElementEventListenerForChangeEvent, addElementEventListenerForClickAndKeyboardNav, decrementRelatedElementId, getAbsoluteTime, toggleElementVisibility,  removeElement, renumberKeyValueMap, renumberString, isDuplicateSelectionPresent } from "./common.js";
+import { addElementEventListenerForChangeEvent, addElementEventListenerForClickAndKeyboardNav, decrementRelatedElementId, getAbsoluteTime, toggleElementVisibility,  removeElement, renumberKeyValueMap, renumberString, isDuplicateSelectionPresent } from "./common.js";
 
 let absoluteTimeSinceLastLanguageAddition:number = 0;
 let absoluteTimeForCurrentLanguageAddition:number = 1000;
@@ -70,7 +70,7 @@ function signUpDataProcessing(event: Event, url: string, debug:boolean) {
 // TODO: to re-work the cookie part minding the security aspects
 document.addEventListener("DOMContentLoaded", function(event){
     console.debug('Entering addEventListener("DOMContentLoaded") function');
-    let debug = true;
+    let debug = false;
 
     let cookie = document.cookie;
     if (cookie) {
@@ -390,7 +390,7 @@ function addAnotherSdgUsingATimeBuffer(debug:boolean){
  * @param number4SdgToRemove The number of the sdg to remove
  */
 function removeDeclaredSDG(number4SdgToRemove:number){
-    let debug = true;  
+    let debug = false;  
     
     // Getting the added sdgs elements
     console.debug("\n"+`removeDeclaredSDG() called on sdg number ${number4SdgToRemove}.`);  
@@ -572,7 +572,7 @@ function addAnotherLanguageUsingATimeBuffer(debug:boolean){
  */
 
 function removePreferedLanguage(number4LanguageToRemove:number){
-    let debug = true;  
+    let debug = false;  
     
     // Getting the added languages elements
     console.debug("\n"+`removePreferedLanguage() called on language number ${number4LanguageToRemove}.`);  
@@ -638,7 +638,7 @@ function removePreferedLanguage(number4LanguageToRemove:number){
 /****************** Logout (to move eventually; common to the contributor page as well)  ***********************/
 
 function logout (){  
-    let debug = true;
+    let debug = false;
     if (debug) console.debug("logout() called");
 
     // Removing the HTML from the welcome message
@@ -679,8 +679,8 @@ addElementEventListenerForClickAndKeyboardNav("new-sdg-addition-link", addAnothe
 /* Listener for adding a new language */ 
 addElementEventListenerForClickAndKeyboardNav("new-language-addition-link", addAnotherLanguageUsingATimeBuffer, true);
 
-/* Listener for dupilcation selection (other listeners at code generation) */
+/* Listener for dupilcated selection of language (other listeners at code generation) */
 addElementEventListenerForChangeEvent("project-language-1", isDuplicateSelectionPresent, "preferedLanguage", "error-in-language-selection", true);
 
-
+/* No listener for dupilcated selection of sdgs. Deciding to consider that the visual clues will be sufficient */
 
