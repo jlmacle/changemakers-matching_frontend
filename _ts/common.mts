@@ -34,7 +34,7 @@ function functionCallingAnotherFunctionUsingATimeBuffer<T>
  * @param ...args The arguments for the function.
  */
 export const  addElementEventListenerForClickAndKeyboardNav 
-    =  <T>
+    =  <T extends unknown>
         (   
             elementId:string, 
             functionToCall: (...args: any[]) => T,
@@ -71,7 +71,7 @@ export const  addElementEventListenerForClickAndKeyboardNav
  * @param ...args The arguments for the function. 
  */
 
-export const addElementEventListenerForChangeEvent = <T>
+export const addElementEventListenerForChangeEvent = <T extends unknown>
         (
             elementId: string,
             functionToCall: (...args:any[]) => T,
@@ -92,7 +92,7 @@ export const addElementEventListenerForChangeEvent = <T>
  * @param ...args The arguments for the function. 
  */
 
-export const addClassEventListenerForChangeEvent = <T>
+export const addClassEventListenerForChangeEvent = <T extends unknown>
         (
             className: string,
             functionToCall: (...args:any[]) => T,
@@ -307,13 +307,15 @@ export const renumberKeyValueMap =
 
 /**
  * Function used to get the time elapsed in milliseconds since 1970.
- * @returns 
+ * @returns the time elapsed.
  */
-export const getAbsoluteTime= ():number => {
-    console.debug("Entering getAbsoluteTime() function");
-    const date = new Date();
-    return date.getTime();
-}
+export const getAbsoluteTime = 
+    ():number => {
+        let debug = false;
+        if (debug) console.debug("Entering getAbsoluteTime() function");
+        const date = new Date();
+        return date.getTime();
+    }
 
 /**
  * Function used to re-direct toward the home page 
