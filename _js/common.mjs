@@ -224,10 +224,12 @@ export const renumberKeyValueMap = (numberRemoved, totalNumberOfElements, idPatt
 /****************** Misc.  ***********************/
 /**
  * Function used to get the time elapsed in milliseconds since 1970.
- * @returns
+ * @returns the time elapsed.
  */
 export const getAbsoluteTime = () => {
-    console.debug("Entering getAbsoluteTime() function");
+    let debug = false;
+    if (debug)
+        console.debug("Entering getAbsoluteTime() function");
     const date = new Date();
     return date.getTime();
 };

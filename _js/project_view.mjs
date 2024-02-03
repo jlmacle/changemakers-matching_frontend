@@ -1,7 +1,7 @@
 import { countryData } from "./data/countries-datahub.io.mjs";
 import { languageData } from "./data/languages-datahub.io.mjs";
 import { sdgLabels } from "./data/sdg-labels.mjs";
-import { addElementEventListenerForChangeEvent, addElementEventListenerForClickAndKeyboardNav, decrementRelatedElementId, getAbsoluteTime, toggleElementVisibility, removeElement, renumberKeyValueMap, renumberString, isDuplicateSelectionPresent } from "./common.js";
+import { addElementEventListenerForChangeEvent, addElementEventListenerForClickAndKeyboardNav, decrementRelatedElementId, getAbsoluteTime, toggleElementVisibility, removeElement, renumberKeyValueMap, renumberString, isDuplicateSelectionPresent } from "./common.mjs";
 let absoluteTimeSinceLastLanguageAddition = 0;
 let absoluteTimeForCurrentLanguageAddition = 1000;
 let absoluteTimeSinceLastSdgAddition = 0;
@@ -10,7 +10,6 @@ let addedLanguagesSelectedOptions = new Map();
 let htmlToAdd4NewLanguage = "";
 let addedSdgsSelectedOptions = new Map();
 let htmlToAdd4NewSdg = "";
-let htmlToAdd4NewSdgImg = "";
 let sdgImageNames = [];
 let fileDir = "../_media/UN-graphics/";
 // TODO: to use HTML <template> instead of Template Strings ES6 (Anssi - R6)
@@ -175,11 +174,6 @@ function addOrModifySDGImage(selectId, debug) {
         let imgId = elem.getAttribute("Id");
         let filePath = elem.getAttribute("src");
         htmlImgStringsMap.set(imgId + "", getSdgImgToAddHTMLString(imgId + "", filePath + ""));
-        // Expected output: <img id='img-project-sdg-1' aria-label='' src='../_media/UN-graphics/G1.png' class='sdgImg'> 
-        // Building the strings to add to the array
-        // let sdgRoot = elem.getAttribute("src")?.replace("../_media/UN-graphics/","").replace(".png","");
-        // console.debug(sdgRoot);
-        // let stringToAdd = elem.
     }
     // At this point, the hashmap might be empty
     // Adding the selected data to the hashmap; The value is updated in case of duplicated key.
