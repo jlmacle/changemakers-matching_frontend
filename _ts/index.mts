@@ -1,37 +1,37 @@
-import {addElementEventListenerForClickAndKeyboardNav } from './common.mjs';
+import { addElementEventListenerForClickAndKeyboardNav } from './common.mjs';
 
 /**
  * Function opening the modal used to differentiate project representatives from contributors.
  * debug A boolean for debug mode.
  */
-function openUserTypeOptionsModal(debug:boolean){      
+function openUserTypeOptionsModal(debug: boolean) {
     if (debug) console.debug("openUserTypeOptionsModal() called");
     // Switching the aria-hidden attribute to true to make the content below the modal inaccessible to screen readers
     // The elements to hide from the screen reader have been given the class name "to-ignore-when-modal1"
-    let toIgnoreWhenModal1IsOn = document.getElementsByClassName("to-ignore-when-modal1") as HTMLCollectionOf<HTMLElement>;   
-    for(let elem of toIgnoreWhenModal1IsOn){
+    let toIgnoreWhenModal1IsOn = document.getElementsByClassName("to-ignore-when-modal1") as HTMLCollectionOf<HTMLElement>;
+    for (let elem of toIgnoreWhenModal1IsOn) {
         elem.setAttribute("aria-hidden", "true");
     }
 
     let modal = document.getElementById("user-type-options-modal") as HTMLElement;
     modal.setAttribute("aria-hidden", "false");
     modal.style.display = "block";
-    modal.focus();     
+    modal.focus();
 }
 
 /**
  * Function closing the modal used to differentiate project representatives from contributors.
  * debug A boolean for debug mode.
  */
-function closeUserTypeOptionsModal(debug:boolean){
+function closeUserTypeOptionsModal(debug: boolean) {
     if (debug) console.debug("closeUserTypeOptionsModal() called");
     //Switching the aria-hidden attribute to false to make the content below the modal accessible to screen readers
-    let toIgnoreWhenModal1IsOn = document.getElementsByClassName("to-ignore-when-modal1") as HTMLCollectionOf<HTMLElement>;   
-    for(let elem of toIgnoreWhenModal1IsOn){
+    let toIgnoreWhenModal1IsOn = document.getElementsByClassName("to-ignore-when-modal1") as HTMLCollectionOf<HTMLElement>;
+    for (let elem of toIgnoreWhenModal1IsOn) {
         elem.setAttribute("aria-hidden", "false");
     }
 
-    let modal = document.getElementById("user-type-options-modal") as HTMLElement;   
+    let modal = document.getElementById("user-type-options-modal") as HTMLElement;
     modal.setAttribute("aria-hidden", "true");
     modal.style.display = "none";
 
@@ -43,7 +43,7 @@ function closeUserTypeOptionsModal(debug:boolean){
 /**
  * Function used to re-direct toward the project representative page 
  */
-function redirectToProjRepPage(){
+function redirectToProjRepPage() {
     document.location.href = "../_html/new-accountProject-representative.html";
 }
 

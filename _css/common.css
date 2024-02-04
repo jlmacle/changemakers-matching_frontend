@@ -1,135 +1,142 @@
-*{
+* {
     /* border:1px solid black; */
 }
 
 /* Minimum size taken into account:Nokia 8110 4G (240 x 320 pixels) */
-:root{
-    --header-height:240px;
+:root {
+    --header-height: 240px;
     --side-width: 8%;
-    --main-min-height:640px;
-    --nav-height:60px;
-    --footer-height:100px;   
+    --main-min-height: 640px;
+    --nav-height: 60px;
+    --footer-height: 100px;
 }
 
 
 /* ---------------------- HEADER section ---------------------- */
 
-#header{
-    height:var(--header-height);
+#header {
+    height: var(--header-height);
 
-    display:flex;    /* Added for the <a style="text-indent:-5000000px;"> to be taken into account */
-    justify-content:center;
+    display: flex;
+    /* Added for the <a style="text-indent:-5000000px;"> to be taken into account */
+    justify-content: center;
 
-    border:solid 1px black;  
-    background-color:white;
+    border: solid 1px black;
+    background-color: white;
 }
 
-#header-title-container{
-    display:flex;
-    justify-content:center;   
-    align-items:center;       
+#header-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    margin-top:10px;
-    margin-bottom:10px;
-    
+    margin-top: 10px;
+    margin-bottom: 10px;
+
 }
 
 #header-title-container img {
-    height:calc(80/100*var(--header-height));
-    width:auto;
+    height: calc(80/100*var(--header-height));
+    width: auto;
 }
 
 
-#home-link{
+#home-link {
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    text-decoration:none;
-    color:black;
+    text-decoration: none;
+    color: black;
 }
 
 
 /* ---------------------- NAV section ----------------------  */
 
-#nav{
-    height:var(--nav-height);  
-    border:solid 1px black;    
-    background-color:lightblue;
+#nav {
+    height: var(--nav-height);
+    border: solid 1px black;
+    background-color: lightblue;
 }
 
 
 
 /* ---------------------- MAIN section ----------------------  */
-.grid{
+.grid {
     box-sizing: border-box;
     float: left;
 }
 
-.aside{
-    min-height:var(--main-min-height);
+.aside {
+    min-height: var(--main-min-height);
     width: var(--side-width);
-    border:1px solid black;
+    border: 1px solid black;
     background-color: white;
-    flex:1;  /* to have the sides of the same height as the main content */
-} 
-    @media screen and (max-width:1300px) { /* couldn't use var(--break-value-for-sidebars) */
-        .aside{
-            display: none;
-        }        
+    flex: 1;
+    /* to have the sides of the same height as the main content */
+}
+
+@media screen and (max-width:1300px) {
+
+    /* couldn't use var(--break-value-for-sidebars) */
+    .aside {
+        display: none;
     }
+}
 
 .aside img {
-    width:100%;
+    width: 100%;
 }
 
 
-#main{       
-    width:calc(100% - (2*var(--side-width)));
-    min-height:var(--main-min-height);
-    border:solid 1px black;   
-    background-color:#fafad2;
+#main {
+    width: calc(100% - (2*var(--side-width)));
+    min-height: var(--main-min-height);
+    border: solid 1px black;
+    background-color: #fafad2;
 }
-    
-@media screen and (max-width:1300px) { /* couldn't use var(--break-value-for-sidebars) */
-    #main{
+
+@media screen and (max-width:1300px) {
+
+    /* couldn't use var(--break-value-for-sidebars) */
+    #main {
         width: 100%;
     }
-    
+
 }
 
-[id|="error"]{    
+[id|="error"] {
     padding: 5px 5px 5px 5px;
     width: -moz-fit-content;
     width: fit-content;
-    
+
 }
 
 /* ---------------------- FOOTER section ----------------------   */
 
-#footer{
-    height:var(--footer-height);
-    width:100%;
-    border:solid 1px black;     
-    background-color:white;
-    
+#footer {
+    height: var(--footer-height);
+    width: 100%;
+    border: solid 1px black;
+    background-color: white;
+
     display: flex;
     flex-direction: row;
-    align-items: center;    
-}
-    
-
-#footer a{
-    text-decoration:none;
+    align-items: center;
 }
 
 
-#footer-left{
-    position:absolute;
-    left:30px;
+#footer a {
+    text-decoration: none;
 }
 
-#footer-right{
-    position:absolute;    
-    right:30px;
+
+#footer-left {
+    position: absolute;
+    left: 30px;
+}
+
+#footer-right {
+    position: absolute;
+    right: 30px;
 }

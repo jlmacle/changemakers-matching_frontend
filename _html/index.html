@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="Changemakers Matching Project, Project Collaboration Platform, Volunteer Matching Service, Sustainable Development Goals Matching,
+    <meta name="keywords"
+        content="Changemakers Matching Project, Project Collaboration Platform, Volunteer Matching Service, Sustainable Development Goals Matching,
     Community Project Support, Nonprofit Collaboration Network, Skill-Based Volunteering, SDG Project Matching, Nonprofit Resource Sharing,
     Community Service Opportunities, Volunteer Skills Database, Project Needs Assessment, Collaborative Project Development, Social Impact Networking,
     Volunteer Contribution Matching, SDG 1 No Poverty, SDG 2 Zero Hunger, SDG 3 Good Health and Well-being, SDG 4 Quality Education, SDG 5 Gender Equality, 
@@ -16,60 +18,68 @@
     Emphasizing Sustainable Development Goals (SDGs), the project enables alignment of efforts with global initiatives like Gender Equality, Climate Action, and Life on Land. 
     With features like detailed contributor profiles, project needs assessments, and communication tool integration, 
     this platform is an innovative solution for collaborative social impact and community empowerment.">
-    <link rel="stylesheet" type="text/css" href="../_css/common.css"> 
+    <link rel="stylesheet" type="text/css" href="../_css/common.css">
     <link rel="stylesheet" type="text/css" href="../_css/index.css">
-    <link rel="stylesheet" type="text/css" href="../_css/authentication.css"> 
-    <title>Seeking ways to better the world? Find if your skills could be used to achieve the UN Sustainable Development Goals.</title>
-        <!-- ➡️ TODO: AppSecurity: integrity hash to add (css/js) - Time consuming - Not done at development time ⬅️ -->
-    <script type="module" src="../_js/common.mjs" defer></script> <!-- 📖 AppSecurity: Integrity check of internal content, Anssi R11 -->
-    <script type="module"  src="../_js/index.mjs" defer></script> 
+    <link rel="stylesheet" type="text/css" href="../_css/authentication.css">
+    <title>Seeking ways to better the world? Find if your skills could be used to achieve the UN Sustainable Development
+        Goals.</title>
+    <!-- ➡️ TODO: AppSecurity: integrity hash to add (css/js) - Time consuming - Not done at development time ⬅️ -->
+    <script type="module" src="../_js/common.mjs" defer></script>
+    <!-- 📖 AppSecurity: Integrity check of internal content, Anssi R11 -->
+    <script type="module" src="../_js/index.mjs" defer></script>
     <!-- The script integrity is checked automatically by the browser. Any errors would be visible on the developer tools console. -->
     <!-- The SRI of local js files was obtained by first providing a wrong SRI, and the browser console returned the expected SRI. -->
     <!-- Verification on 3 browsers that the calculated SRIs are not rejected by any of them. -->
 </head>
-    
-                        <!-- Using LivePreview (Microsoft), the VSCode extension as web server for the frontend -->
+
+<!-- Using LivePreview (Microsoft), the VSCode extension as web server for the frontend -->
 
 <body id="body">
-    
+
     <!-- /* ---------------------- HEADER section ---------------------- */     -->
     <header id="header">
-        
+
         <!-- Ability to skip to main content for screen readers -->
-        <a style="text-indent:-5000000px;" href="#main" class="to-ignore-when-modal1" aria-hidden="false">Next is new account creation and login. 
+        <a style="text-indent:-5000000px;" href="#main" class="to-ignore-when-modal1" aria-hidden="false">Next is new
+            account creation and login.
             Otherwise, you can skip to user testimonies.</a>
 
-        <!-- New account/login button  -->       
-        <button tabindex="0" aria-label="Click to create a new account or to login." id="new-account-or-login-access" 
-        class="to-ignore-when-modal1"  aria-hidden="false">            
-            <span aria-hidden="true">New<br>account<br>-<br>Login</span> 
+        <!-- New account/login button  -->
+        <button tabindex="0" aria-label="Click to create a new account or to login." id="new-account-or-login-access"
+            class="to-ignore-when-modal1" aria-hidden="false">
+            <span aria-hidden="true">New<br>account<br>-<br>Login</span>
             <!-- aria-hidden used to avoid screen reader unecessary reading, after reading the aria-label -->
-        </button> 
-                <!-- Modal for the choice of type of user --> 
-        <div id="user-type-options-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="dialog1Label">            
-                    <!-- ➡️ Need to transmit the type of users -->            
-            <div id="user-type-options-modal-content" tabindex="0"  
+        </button>
+        <!-- Modal for the choice of type of user -->
+        <div id="user-type-options-modal" role="dialog" aria-modal="true" aria-hidden="true"
+            aria-labelledby="dialog1Label">
+            <!-- ➡️ Need to transmit the type of users -->
+            <div id="user-type-options-modal-content" tabindex="0"
                 aria-describedby=" Please choose the appropriate option between 'project representative' and 'contributor' ">
-                <a  id="link-to-proj-rep-page"  href="./new-accountProject-representative.html">Project representative</a> <br><br>
+                <a id="link-to-proj-rep-page" href="./new-accountProject-representative.html">Project representative</a>
+                <br><br>
                 <span aria-hidden="true" style="font-size:30px;color:white;"><strong> - </strong></span><br><br>
                 <a style="text-decoration: none;">Contributor</a>
-            </div>            
-            <div tabindex="0" aria-label="Click to exit choice of type of user." id="user-type-options-modal-closing"><span aria-hidden="true">&times;</span></div>
-        </div>    
- 
+            </div>
+            <div tabindex="0" aria-label="Click to exit choice of type of user." id="user-type-options-modal-closing">
+                <span aria-hidden="true">&times;</span>
+            </div>
+        </div>
+
         <!-- Header title -->
         <div id="header-title-container">
-            <a tabindex="1" id="home-link" href="./index.html" title="Link to the homepage" class="to-ignore-when-modal1"  aria-hidden="false">
-                <img src="../_media/header-picture.png" alt="">                
-            </a>        
+            <a tabindex="1" id="home-link" href="./index.html" title="Link to the homepage"
+                class="to-ignore-when-modal1" aria-hidden="false">
+                <img src="../_media/header-picture.png" alt="">
+            </a>
         </div>
 
     </header>
 
     <!-- /* ---------------------- MAIN section ----------------------  */ -->
     <div id="container-main-section">
-        <aside id="sidebar_left" aria-label=""  class="grid aside"></aside>
-        <main tabindex="0" id="main" class="to-ignore-when-modal1"  aria-hidden="false">        
+        <aside id="sidebar_left" aria-label="" class="grid aside"></aside>
+        <main tabindex="0" id="main" class="to-ignore-when-modal1" aria-hidden="false">
             <div role="text" aria-readonly="true" style="text-align:center;margin:auto;margin-top: 300px;">
                 <strong>Testimonies of satisfied users</strong>
             </div>
@@ -81,8 +91,8 @@
     <footer id="footer" class="to-ignore-when-modal1" aria-hidden="false">
         <span id="footer-left" class="footer"><a href="">About</a></span>
         <span id="footer-right" class="footer"><a href="">Privacy</a></span>
-    </footer>   
-    
-</body>
-</html>
+    </footer>
 
+</body>
+
+</html>

@@ -55,22 +55,6 @@ function signUpDataProcessing(event, url, debug) {
             .catch(error => console.debug(error));
     }
 }
-// TODO: to re-work the cookie part minding the security aspects
-document.addEventListener("DOMContentLoaded", function (event) {
-    console.debug('Entering addEventListener("DOMContentLoaded") function');
-    let debug = false;
-    let cookie = document.cookie;
-    if (cookie) {
-        let usernamePart = cookie.split(";")[0];
-        if (debug)
-            console.debug("usernamePart = " + usernamePart);
-        let username = usernamePart.split("=")[1];
-        if (username !== "") {
-            displayProjectView(username);
-            console.debug("Valid cookie found: project view displayed.");
-        }
-    }
-});
 /****************** Project view display ***********************/
 /**
  * Function used to display the project view
@@ -124,7 +108,7 @@ function addLanguageOptions() {
     let htmlOptions = getLanguageList();
     element.innerHTML = htmlOptions;
 }
-//Adding the options to the page
+// Adding the options to the page
 addLanguageOptions();
 function getSDGList() {
     let sdgList = [];
@@ -144,10 +128,11 @@ function addSDGOptions() {
 }
 addSDGOptions(); /* Will also build the list of sdg images names */
 /******************  sdgs-related methods ***********************/
-/** Function used to avoid code redundancy when working with strings related to adding a new sdg image
-* @param id The first value to substitute inside the string
-* @param filePath The second value to substitute inside the string
-* @returns The string to add to the HTML
+/**
+* Function used to avoid code redundancy when working with strings related to adding a new sdg image.
+* @param id The first value to substitute inside the string.
+* @param filePath The second value to substitute inside the string.
+* @returns The string to add to the HTML.
 */
 function getSdgImgToAddHTMLString(id, filePath) {
     let html_to_return = `<img id='${id}' aria-label='' src='${filePath}' class='sdgImg'>`;
@@ -156,7 +141,7 @@ function getSdgImgToAddHTMLString(id, filePath) {
 /**
  * Function thats adds or modifies an sdg icon in the left sidebar when selecting a sdg for the project profile.
  * The function sorts the sdg images by ascending order of sdg number.
- * @param selectId the id of the select that fired the event
+ * @param selectId the id of the select element that fired the event.
  * @param debug A boolean for debug mode.
  */
 function addOrModifySDGImage(selectId, debug) {
@@ -170,12 +155,12 @@ function addOrModifySDGImage(selectId, debug) {
     let displayedImgsElems = document.getElementsByClassName("sdgImg");
     for (let elem of displayedImgsElems) {
         // Adding to the map using img-project-sdg-* as key, and the HTML string as value
-        // Key: img-project-sdg-2, value:<img id='img-project-sdg-2' aria-label='' src='../_media/UN-graphics/G5.png' class='sdgImg'>
+        // Ex: Key: img-project-sdg-2, value:<img id='img-project-sdg-2' aria-label='' src='../_media/UN-graphics/G5.png' class='sdgImg'>
         let imgId = elem.getAttribute("Id");
         let filePath = elem.getAttribute("src");
         htmlImgStringsMap.set(imgId + "", getSdgImgToAddHTMLString(imgId + "", filePath + ""));
     }
-    // At this point, the hashmap might be empty
+    // At this point, the hashmap might be empty.
     // Adding the selected data to the hashmap; The value is updated in case of duplicated key.
     let builtId = "img-" + selectedElement.getAttribute("id");
     let selectedSDGNumber = selectedElement.selectedIndex + 1;
@@ -188,15 +173,15 @@ function addOrModifySDGImage(selectId, debug) {
     }
     // Adding the hashmap data to the array
     htmlImgStringsMap.forEach((value, key) => {
-        //Getting the SDGNumber
+        // Getting the SDGNumber
         let gSdgNumber = (value.split("UN-graphics/")[1]).split(".png")[0];
-        //Building the data to add
+        // Building the data to add
         // Pattern used: G1*<img id='img-project-sdg-1' aria-label='' src='../_media/UN-graphics/G1.png' class='sdgImg'>
         let dataToAdd = gSdgNumber + "*" + value;
         arrayToSort.push(dataToAdd);
     });
-    //G1*<img id='img-project-sdg-1' aria-label='' src='../_media/UN-graphics/G1.png' class='sdgImg'>
-    // Sorting the array (TODO)
+    // G1*<img id='img-project-sdg-1' aria-label='' src='../_media/UN-graphics/G1.png' class='sdgImg'>
+    // Sorting the array 
     let sortedArray = arrayToSort.sort(function (a, b) {
         let extractedValueFromA = (a.split("*")[0]).replace("G", "");
         let extractedValueFromB = (b.split("*")[0]).replace("G", "");
@@ -211,52 +196,15 @@ function addOrModifySDGImage(selectId, debug) {
         htmlToAddToWrapper += builtstring;
     }
     ;
-    // if (debug) console.debug(htmlToAddToWrapper);
-    // Removing the current child element if any to add the generated HTML
+    // Removing the current child element if any, before adding the generated HTML
     let parentElem = document.getElementById("sidebar-sticky-wrapper");
     parentElem.innerHTML = "";
     parentElem?.insertAdjacentHTML("beforeend", htmlToAddToWrapper);
 }
 /**
- * Function thats adds or modifies an sdg icon to the left sidebar when selecting a sdg for the project profile.
- * The function sorts the sdg images by ascending order of sdg number.
- * @param selectId the id of the select element
- * @param debug A boolean for debug mode.
- */
-// function addOrModifySDGImage(selectId:string, debug:boolean){
-//     if (debug) {
-//         console.debug("addOrModifySDGImage() called");
-//         console.debug(`selectId: ${selectId}`);
-//     }
-//     let elem = document.getElementById(selectId) as HTMLSelectElement;
-//     let sdgNumber = elem.selectedIndex + 1;
-//         // Getting the image name:
-//     let sdgImageName =  sdgImageNames[sdgNumber-1];
-//     if (debug) {
-//         console.debug(`sdgNumber: ${sdgNumber}`);
-//         console.debug(`sdgImageName: ${sdgImageName}`);
-//     }
-//     let filePath = fileDir+sdgImageName;
-//     // Building/Updating the sidebar HTML
-//     let imgId = `img-${selectId}`;
-//     let potentialElem = document.getElementById(imgId);
-//     if (potentialElem)
-//     {
-//         console.debug(`Element with id ${imgId} exists, and is being updated.`);
-//         // TODO: updating and sorting
-//         potentialElem.setAttribute("src",`${filePath}`);
-//     }
-//     else {
-//         console.debug(`Element with id ${imgId} doesn't exist, and is being created.`);        
-//         let htmlToAdd = getSdgImgToAddHTMLString(selectId, filePath);
-//         let parentElem = document.getElementById("sidebar-sticky-wrapper");
-//         // TODO: sorting
-//         parentElem?.insertAdjacentHTML("beforeend", htmlToAdd);
-//     }
-// }
-/** Function used to avoid code redundancy when working with strings related to adding a new sdg
-* @param value_to_insert The value to substitute inside the string
-* @returns The string to add to the HTML
+* Function used to avoid code redundancy when working with strings related to adding a new sdg.
+* @param value_to_insert The value to substitute inside the string.
+* @returns The string to add to the HTML.
 */
 function getSdgToAddHTMLString(value_to_insert) {
     let html_to_return = `<li id="li-sdg-${value_to_insert}" class="added-sdg-li">
@@ -278,13 +226,13 @@ function getSdgToAddHTMLString(value_to_insert) {
     return html_to_return;
 }
 /**
- * Function used to avoid issues with adding several languages on a single key press
+ * Function used to avoid issues with adding several languages on a single key press.
  * @param debug A boolean for debug mode.
  */
 function addAnotherSdgUsingATimeBuffer(debug) {
     if (debug)
         console.debug("addAnotherSdgUsingATimeBuffer() called");
-    //Saving the previously recorded time and recording the current time
+    // Saving the previously recorded time and recording the current time
     absoluteTimeSinceLastSdgAddition = absoluteTimeForCurrentSdgAddition;
     absoluteTimeForCurrentSdgAddition = getAbsoluteTime();
     let timeDifference = absoluteTimeForCurrentSdgAddition - absoluteTimeSinceLastSdgAddition;
@@ -298,7 +246,7 @@ function addAnotherSdgUsingATimeBuffer(debug) {
 }
 /**
  * Function used to remove one of the declared sdgs.
- * @param number4SdgToRemove The number of the sdg to remove
+ * @param number4SdgToRemove The number of the sdg to remove.
  */
 function removeDeclaredSDG(number4SdgToRemove) {
     let debug = false;
@@ -312,7 +260,7 @@ function removeDeclaredSDG(number4SdgToRemove) {
     let parentElem = document.getElementById("sdgs-list");
     let htmlElemToRemove = document.getElementById(`li-sdg-${number4SdgToRemove}`);
     parentElem?.removeChild(htmlElemToRemove);
-    // Before removing the next languages, storing the current id-value pairs:
+    // Before removing the next sdgs, storing the current id-value pairs:
     if (debug)
         console.debug("  Storing the current id-value pairs before removing following sdgs.");
     let addedSdgSelectElems = document.getElementsByClassName("added-sdg-select");
@@ -321,12 +269,12 @@ function removeDeclaredSDG(number4SdgToRemove) {
         if (debug)
             console.debug(`      Added to map: Index selected: ${addedSdgsSelectedOptions.get(elem.id)} for key ${elem.id}`);
     }
-    // Building the renumbered language strings to add later
+    // Building the renumbered sdg HTML strings to add later
     let patternToSubstitute = "**number4TheSdgToAdd**";
-    // Building a string similar to the one to insert when adding a new language 
+    // Building a string similar to the HTML one to insert when adding a new sdg. The pattern will be replaced by a number.
     let referenceString = getSdgToAddHTMLString("**number4TheSdgToAdd**");
     let renumberedStrings = renumberString(number4SdgToRemove, totalNumberOfSdgs, referenceString, patternToSubstitute);
-    // Removing the languages added after the one removed (the numbers need to be updated), 
+    // Removing the sdgs added after the one removed (the numbers need to be updated), 
     // before adding the strings with updated numbers.
     for (let i = number4SdgToRemove + 1; i <= totalNumberOfSdgs; i++) {
         let sdgToRemoveId = `li-sdg-${i}`;
@@ -340,9 +288,8 @@ function removeDeclaredSDG(number4SdgToRemove) {
     // Adding the renumbered strings
     let numberBeforeSdgToRemove = number4SdgToRemove - 1;
     let previousSdgItem = document.getElementById(`li-sdg-${numberBeforeSdgToRemove}`);
-    // TODO: AppSecurity: use of insertAdjacentHTML ?
     previousSdgItem.insertAdjacentHTML("afterend", renumberedStrings);
-    // Renumbering the ids (only the languages after the one removed are taken into account in the returned map.)          
+    // Renumbering the ids (only the sdgs after the one removed are taken into account in the returned map.)          
     let renumberedMap = renumberKeyValueMap(number4SdgToRemove, totalNumberOfSdgs, "project-sdg-", addedSdgsSelectedOptions);
     // Setting the recorded values for the options
     if (debug)
@@ -362,12 +309,11 @@ function removeDeclaredSDG(number4SdgToRemove) {
 }
 ;
 /**
- * TODO: to prevent duplicated entries + sorted by numbers.
  * Function used to add another sdg to the project.
  */
 function addAnotherSdg() {
     console.debug("addAnotherSDG() called");
-    //Gettng the number of languages already added
+    // Getting the number of sdgs already added
     let sdgElems = document.getElementsByClassName("declaredSdg");
     let totalNumberOfSdgs = sdgElems.length;
     console.debug(`Number of sdgs already added: ${totalNumberOfSdgs}`);
@@ -377,14 +323,14 @@ function addAnotherSdg() {
     let newSdgAdditionContentElem = document.getElementById("new-sdg-addition-content");
     newSdgAdditionContentElem.insertAdjacentHTML('beforebegin', htmlToAdd4NewSdg);
     addElementEventListenerForChangeEvent(`project-sdg-${number4TheSDGToAdd}`, addOrModifySDGImage, `project-sdg-${number4TheSDGToAdd}`, true);
-    //Adding an event listener to remove the language later
+    // Adding an event listener to remove the language later
     addElementEventListenerForClickAndKeyboardNav(`delete-sdg-${number4TheSDGToAdd}`, removeDeclaredSDG, number4TheSDGToAdd, true);
 }
 /******************  Addition/removal of prefered language options ***********************/
 /**
- * Function used to avoid code redundancy when working with strings related to adding a new language
- * @param value_to_insert The value to substitute inside the string
- * @returns The string to add to the HTML
+ * Function used to avoid code redundancy when working with strings related to adding a new language.
+ * @param value_to_insert The value to substitute inside the string.
+ * @returns The string to add to the HTML.
  */
 function getLanguageToAddHTMLString(value_to_insert) {
     let html_to_return = `<li id="li-language-${value_to_insert}" class="added-language-li">
@@ -410,7 +356,7 @@ function getLanguageToAddHTMLString(value_to_insert) {
  */
 function addAnotherLanguage() {
     console.debug("Entering addAnotherLanguage() function");
-    //Gettng the number of languages already added
+    // Getting the number of languages already added
     let languagesElems = document.getElementsByClassName("preferedLanguage");
     let totalNumberOfLanguages = languagesElems.length;
     console.debug(`Number of languages already added: ${totalNumberOfLanguages}`);
@@ -419,20 +365,22 @@ function addAnotherLanguage() {
     // TODO: the 'X' accessibility to check on
     let newLanguageAdditionContentElem = document.getElementById("new-language-addition-content");
     newLanguageAdditionContentElem.insertAdjacentHTML('beforebegin', htmlToAdd4NewLanguage);
-    //Adding an event listener to remove the language later
+    // Adding an event listener to remove the language later
     addElementEventListenerForClickAndKeyboardNav(`delete-language-${number4TheLanguageToAdd}`, removePreferedLanguage, number4TheLanguageToAdd, true);
-    //Adding an event listener for duplicated selections (change event)
+    // Adding an event listener for duplicated selections (change event)
     addElementEventListenerForChangeEvent(`project-language-${number4TheLanguageToAdd}`, isDuplicateSelectionPresent, "preferedLanguage", "error-in-language-selection", true);
     // The case of non-selection at start-up is ignored. The feature is only informative. A malicious actor could bypass any front-end input validation. Treatment planned on the back-end side.  
+    // Potential duplication at language creation
+    isDuplicateSelectionPresent("preferedLanguage", "error-in-language-selection", true);
 }
 /**
- * Function used to avoid issues with adding several languages on a single key press
+ * Function used to avoid issues with adding several languages on a single key press.
  * @param debug A boolean for debug mode.
  */
 function addAnotherLanguageUsingATimeBuffer(debug) {
     if (debug)
         console.debug("addAnotherLanguageUsingATimeBuffer() called");
-    //Saving the previously recorded time and recording the current time
+    // Saving the previously recorded time and recording the current time
     absoluteTimeSinceLastLanguageAddition = absoluteTimeForCurrentLanguageAddition;
     absoluteTimeForCurrentLanguageAddition = getAbsoluteTime();
     let timeDifference = absoluteTimeForCurrentLanguageAddition - absoluteTimeSinceLastLanguageAddition;
@@ -445,8 +393,8 @@ function addAnotherLanguageUsingATimeBuffer(debug) {
         console.debug(`Time between two language additions too short: ${timeDifference}. Not adding another language.`);
 }
 /**
-* Function used to remove one of the prefered languages
-* @param number4LanguageToRemove The number of the language to remove
+* Function used to remove one of the prefered languages.
+* @param number4LanguageToRemove The number of the language to remove.
 */
 function removePreferedLanguage(number4LanguageToRemove) {
     let debug = false;
@@ -467,9 +415,9 @@ function removePreferedLanguage(number4LanguageToRemove) {
         if (debug)
             console.debug(`      Added to map: Index selected: ${addedLanguagesSelectedOptions.get(elem.id)} for key ${elem.id}`);
     }
-    // Building the renumbered language strings to add later
+    // Building the renumbered language HTML strings to add later
     let patternToSubstitute = "**number4TheLanguageToAdd**";
-    // Building a string similar to the one to insert when adding a new language 
+    // Building a string similar to the HTML one to insert when adding a new language. The pattern will be replaced by a number. 
     let referenceString = getLanguageToAddHTMLString("**number4TheLanguageToAdd**");
     let renumberedStrings = renumberString(number4LanguageToRemove, totalNumberOfLanguages, referenceString, patternToSubstitute);
     // Removing the languages added after the one removed (the numbers need to be updated), 
@@ -484,7 +432,6 @@ function removePreferedLanguage(number4LanguageToRemove) {
     // Adding the renumbered strings
     let numberBeforeLanguageToRemove = number4LanguageToRemove - 1;
     let previousLanguageItem = document.getElementById(`li-language-${numberBeforeLanguageToRemove}`);
-    // TODO: AppSecurity: use of insertAdjacentHTML ?
     previousLanguageItem.insertAdjacentHTML("afterend", renumberedStrings);
     // Renumbering the ids (only the languages after the one removed are taken into account in the returned map.)          
     let renumberedMap = renumberKeyValueMap(number4LanguageToRemove, totalNumberOfLanguages, "project-language-", addedLanguagesSelectedOptions);
@@ -501,6 +448,8 @@ function removePreferedLanguage(number4LanguageToRemove) {
     for (let i = number4LanguageToRemove; i <= totalNumberOfLanguages; i++) {
         addElementEventListenerForClickAndKeyboardNav(`delete-language-${i}`, removePreferedLanguage, i, true);
     }
+    // In case the removal would have suppressed a duplication in the selections
+    isDuplicateSelectionPresent("preferedLanguage", "error-in-language-selection", true);
     // Clearing the selected options map 
     addedLanguagesSelectedOptions.clear();
 }
@@ -524,7 +473,7 @@ function logout() {
     window.location.reload();
 }
 /******************  Event listeners (incl. for keyboard navigation) ***********************/
-/* Listener for the logout link: added after the logout link addition */
+/* Listener for the logout link: added after the logout link addition (displayProjectView) */
 /* Listener for the submit button: Listener that checks if username/password can be sent to the backend */
 // TDOD: use of the generic code if possible
 let authFormSubmit = document.getElementById("auth-form-creation-submit");
@@ -540,3 +489,20 @@ addElementEventListenerForClickAndKeyboardNav("new-language-addition-link", addA
 /* Listener for dupilcated selection of language (other listeners at code generation) */
 addElementEventListenerForChangeEvent("project-language-1", isDuplicateSelectionPresent, "preferedLanguage", "error-in-language-selection", true);
 /* No listener for dupilcated selection of sdgs. Deciding to consider that the visual clues will be sufficient */
+/* Listener checking the presence of a cookie */
+// TODO: to re-work the cookie part minding the security aspects
+document.addEventListener("DOMContentLoaded", function (event) {
+    console.debug('Entering addEventListener("DOMContentLoaded") function');
+    let debug = false;
+    let cookie = document.cookie;
+    if (cookie) {
+        let usernamePart = cookie.split(";")[0];
+        if (debug)
+            console.debug("usernamePart = " + usernamePart);
+        let username = usernamePart.split("=")[1];
+        if (username !== "") {
+            displayProjectView(username);
+            console.debug("Valid cookie found: project view displayed.");
+        }
+    }
+});

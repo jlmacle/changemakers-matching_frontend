@@ -1,8 +1,8 @@
 
 /****************** Generic code for event listeners  ***********************/
 
-let timeSince1970WhenThePreviousEventIsFired:number = 0;
-let timeSince1970WhenTheCurrentEventIsFired:number = 1000;
+let timeSince1970WhenThePreviousEventIsFired: number = 0;
+let timeSince1970WhenTheCurrentEventIsFired: number = 1000;
 
 
 /**
@@ -13,18 +13,17 @@ let timeSince1970WhenTheCurrentEventIsFired:number = 1000;
  */
 function functionCallingAnotherFunctionUsingATimeBuffer<T>
     (
-        functionToCall: (...args: any[]) => T , 
+        functionToCall: (...args: any[]) => T,
         // Function with an unknown number and types of arguments, and an unknown return type
-        ...args:any[]
-    )
-    {
-        let debug = false;
-        if (debug) console.debug(`timeSince1970WhenThePreviousEventIsFired: ${timeSince1970WhenThePreviousEventIsFired}`+"\n"+
-                                `timeSince1970WhenTheCurrentEventIsFired: ${timeSince1970WhenTheCurrentEventIsFired}`);
-        let delayBetweenEvents = timeSince1970WhenTheCurrentEventIsFired - timeSince1970WhenThePreviousEventIsFired;
-        if (delayBetweenEvents < 500) console.debug(`Event ignored. Delay between the 2 events is < 500 ms (${delayBetweenEvents} ms).`);
-        else {functionToCall(...args); console.debug(`Event responded to. Delay between the 2 events is > 500 ms (${delayBetweenEvents} ms).`);}
-    }
+        ...args: any[]
+    ) {
+    let debug = false;
+    if (debug) console.debug(`timeSince1970WhenThePreviousEventIsFired: ${timeSince1970WhenThePreviousEventIsFired}` + "\n" +
+        `timeSince1970WhenTheCurrentEventIsFired: ${timeSince1970WhenTheCurrentEventIsFired}`);
+    let delayBetweenEvents = timeSince1970WhenTheCurrentEventIsFired - timeSince1970WhenThePreviousEventIsFired;
+    if (delayBetweenEvents < 500) console.debug(`Event ignored. Delay between the 2 events is < 500 ms (${delayBetweenEvents} ms).`);
+    else { functionToCall(...args); console.debug(`Event responded to. Delay between the 2 events is > 500 ms (${delayBetweenEvents} ms).`); }
+}
 
 /**
  * Function used to add an event listener to an element.
@@ -33,34 +32,34 @@ function functionCallingAnotherFunctionUsingATimeBuffer<T>
  * @param functionToCall The function to call when the event is fired. 
  * @param ...args The arguments for the function.
  */
-export const  addElementEventListenerForClickAndKeyboardNav 
-    =  <T extends unknown>
-        (   
-            elementId:string, 
+export const addElementEventListenerForClickAndKeyboardNav
+    = <T extends unknown>
+        (
+            elementId: string,
             functionToCall: (...args: any[]) => T,
-            ...args:any[]
+            ...args: any[]
 
         ) => {
-            console.debug("addElementEventListenerForClickAndKeyboardNav() called");
-            let element = document.getElementById(elementId) as HTMLElement;
-            element.addEventListener("click", () => {
-                    console.debug("\n"+"Event called with a click.");
-                    let date = new Date();  
-                    timeSince1970WhenTheCurrentEventIsFired = date.getTime();
-                    functionCallingAnotherFunctionUsingATimeBuffer(functionToCall, ...args); 
-                    timeSince1970WhenThePreviousEventIsFired =  timeSince1970WhenTheCurrentEventIsFired;   
-                });
-            element.addEventListener("keydown", function(event){
-                if (event.key === "Enter" || event.key === " ") {
-                    console.debug("\n"+`Event called with: *${event.key}*`);
-                    let date = new Date();  
-                    timeSince1970WhenTheCurrentEventIsFired = date.getTime();
-                    functionCallingAnotherFunctionUsingATimeBuffer(functionToCall, ...args);
-                    timeSince1970WhenThePreviousEventIsFired =  timeSince1970WhenTheCurrentEventIsFired;
-                }
-            });
+        console.debug("addElementEventListenerForClickAndKeyboardNav() called");
+        let element = document.getElementById(elementId) as HTMLElement;
+        element.addEventListener("click", () => {
+            console.debug("\n" + "Event called with a click.");
+            let date = new Date();
+            timeSince1970WhenTheCurrentEventIsFired = date.getTime();
+            functionCallingAnotherFunctionUsingATimeBuffer(functionToCall, ...args);
+            timeSince1970WhenThePreviousEventIsFired = timeSince1970WhenTheCurrentEventIsFired;
+        });
+        element.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" || event.key === " ") {
+                console.debug("\n" + `Event called with: *${event.key}*`);
+                let date = new Date();
+                timeSince1970WhenTheCurrentEventIsFired = date.getTime();
+                functionCallingAnotherFunctionUsingATimeBuffer(functionToCall, ...args);
+                timeSince1970WhenThePreviousEventIsFired = timeSince1970WhenTheCurrentEventIsFired;
+            }
+        });
 
-        }
+    }
 
 
 /**
@@ -72,17 +71,17 @@ export const  addElementEventListenerForClickAndKeyboardNav
  */
 
 export const addElementEventListenerForChangeEvent = <T extends unknown>
-        (
-            elementId: string,
-            functionToCall: (...args:any[]) => T,
-            ...args:any[]
-        ) =>  {
-            console.debug("addElementEventListenerForChangeEvent() called");
-            let elem = document.getElementById(elementId) as HTMLElement;
-            elem.addEventListener("change", () => {
-                functionToCall(...args);
-            });
-        };
+    (
+        elementId: string,
+        functionToCall: (...args: any[]) => T,
+        ...args: any[]
+    ) => {
+    console.debug("addElementEventListenerForChangeEvent() called");
+    let elem = document.getElementById(elementId) as HTMLElement;
+    elem.addEventListener("change", () => {
+        functionToCall(...args);
+    });
+};
 
 /**
  * Function used to add an event listener to the elements of a class.
@@ -93,20 +92,20 @@ export const addElementEventListenerForChangeEvent = <T extends unknown>
  */
 
 export const addClassEventListenerForChangeEvent = <T extends unknown>
-        (
-            className: string,
-            functionToCall: (...args:any[]) => T,
-            ...args:any[]
+    (
+        className: string,
+        functionToCall: (...args: any[]) => T,
+        ...args: any[]
 
-        ) => {
-            console.debug("addClassEventListenerForChangeEvent() called");
-            let elems = document.getElementsByClassName(className) as HTMLCollectionOf<HTMLElement>;
-            for (let elem of elems){
-                elem.addEventListener("change", () => {
-                    functionToCall(...args);
-                 });
-            }
-        };
+    ) => {
+    console.debug("addClassEventListenerForChangeEvent() called");
+    let elems = document.getElementsByClassName(className) as HTMLCollectionOf<HTMLElement>;
+    for (let elem of elems) {
+        elem.addEventListener("change", () => {
+            functionToCall(...args);
+        });
+    }
+};
 
 
 
@@ -117,19 +116,19 @@ export const addClassEventListenerForChangeEvent = <T extends unknown>
  * @param elementId the id of the element to toggle.
  * @param debug a boolean for debug mode.
  */
-export const toggleElementVisibility = 
+export const toggleElementVisibility =
     (
-        elementId: string, 
-        debug:boolean
+        elementId: string,
+        debug: boolean
 
     ) => {
         if (debug) console.debug("toggleElementVisibility() called");
         let element = document.getElementById(elementId) as HTMLElement;
 
-        if (element.style.display == "block"){
+        if (element.style.display == "block") {
             element.style.display = "none";
         }
-        else if (element.style.display == "none"){
+        else if (element.style.display == "none") {
             element.style.display = "block";
         }
     };
@@ -155,25 +154,25 @@ export const toggleElementVisibility =
  * @param rootForIdToRenumber the root of the numbered string.
  * @param idToRenumber the string that will be renumbered.
  */
- export const decrementRelatedElementId = (
+export const decrementRelatedElementId = (
     rootForIdToRenumber: string,
     idToRenumber: string
- ) => {
+) => {
     let debug = false;
     if (debug) console.debug("      decrementRelatedElementId called");
     let elem = document.getElementById(idToRenumber) as HTMLElement;
 
     // parsing and decrementing the number
-    let numberInId:number = parseInt(idToRenumber.replace(rootForIdToRenumber,""));
+    let numberInId: number = parseInt(idToRenumber.replace(rootForIdToRenumber, ""));
     let numberDecremented = numberInId - 1;
-    let newId:string = rootForIdToRenumber + numberDecremented;
+    let newId: string = rootForIdToRenumber + numberDecremented;
 
     // replacing the id
     if (debug) console.debug(`      Previous id: ${idToRenumber}`);
-    elem.setAttribute("id",newId);
+    elem.setAttribute("id", newId);
 
     if (debug) console.debug(`      New id: ${elem.getAttribute("id")}`);
- }
+}
 
 
 
@@ -182,10 +181,10 @@ export const toggleElementVisibility =
  * @param containerId the container id
  * @param elementId the element id
  */
-export const removeElement = 
+export const removeElement =
     (
-        elementId:string, 
-        containerId:string
+        elementId: string,
+        containerId: string
 
     ) => {
         let debug = false;
@@ -202,15 +201,15 @@ export const removeElement =
  * @param errorElementId the id of the element used to display an error message.
  * @param debug A boolean for debug mode.
  */
-export const isDuplicateSelectionPresent = 
+export const isDuplicateSelectionPresent =
     (
-        className: string, 
-        errorElementId:string, 
-        debug:boolean
-        
+        className: string,
+        errorElementId: string,
+        debug: boolean
+
     ) => {
         if (debug) console.debug("isDuplicateSelectionPresent() called");
-        let elems = document.getElementsByClassName(className) as HTMLCollectionOf<HTMLSelectElement>;  
+        let elems = document.getElementsByClassName(className) as HTMLCollectionOf<HTMLSelectElement>;
         let errorElem = document.getElementById(errorElementId) as HTMLElement;
         let selectedValues: number[] = [];
         let selectedValuesSet = new Set(selectedValues);
@@ -220,18 +219,18 @@ export const isDuplicateSelectionPresent =
             selectedValuesSet.add(elem.selectedIndex);
         }
 
-        if (selectedValuesSet.size == selectedValues.length){
+        if (selectedValuesSet.size == selectedValues.length) {
             if (debug) console.debug("  No duplicated values.")
-            errorElem.innerText =""; // in case of previously displayed error
-            errorElem.setAttribute("style","background-color: transparent");
+            errorElem.innerText = ""; // in case of previously displayed error
+            errorElem.setAttribute("style", "background-color: transparent");
         }
         else {
             if (debug) {
-                console.debug(` Duplicated values exist within the ${selectedValues.length} elements:  ${selectedValues.toString()}. Displaying error message.`); 
-            } 
-            errorElem.innerText ="⚠️ Duplicate selection. Please correct your choice."; 
-            errorElem.setAttribute("style","background-color: rgb(255, 251, 251)");
-        }    
+                console.debug(` Duplicated values exist within the ${selectedValues.length} elements:  ${selectedValues.toString()}. Displaying error message.`);
+            }
+            errorElem.innerText = "⚠️ Duplicate selection. Please correct your choice.";
+            errorElem.setAttribute("style", "background-color: rgb(255, 251, 251)");
+        }
     }
 
 /**
@@ -242,22 +241,22 @@ export const isDuplicateSelectionPresent =
  * @param patternToSubstitute the pattern to substitute when renumbering.
  * @returns the string renumbered
  */
-export const renumberString = 
+export const renumberString =
     (
-        numberRemoved:number, 
-        totalNumberOfElements:number, 
-        patternStringToRenumber:string, 
-        patternToSubstitute:string
-        
+        numberRemoved: number,
+        totalNumberOfElements: number,
+        patternStringToRenumber: string,
+        patternToSubstitute: string
+
     ): string => {
         let debug = false;
-        
+
         let stringToReturn = "";
-        for(let i=numberRemoved; i<= totalNumberOfElements-1; i++){
-            let patternStringRenumbered = patternStringToRenumber.replaceAll(patternToSubstitute, ""+i);
+        for (let i = numberRemoved; i <= totalNumberOfElements - 1; i++) {
+            let patternStringRenumbered = patternStringToRenumber.replaceAll(patternToSubstitute, "" + i);
             stringToReturn += patternStringRenumbered;
 
-            if(debug) console.debug(`for i=${i}, string=${patternStringRenumbered}`);
+            if (debug) console.debug(`for i=${i}, string=${patternStringRenumbered}`);
         }
 
         return stringToReturn;
@@ -272,32 +271,32 @@ export const renumberString =
  * @returns a map that contains the renumbered ids with the selected values.
  */
 
-export const renumberKeyValueMap = 
+export const renumberKeyValueMap =
     (
-        numberRemoved:number, 
-        totalNumberOfElements:number, 
-        idPattern:string, 
-        originalMap:Map<string,string>
-        
+        numberRemoved: number,
+        totalNumberOfElements: number,
+        idPattern: string,
+        originalMap: Map<string, string>
+
     ) => {
         let debug = false;
         if (debug) {
             console.debug("     Content of the original id-value map before renumbering.");
-            originalMap.forEach((value,key) => console.debug(`          Key: ${key}, value: ${value}`));
+            originalMap.forEach((value, key) => console.debug(`          Key: ${key}, value: ${value}`));
         }
 
-        let mapToReturn:Map<string,string> = new Map<string,string>();
+        let mapToReturn: Map<string, string> = new Map<string, string>();
         // Need to renumber the languages that were after the language deleted, before re-displaying their data.
-        for(let i=numberRemoved+1; i<=totalNumberOfElements; i++){        
-            let renumberedId = idPattern+(i-1);
+        for (let i = numberRemoved + 1; i <= totalNumberOfElements; i++) {
+            let renumberedId = idPattern + (i - 1);
             //Getting the original data
-            let value = originalMap.get(idPattern+i);
+            let value = originalMap.get(idPattern + i);
             //Adding to the returned map
-            mapToReturn.set(renumberedId, ""+value);
+            mapToReturn.set(renumberedId, "" + value);
         }
-        if(debug) {
+        if (debug) {
             console.debug("     Content of the id-value map after renumbering.");
-            mapToReturn.forEach((value, key)  => {console.debug(`           Key: ${key}, Value: ${value}`) } );
+            mapToReturn.forEach((value, key) => { console.debug(`           Key: ${key}, Value: ${value}`) });
         }
 
         return mapToReturn;
@@ -309,8 +308,8 @@ export const renumberKeyValueMap =
  * Function used to get the time elapsed in milliseconds since 1970.
  * @returns the time elapsed.
  */
-export const getAbsoluteTime = 
-    ():number => {
+export const getAbsoluteTime =
+    (): number => {
         let debug = false;
         if (debug) console.debug("Entering getAbsoluteTime() function");
         const date = new Date();
@@ -320,13 +319,13 @@ export const getAbsoluteTime =
 /**
  * Function used to re-direct toward the home page 
  */
-function redirectToHomePage(){
+function redirectToHomePage() {
     document.location.href = "../_html/index.html";
 }
 
 /*********************** Adding the event listeners *****************************/
 
-addElementEventListenerForClickAndKeyboardNav("header-title-container",redirectToHomePage,true);
+addElementEventListenerForClickAndKeyboardNav("header-title-container", redirectToHomePage, true);
 
 /* TODO Event listeners for footer links */
 

@@ -1,99 +1,101 @@
 /* ---------------------- HEADER section ---------------------- */
 
-#new-account-or-login-access{
-    position:absolute;
-    top:20px;
-    right:20px;
-    
-    border:0px;
-    background-color:transparent;
+#new-account-or-login-access {
+    position: absolute;
+    top: 20px;
+    right: 20px;
 
-    font-size:15px;
-    font-weight:300;
-    line-height:14px;
-}
-        @media screen and (min-width:239px) and (max-width:500px){
-            #new-account-or-login-access{
-                position:absolute;
-                top:10px;
-                right:10px;
+    border: 0px;
+    background-color: transparent;
 
-                border:1px solid black;
-
-                font-size:12px;        
-            }            
-        }
-
-#user-type-options-modal{
-    display:none; 
-
-    position:fixed;    
-    z-index:1;
-    top:0;
-    left:0;
-
-    
-    background-color:rgb(0,0,0); /* Fallback color */
-    background-color:rgba(0,0,0,0.9); 
-
-    width:100%;
-    height:100%;  
-    
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 14px;
 }
 
-#user-type-options-modal-closing{
-    position:absolute;        
-    right:20px;
-    z-index:1;
-    
-    color:white;
-    font-size:50px;    
+@media screen and (min-width:239px) and (max-width:500px) {
+    #new-account-or-login-access {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+
+        border: 1px solid black;
+
+        font-size: 12px;
+    }
+}
+
+#user-type-options-modal {
+    display: none;
+
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+
+
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.9);
+
+    width: 100%;
+    height: 100%;
+
+}
+
+#user-type-options-modal-closing {
+    position: absolute;
+    right: 20px;
+    z-index: 1;
+
+    color: white;
+    font-size: 50px;
 }
 
 
-#user-type-options-modal-content{
-    position:absolute;
-    top:60px;
-    z-index:1;      
-    width:100%;
-    text-align:center;
+#user-type-options-modal-content {
+    position: absolute;
+    top: 60px;
+    z-index: 1;
+    width: 100%;
+    text-align: center;
 }
 
-#user-type-options-modal-content a{
-    color:white;
-    font-size:30px;
+#user-type-options-modal-content a {
+    color: white;
+    font-size: 30px;
 }
 
 
 /* ---------------------- MAIN section ----------------------  */
 
-#auth-form-creation input{
-    border-radius:5px;
+#auth-form-creation input {
+    border-radius: 5px;
 }
 
-auth-form-login input{
-    border-radius:5px;
+auth-form-login input {
+    border-radius: 5px;
 }
 
-#welcome-container{
+#welcome-container {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end; 
-    align-items: center;    
-   
+    justify-content: flex-end;
+    align-items: center;
+
     padding-right: 5px;
     font-size: 18px;
 }
 
-#welcome-container2{
-    display:flex;
+#welcome-container2 {
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
 }
 
-#welcome-container div{
-    width: -moz-fit-content; /* 'width: fit-content' is not supported by Firefox, Firefox for Android. (Edge dev tools) */
+#welcome-container div {
+    width: -moz-fit-content;
+    /* 'width: fit-content' is not supported by Firefox, Firefox for Android. (Edge dev tools) */
     width: fit-content;
 }
-
