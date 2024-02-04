@@ -14,7 +14,7 @@ function checkUsername() {
     // "keyup" solved the issue.
     username?.addEventListener("keyup", function () {
         let usernameError = document.getElementById("error-in-username");
-        usernameError.setAttribute("style", "background-color: rgb(255, 251, 251)");
+        usernameError.setAttribute("style", "background-color:rgb(255, 251, 251)");
         if (username?.value && usernameError) {
             username.value = username.value.toLowerCase(); // "Make sure your usernames/user IDs are case-insensitive."
             if (username.value.search(/\W/) !== -1) { // Equivalent to [^A-Za-z0-9_]
@@ -61,7 +61,7 @@ function checkPassword() {
     let submitButton = document.getElementById("auth-form-creation-submit");
     password?.addEventListener("keyup", function () {
         let passwordError = document.getElementById("error-in-password");
-        passwordError?.setAttribute("style", "background-color: rgb(255, 251, 251)");
+        passwordError?.setAttribute("style", "background-color:rgb(255, 251, 251)");
         if (password?.value && passwordError) {
             if (password.value.length < 8) {
                 if (debug)
