@@ -1,0 +1,5 @@
+Currently tested with Narrator:
+Narrator + F5: landmarks
+Narrator + F6: headings
+Narrator + F7: all links
+Ctrl + Arrow down : navigation through the page

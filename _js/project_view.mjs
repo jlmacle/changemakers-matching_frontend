@@ -1,7 +1,7 @@
 import { countryData } from "./data/countries-datahub.io.mjs";
 import { languageData } from "./data/languages-datahub.io.mjs";
 import { sdgLabels } from "./data/sdg-labels.mjs";
-import { addElementEventListenerForChangeEvent, addElementEventListenerForClickAndKeyboardNav, decrementRelatedElementId, getAbsoluteTime, toggleElementVisibility, removeElement, renumberKeyValueMap, renumberString, isDuplicateSelectionPresent } from "./common.mjs";
+import { addElementEventListenerForChangeEvent, addElementEventListenerForClickAndKeyboardNav, decrementRelatedElementId, getAbsoluteTime, toggleElementBoldness, toggleElementVisibility, removeElement, renumberKeyValueMap, renumberString, isDuplicateSelectionPresent } from "./common.mjs";
 let absoluteTimeSinceLastLanguageAddition = 0;
 let absoluteTimeForCurrentLanguageAddition = 1000;
 let absoluteTimeSinceLastSdgAddition = 0;
@@ -74,6 +74,19 @@ function displayProjectView(username) {
     // Toggling the visibility of the project main content
     let projectsElem = document.getElementById("projects-main-content");
     projectsElem.style.display = "block";
+}
+/**
+ * Function used to display the new project definition view.
+ * @param debug debug A boolean for debug mode.
+ */
+function newProjectDefinitionView(debug) {
+    // Toggling the boldness of the new project definition invite button
+    toggleElementBoldness("new-project-definition-invite-button");
+    // Toggling the visibility of the new project definition view
+    toggleElementVisibility("new-project-definition-form");
+    // Toggling the visibility of the default image
+    let img1 = document.getElementById("img-project-sdg-1");
+    img1.style.display = "block";
 }
 //  Leaving the code duplication to avoid cognitive load for code reviewers
 function getCountryList() {
@@ -255,7 +268,8 @@ function removeDeclaredSDG(number4SdgToRemove) {
     let sdgsAddedElems = document.getElementsByClassName("added-sdg-li");
     let totalNumberOfSdgs = sdgsAddedElems.length + 1;
     // Removing the image
-    removeElement(`img-project-sdg-${number4SdgToRemove}`, "sidebar-sticky-wrapper");
+    if (document.getElementById(`img-project-sdg-${number4SdgToRemove}`))
+        removeElement(`img-project-sdg-${number4SdgToRemove}`, "sidebar-sticky-wrapper");
     // Removing the language element
     let parentElem = document.getElementById("sdgs-list");
     let htmlElemToRemove = document.getElementById(`li-sdg-${number4SdgToRemove}`);
@@ -304,6 +318,8 @@ function removeDeclaredSDG(number4SdgToRemove) {
     for (let i = number4SdgToRemove; i <= totalNumberOfSdgs; i++) {
         addElementEventListenerForClickAndKeyboardNav(`delete-sdg-${i}`, removeDeclaredSDG, i, true);
     }
+    // In case the removal would have suppressed a duplication in the selections
+    isDuplicateSelectionPresent("declaredSdg", "error-in-sdg-selection", true);
     // Clearing the selected options map 
     addedSdgsSelectedOptions.clear();
 }
@@ -322,9 +338,15 @@ function addAnotherSdg() {
     // TODO: the 'X' accessibility to check on
     let newSdgAdditionContentElem = document.getElementById("new-sdg-addition-content");
     newSdgAdditionContentElem.insertAdjacentHTML('beforebegin', htmlToAdd4NewSdg);
+    // Adding the image
+    addOrModifySDGImage(`project-sdg-${number4TheSDGToAdd}`, true);
     addElementEventListenerForChangeEvent(`project-sdg-${number4TheSDGToAdd}`, addOrModifySDGImage, `project-sdg-${number4TheSDGToAdd}`, true);
-    // Adding an event listener to remove the language later
+    // Adding an event listener to remove the sdg later
     addElementEventListenerForClickAndKeyboardNav(`delete-sdg-${number4TheSDGToAdd}`, removeDeclaredSDG, number4TheSDGToAdd, true);
+    // Adding an event listener for duplicated selections (change event)
+    addElementEventListenerForChangeEvent(`project-sdg-${number4TheSDGToAdd}`, isDuplicateSelectionPresent, "declaredSdg", "error-in-sdg-selection", true);
+    // Potential duplication at sdg creation
+    isDuplicateSelectionPresent("declaredSdg", "error-in-sdg-selection", true);
 }
 /******************  Addition/removal of prefered language options ***********************/
 /**
@@ -369,7 +391,6 @@ function addAnotherLanguage() {
     addElementEventListenerForClickAndKeyboardNav(`delete-language-${number4TheLanguageToAdd}`, removePreferedLanguage, number4TheLanguageToAdd, true);
     // Adding an event listener for duplicated selections (change event)
     addElementEventListenerForChangeEvent(`project-language-${number4TheLanguageToAdd}`, isDuplicateSelectionPresent, "preferedLanguage", "error-in-language-selection", true);
-    // The case of non-selection at start-up is ignored. The feature is only informative. A malicious actor could bypass any front-end input validation. Treatment planned on the back-end side.  
     // Potential duplication at language creation
     isDuplicateSelectionPresent("preferedLanguage", "error-in-language-selection", true);
 }
@@ -479,16 +500,17 @@ function logout() {
 let authFormSubmit = document.getElementById("auth-form-creation-submit");
 authFormSubmit?.addEventListener("click", (event) => signUpDataProcessing(event, "http://127.0.0.1:8080/representatives/new-account", true));
 /* Listener for the toggling of visibility in the project dashboard view */
-addElementEventListenerForClickAndKeyboardNav("new-project-definition-invite-button", toggleElementVisibility, "new-project-definition-form", true);
+addElementEventListenerForClickAndKeyboardNav("new-project-definition-invite-button", newProjectDefinitionView, true);
 /* Listener for the addition of sdgs : for the declaration by default */
 addElementEventListenerForChangeEvent("project-sdg-1", addOrModifySDGImage, "project-sdg-1", true);
 /* Listener for adding a new sdg */
 addElementEventListenerForClickAndKeyboardNav("new-sdg-addition-link", addAnotherSdgUsingATimeBuffer, true);
 /* Listener for adding a new language */
 addElementEventListenerForClickAndKeyboardNav("new-language-addition-link", addAnotherLanguageUsingATimeBuffer, true);
-/* Listener for dupilcated selection of language (other listeners at code generation) */
+/* Listener for dupilcated selection of language (listeners for other selects at code generation) */
 addElementEventListenerForChangeEvent("project-language-1", isDuplicateSelectionPresent, "preferedLanguage", "error-in-language-selection", true);
-/* No listener for dupilcated selection of sdgs. Deciding to consider that the visual clues will be sufficient */
+/* Listener for dupilcated selection of sdg (listeners for other selects at code generation) */
+addElementEventListenerForChangeEvent("project-sdg-1", isDuplicateSelectionPresent, "declaredSdg", "error-in-sdg-selection", true);
 /* Listener checking the presence of a cookie */
 // TODO: to re-work the cookie part minding the security aspects
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -506,3 +528,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     }
 });
+// Adding the default SDG image and hiding it by default
+addOrModifySDGImage("project-sdg-1", true);
+let img1 = document.getElementById("img-project-sdg-1");
+img1.style.display = "none";
+console.debug(`img-project-sdg-1 display style = ${img1.style.display}`);

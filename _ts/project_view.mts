@@ -2,7 +2,7 @@ import { countryData } from "./data/countries-datahub.io.mjs";
 import { languageData } from "./data/languages-datahub.io.mjs";
 import { sdgLabels } from "./data/sdg-labels.mjs";
 
-import { addElementEventListenerForChangeEvent, addElementEventListenerForClickAndKeyboardNav, decrementRelatedElementId, getAbsoluteTime, toggleElementVisibility, removeElement, renumberKeyValueMap, renumberString, isDuplicateSelectionPresent } from "./common.mjs";
+import { addElementEventListenerForChangeEvent, addElementEventListenerForClickAndKeyboardNav, decrementRelatedElementId, getAbsoluteTime, toggleElementBoldness, toggleElementVisibility, removeElement, renumberKeyValueMap, renumberString, isDuplicateSelectionPresent } from "./common.mjs";
 
 let absoluteTimeSinceLastLanguageAddition: number = 0;
 let absoluteTimeForCurrentLanguageAddition: number = 1000;
@@ -17,7 +17,7 @@ let htmlToAdd4NewSdg = "";
 let sdgImageNames: string[] = [];
 let fileDir = "../_media/UN-graphics/";
 
-// TODO: to use HTML <template> instead of Template Strings ES6 (Anssi - R6)
+// TODO: to consider using HTML <template> instead of Template Strings ES6 (Anssi - R6)
 
 
 /****************** Signup toward project view  ***********************/
@@ -89,8 +89,28 @@ function displayProjectView(username: string) {
     // Toggling the visibility of the project main content
     let projectsElem = document.getElementById("projects-main-content") as HTMLElement;
     projectsElem.style.display = "block";
+
 }
 
+/**
+ * Function used to display the new project definition view.
+ * @param debug debug A boolean for debug mode.
+ */
+function newProjectDefinitionView(debug: boolean){
+    // Toggling the boldness of the new project definition invite button
+    toggleElementBoldness("new-project-definition-invite-button");
+
+    // Toggling the visibility of the new project definition view
+    toggleElementVisibility("new-project-definition-form");
+
+    // Toggling the visibility of the default image
+    let img1 =document.getElementById("img-project-sdg-1") as HTMLElement;
+    img1.style.display = "block";
+
+}
+
+
+    
 
 
 /****************** Dynamic list building ***********************/
@@ -262,7 +282,6 @@ function addOrModifySDGImage(selectId: string, debug: boolean) {
 
 }
 
-
 /** 
 * Function used to avoid code redundancy when working with strings related to adding a new sdg.
 * @param value_to_insert The value to substitute inside the string.
@@ -323,7 +342,7 @@ function removeDeclaredSDG(number4SdgToRemove: number) {
     let totalNumberOfSdgs = sdgsAddedElems.length + 1;
 
     // Removing the image
-    removeElement(`img-project-sdg-${number4SdgToRemove}`, "sidebar-sticky-wrapper");
+    if (document.getElementById(`img-project-sdg-${number4SdgToRemove}`)) removeElement(`img-project-sdg-${number4SdgToRemove}`, "sidebar-sticky-wrapper");
 
     // Removing the language element
     let parentElem = document.getElementById("sdgs-list");
@@ -377,6 +396,9 @@ function removeDeclaredSDG(number4SdgToRemove: number) {
         addElementEventListenerForClickAndKeyboardNav(`delete-sdg-${i}`, removeDeclaredSDG, i, true);
     }
 
+     // In case the removal would have suppressed a duplication in the selections
+    isDuplicateSelectionPresent("declaredSdg", "error-in-sdg-selection", true);
+
     // Clearing the selected options map 
     addedSdgsSelectedOptions.clear();
 
@@ -400,11 +422,19 @@ function addAnotherSdg() {
     let newSdgAdditionContentElem = document.getElementById("new-sdg-addition-content") as HTMLElement;
     newSdgAdditionContentElem.insertAdjacentHTML('beforebegin', htmlToAdd4NewSdg);
 
+    // Adding the image
+    addOrModifySDGImage(`project-sdg-${number4TheSDGToAdd}`, true);
 
     addElementEventListenerForChangeEvent(`project-sdg-${number4TheSDGToAdd}`, addOrModifySDGImage, `project-sdg-${number4TheSDGToAdd}`, true);
 
-    // Adding an event listener to remove the language later
+    // Adding an event listener to remove the sdg later
     addElementEventListenerForClickAndKeyboardNav(`delete-sdg-${number4TheSDGToAdd}`, removeDeclaredSDG, number4TheSDGToAdd, true);
+
+     // Adding an event listener for duplicated selections (change event)
+    addElementEventListenerForChangeEvent(`project-sdg-${number4TheSDGToAdd}`, isDuplicateSelectionPresent, "declaredSdg", "error-in-sdg-selection", true);
+
+    // Potential duplication at sdg creation
+    isDuplicateSelectionPresent("declaredSdg", "error-in-sdg-selection", true);
 }
 
 
@@ -463,8 +493,7 @@ function addAnotherLanguage() {
 
     // Adding an event listener for duplicated selections (change event)
     addElementEventListenerForChangeEvent(`project-language-${number4TheLanguageToAdd}`, isDuplicateSelectionPresent, "preferedLanguage", "error-in-language-selection", true);
-    // The case of non-selection at start-up is ignored. The feature is only informative. A malicious actor could bypass any front-end input validation. Treatment planned on the back-end side.  
-
+    
     // Potential duplication at language creation
     isDuplicateSelectionPresent("preferedLanguage", "error-in-language-selection", true);
 
@@ -586,6 +615,7 @@ function logout() {
     window.location.reload();
 }
 
+
 /******************  Event listeners (incl. for keyboard navigation) ***********************/
 
 /* Listener for the logout link: added after the logout link addition (displayProjectView) */
@@ -596,7 +626,7 @@ let authFormSubmit = document.getElementById("auth-form-creation-submit") as HTM
 authFormSubmit?.addEventListener("click", (event) => signUpDataProcessing(event, "http://127.0.0.1:8080/representatives/new-account", true));
 
 /* Listener for the toggling of visibility in the project dashboard view */
-addElementEventListenerForClickAndKeyboardNav("new-project-definition-invite-button", toggleElementVisibility, "new-project-definition-form", true);
+addElementEventListenerForClickAndKeyboardNav("new-project-definition-invite-button", newProjectDefinitionView, true);
 
 /* Listener for the addition of sdgs : for the declaration by default */
 addElementEventListenerForChangeEvent("project-sdg-1", addOrModifySDGImage, "project-sdg-1", true);
@@ -607,10 +637,11 @@ addElementEventListenerForClickAndKeyboardNav("new-sdg-addition-link", addAnothe
 /* Listener for adding a new language */
 addElementEventListenerForClickAndKeyboardNav("new-language-addition-link", addAnotherLanguageUsingATimeBuffer, true);
 
-/* Listener for dupilcated selection of language (other listeners at code generation) */
+/* Listener for dupilcated selection of language (listeners for other selects at code generation) */
 addElementEventListenerForChangeEvent("project-language-1", isDuplicateSelectionPresent, "preferedLanguage", "error-in-language-selection", true);
 
-/* No listener for dupilcated selection of sdgs. Deciding to consider that the visual clues will be sufficient */
+/* Listener for dupilcated selection of sdg (listeners for other selects at code generation) */
+addElementEventListenerForChangeEvent("project-sdg-1", isDuplicateSelectionPresent, "declaredSdg", "error-in-sdg-selection", true);
 
 /* Listener checking the presence of a cookie */
 // TODO: to re-work the cookie part minding the security aspects
@@ -629,3 +660,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     }
 });
+
+// Adding the default SDG image and hiding it by default
+addOrModifySDGImage("project-sdg-1", true);
+let img1 =document.getElementById("img-project-sdg-1") as HTMLElement;
+img1.style.display = "none";
+console.debug(`img-project-sdg-1 display style = ${img1.style.display }`);
