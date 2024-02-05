@@ -114,14 +114,13 @@ export const addClassEventListenerForChangeEvent = <T extends unknown>
 /**
  * Function used to toggle the visibility of an element.
  * @param elementId the id of the element to toggle.
- * @param debug a boolean for debug mode.
  */
 export const toggleElementVisibility =
     (
-        elementId: string,
-        debug: boolean
+        elementId: string
 
     ) => {
+        let debug: boolean = false;
         if (debug) console.debug("toggleElementVisibility() called");
         let element = document.getElementById(elementId) as HTMLElement;
 
@@ -133,6 +132,29 @@ export const toggleElementVisibility =
         }
     };
 
+/**
+ * Function used to toggle the font weight of an element from bold to normal and vice-versa.
+ * @param elementId the id of the element to toggle
+ */
+export const toggleElementBoldness = 
+    (
+        elementId: string
+
+    ) => {
+    let element = document.getElementById(elementId) as HTMLElement;
+
+    if(element.style.fontWeight == "bold"){
+        element.style.fontWeight = "normal";
+    }
+
+    else if (element.style.fontWeight ==  "normal"){
+        element.style.fontWeight = "bold";
+    }
+    else{
+        console.log(`Unexpected fontweight value: ${element.style.fontWeight}`);
+    }
+
+}
 /****************** Sign-up/Sign-in data ***********************/
 
 /**
