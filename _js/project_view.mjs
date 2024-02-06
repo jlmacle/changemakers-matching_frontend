@@ -12,7 +12,6 @@ let addedSdgsSelectedOptions = new Map();
 let htmlToAdd4NewSdg = "";
 let sdgImageNames = [];
 let fileDir = "../_media/UN-graphics/";
-// TODO: to use HTML <template> instead of Template Strings ES6 (Anssi - R6)
 /****************** Signup toward project view  ***********************/
 /**
  * Function used to push the username and password to the backend.

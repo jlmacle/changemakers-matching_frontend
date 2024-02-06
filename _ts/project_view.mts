@@ -17,8 +17,6 @@ let htmlToAdd4NewSdg = "";
 let sdgImageNames: string[] = [];
 let fileDir = "../_media/UN-graphics/";
 
-// TODO: to consider using HTML <template> instead of Template Strings ES6 (Anssi - R6)
-
 
 /****************** Signup toward project view  ***********************/
 
