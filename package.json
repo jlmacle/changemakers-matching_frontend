@@ -4,6 +4,8 @@
   },
   "devDependencies": {
     "@types/dompurify": "^3.0.5",
-    "cypress": "^13.6.4"
+    "@types/node": "^20.11.16",
+    "cypress": "^13.6.4",
+    "cypress-plugin-tab": "^1.0.5"
   }
 }

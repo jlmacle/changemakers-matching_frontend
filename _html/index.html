@@ -25,7 +25,7 @@
         Goals.</title>
     <!-- ➡️ TODO: AppSecurity: integrity hash to add (css/js) - Time consuming - Not done at development time ⬅️ -->
     <script type="module" src="../_js/common.mjs" defer></script>
-    <!-- 📖 AppSecurity: Integrity check of internal content, Anssi R11 -->
+    <!-- 📖 AppSecurity: Contrôler l'intégrité des contenus internes (Integrity check of internal content), Anssi R11 -->
     <script type="module" src="../_js/index.mjs" defer></script>
     <!-- The script integrity is checked automatically by the browser. Any errors would be visible on the developer tools console. -->
     <!-- The SRI of local js files was obtained by first providing a wrong SRI, and the browser console returned the expected SRI. -->
@@ -68,7 +68,7 @@
 
         <!-- Header title -->
         <div id="header-title-container">
-            <a tabindex="1" id="home-link" href="./index.html" title="Link to the homepage"
+            <a id="home-link" href="./index.html" title="Link to the homepage"
                 class="to-ignore-when-modal1" aria-hidden="false">
                 <img src="../_media/header-picture.png" alt="">
             </a>
@@ -79,8 +79,8 @@
     <!-- /* ---------------------- MAIN section ----------------------  */ -->
     <div id="container-main-section">
         <aside id="sidebar_left" aria-hidden="true" class="grid aside"></aside>
-        <main tabindex="0" id="main" class="to-ignore-when-modal1" aria-hidden="false">
-            <div role="text" aria-readonly="true" style="text-align:center;margin:auto;margin-top: 300px;">
+        <main id="main" class="to-ignore-when-modal1" aria-hidden="false">
+            <div id="testimonies"  tabindex="0" role="text" aria-readonly="true" style="text-align:center;margin:auto;margin-top: 300px;">
                 <strong>Testimonies of satisfied users</strong>
             </div>
         </main>
@@ -89,8 +89,8 @@
 
     <!-- /* ---------------------- FOOTER section ----------------------   */ -->
     <footer id="footer" class="to-ignore-when-modal1" aria-hidden="false">
-        <span id="footer-left" class="footer"><a href="">About</a></span>
-        <span id="footer-right" class="footer"><a href="">Privacy</a></span>
+        <span id="footer-left" class="footer"><a id="about-link"  href="">About</a></span>
+        <span id="footer-right" class="footer"><a id="privacy-link"  href="">Privacy</a></span>
     </footer>
 
 </body>
