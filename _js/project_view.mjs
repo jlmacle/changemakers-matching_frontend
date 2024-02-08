@@ -83,9 +83,6 @@ function newProjectDefinitionView(debug) {
     toggleElementBoldness("new-project-definition-invite-button");
     // Toggling the visibility of the new project definition view
     toggleElementVisibility("new-project-definition-form");
-    // Toggling the visibility of the default image
-    let img1 = document.getElementById("img-project-sdg-1");
-    img1.style.display = "block";
 }
 //  Leaving the code duplication to avoid cognitive load for code reviewers
 function getCountryList() {
@@ -123,6 +120,7 @@ function addLanguageOptions() {
 // Adding the options to the page
 addLanguageOptions();
 function getSDGList() {
+    let debug = false;
     let sdgList = [];
     const array = JSON.parse(sdgLabels);
     array.forEach(data => sdgList.push(data.Label));
@@ -131,6 +129,8 @@ function getSDGList() {
     sdgList.sort();
     let sdgOptions = "";
     sdgList.forEach(label => sdgOptions += `<option value='${label}'> ${label} </option>`);
+    if (debug)
+        console.debug(sdgOptions);
     return sdgOptions;
 }
 function addSDGOptions() {
@@ -175,9 +175,10 @@ function addOrModifySDGImage(selectId, debug) {
     // At this point, the hashmap might be empty.
     // Adding the selected data to the hashmap; The value is updated in case of duplicated key.
     let builtId = "img-" + selectedElement.getAttribute("id");
-    let selectedSDGNumber = selectedElement.selectedIndex + 1;
+    let selectedSDGNumber = selectedElement.selectedIndex;
     let builtFilePath = fileDir + "G" + selectedSDGNumber + ".png";
-    htmlImgStringsMap.set(builtId, getSdgImgToAddHTMLString(builtId, builtFilePath));
+    if (selectedElement.selectedIndex != 0)
+        htmlImgStringsMap.set(builtId, getSdgImgToAddHTMLString(builtId, builtFilePath));
     if (debug) {
         console.debug("hashmap: begin");
         htmlImgStringsMap.forEach((value, key) => console.debug(`Key: ${key}, value:${value}`));
@@ -527,8 +528,3 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     }
 });
-// Adding the default SDG image and hiding it by default
-addOrModifySDGImage("project-sdg-1", true);
-let img1 = document.getElementById("img-project-sdg-1");
-img1.style.display = "none";
-console.debug(`img-project-sdg-1 display style = ${img1.style.display}`);

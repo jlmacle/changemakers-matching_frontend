@@ -1,7 +1,6 @@
 import { countryData } from "./data/countries-datahub.io.mjs";
 import { languageData } from "./data/languages-datahub.io.mjs";
 import { sdgLabels } from "./data/sdg-labels.mjs";
-
 import { addElementEventListenerForChangeEvent, addElementEventListenerForClickAndKeyboardNav, decrementRelatedElementId, getAbsoluteTime, toggleElementBoldness, toggleElementVisibility, removeElement, renumberKeyValueMap, renumberString, isDuplicateSelectionPresent } from "./common.mjs";
 
 let absoluteTimeSinceLastLanguageAddition: number = 0;
@@ -30,6 +29,7 @@ let fileDir = "../_media/UN-graphics/";
  */
 function signUpDataProcessing(event: Event, url: string, debug: boolean) {
     if (debug) console.debug("signUpDataProcessing() called");
+    
 
     event.preventDefault(); // to avoid unexpected network behaviors causing network errors
     let usernameElem = document.getElementById("username") as HTMLInputElement;
@@ -100,11 +100,6 @@ function newProjectDefinitionView(debug: boolean){
 
     // Toggling the visibility of the new project definition view
     toggleElementVisibility("new-project-definition-form");
-
-    // Toggling the visibility of the default image
-    let img1 =document.getElementById("img-project-sdg-1") as HTMLElement;
-    img1.style.display = "block";
-
 }
 
 
@@ -173,6 +168,7 @@ addLanguageOptions();
 
 
 function getSDGList(): string {
+    let debug = false;
     let sdgList: string[] = [];
     const array = JSON.parse(sdgLabels) as SDG[];
     array.forEach(data => sdgList.push(data.Label));
@@ -181,6 +177,7 @@ function getSDGList(): string {
     sdgList.sort();
     let sdgOptions = "";
     sdgList.forEach(label => sdgOptions += `<option value='${label}'> ${label} </option>`);
+    if (debug) console.debug(sdgOptions);
 
     return sdgOptions;
 }
@@ -236,9 +233,9 @@ function addOrModifySDGImage(selectId: string, debug: boolean) {
     // At this point, the hashmap might be empty.
     // Adding the selected data to the hashmap; The value is updated in case of duplicated key.
     let builtId = "img-" + selectedElement.getAttribute("id");
-    let selectedSDGNumber = selectedElement.selectedIndex + 1;
+    let selectedSDGNumber = selectedElement.selectedIndex;
     let builtFilePath = fileDir + "G" + selectedSDGNumber + ".png";
-    htmlImgStringsMap.set(builtId, getSdgImgToAddHTMLString(builtId, builtFilePath));
+    if (selectedElement.selectedIndex != 0) htmlImgStringsMap.set(builtId, getSdgImgToAddHTMLString(builtId, builtFilePath));
 
     if (debug) {
         console.debug("hashmap: begin");
@@ -658,9 +655,3 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     }
 });
-
-// Adding the default SDG image and hiding it by default
-addOrModifySDGImage("project-sdg-1", true);
-let img1 =document.getElementById("img-project-sdg-1") as HTMLElement;
-img1.style.display = "none";
-console.debug(`img-project-sdg-1 display style = ${img1.style.display }`);
