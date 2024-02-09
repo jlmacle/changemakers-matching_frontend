@@ -1,7 +1,7 @@
 import { countryData } from "./data/countries-datahub.io.mjs";
 import { languageData } from "./data/languages-datahub.io.mjs";
 import { sdgLabels } from "./data/sdg-labels.mjs";
-import { addElementEventListenerForChangeEvent, addElementEventListenerForClickAndKeyboardNav, decrementRelatedElementId, getAbsoluteTime, toggleElementBoldness, toggleElementVisibility, removeElement, renumberKeyValueMap, renumberString, isDuplicateSelectionPresent } from "./common.mjs";
+import { addElementEventListenerForChangeEvent, addElementEventListenerForClickAndKeyboardNav, decrementElementIdNumber, getAbsoluteTime, toggleElementBoldness, toggleElementVisibility, removeElement, renumberKeyValueMap, renumberString, isDuplicateSelectionPresent } from "./common.mjs";
 
 let absoluteTimeSinceLastLanguageAddition: number = 0;
 let absoluteTimeForCurrentLanguageAddition: number = 1000;
@@ -367,7 +367,7 @@ function removeDeclaredSDG(number4SdgToRemove: number) {
         parentElem?.removeChild(htmlToRemove);
 
         // Renaming the ids in the pictures
-        decrementRelatedElementId("img-project-sdg-", `img-project-sdg-${i}`);
+        decrementElementIdNumber("img-project-sdg-", `img-project-sdg-${i}`);
     }
 
     // Adding the renumbered strings
@@ -420,6 +420,7 @@ function addAnotherSdg() {
     // Adding the image
     addOrModifySDGImage(`project-sdg-${number4TheSDGToAdd}`, true);
 
+    // Adding an event listener in case of selection change
     addElementEventListenerForChangeEvent(`project-sdg-${number4TheSDGToAdd}`, addOrModifySDGImage, `project-sdg-${number4TheSDGToAdd}`, true);
 
     // Adding an event listener to remove the sdg later

@@ -51,7 +51,6 @@ function checkUsername() {
 }
 /* Calling the function to start the event listener for the username */
 checkUsername();
-// TODO: to avoid space keys, and enter keys in the password (for persons using keyboard navigation)
 /**
  * Function used to check if the password is valid.
  */
@@ -63,7 +62,16 @@ function checkPassword() {
         let passwordError = document.getElementById("error-in-password");
         passwordError?.setAttribute("style", "background-color:rgb(255, 251, 251)");
         if (password?.value && passwordError) {
-            if (password.value.length < 8) {
+            // Avoiding space key in password to avoid confusing situations
+            // for persons submitting inputs with the space key,
+            // and who would enter a space inadvertently at the end of their password 
+            // Searching a whitespace character
+            if (password.value.search(/\s/) != -1) {
+                passwordError.innerText = "⚠️ The password cannot contain spaces.";
+                submitButton.disabled = true;
+                passwordIsValid = false;
+            }
+            else if (password.value.length < 8) {
                 if (debug)
                     console.debug("Password is too short");
                 passwordError.innerText = "⚠️ The password should be at least 8 characters long.";
