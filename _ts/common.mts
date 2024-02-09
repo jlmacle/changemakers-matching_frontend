@@ -172,17 +172,16 @@ export const toggleElementBoldness =
 
 /**
  * Function used to decrement the number, when the id of an element is numbered, for ex. img-project-sdg-3
- * The function is useful when removing an element from a list (language, sdg). 
- * // TODO: to refactor the code removing a prefered language
+ * The function is useful when removing an element from a list (language, sdg).
  * @param rootForIdToRenumber the root of the numbered string.
  * @param idToRenumber the string that will be renumbered.
  */
-export const decrementRelatedElementId = (
+export const decrementElementIdNumber = (
     rootForIdToRenumber: string,
     idToRenumber: string
 ) => {
     let debug = false;
-    if (debug) console.debug("      decrementRelatedElementId called");
+    if (debug) console.debug("      decrementElementIdNumber called");
     let elem = document.getElementById(idToRenumber) as HTMLElement;
 
     // parsing and decrementing the number
