@@ -13,7 +13,7 @@ function openUserTypeOptionsModal(debug: boolean) {
         elem.setAttribute("aria-hidden", "true");
     }
 
-    let modal = document.getElementById("user-type-options-modal") as HTMLElement;
+    let modal = document.getElementById("userTypeOptions-modal") as HTMLElement;
     modal.setAttribute("aria-hidden", "false");
     modal.style.display = "block";
     modal.focus();
@@ -31,12 +31,12 @@ function closeUserTypeOptionsModal(debug: boolean) {
         elem.setAttribute("aria-hidden", "false");
     }
 
-    let modal = document.getElementById("user-type-options-modal") as HTMLElement;
+    let modal = document.getElementById("userTypeOptions-modal") as HTMLElement;
     modal.setAttribute("aria-hidden", "true");
     modal.style.display = "none";
 
     // Bringing the focus back to the button that triggered the modal
-    let newAccountOrLoginAccess = document.getElementById("new-account-or-login-access");
+    let newAccountOrLoginAccess = document.getElementById("newAccountOrLogin-button");
     newAccountOrLoginAccess?.focus();
 }
 
@@ -50,10 +50,10 @@ function redirectToProjRepPage() {
 /****************************** Adding the event listeners to the index.html page  ********************************/
 
 /* Listener for the opening of the modal. Boolean for debug mode. */
-addElementEventListenerForClickAndKeyboardNav("new-account-or-login-access", openUserTypeOptionsModal, true);
+addElementEventListenerForClickAndKeyboardNav("newAccountOrLogin-button", openUserTypeOptionsModal, true);
 
 /* Listener for the closing of the modal. Boolean for debug mode. */
-addElementEventListenerForClickAndKeyboardNav("user-type-options-modal-closing", closeUserTypeOptionsModal, true);
+addElementEventListenerForClickAndKeyboardNav("userTypeOptions-modal-closing", closeUserTypeOptionsModal, true);
 
 /* Listener for the re-direction toward the project representative page. Boolean for debug mode. */
 addElementEventListenerForClickAndKeyboardNav("link-to-proj-rep-page", redirectToProjRepPage, true);

@@ -8,7 +8,7 @@ describe('Tab navigation on home page', () => {
     cy.visit('_html/index.html')
 
     // Starting at button
-    cy.get('#new-account-or-login-access').focus()
+    cy.get('#newAccountOrLogin-button').focus()
 
     // Next is homepage link
     cy.tab()
