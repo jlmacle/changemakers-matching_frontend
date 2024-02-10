@@ -73,7 +73,7 @@ function signUpDataProcessing(event: Event, url: string, debug: boolean) {
  */
 function displayProjectView(username: string) {
     // Toggling the visibility of the authentication form
-    let authFormElem = document.getElementById("new-accountProj-rep-title") as HTMLElement;
+    let authFormElem = document.getElementById("newAccount-projRep-title") as HTMLElement;
     authFormElem.style.display = "none";
 
     // Welcome message
@@ -85,7 +85,7 @@ function displayProjectView(username: string) {
     addElementEventListenerForClickAndKeyboardNav("logout-link", logout, true);
 
     // Toggling the visibility of the project main content
-    let projectsElem = document.getElementById("projects-main-content") as HTMLElement;
+    let projectsElem = document.getElementById("projects-projRep-container") as HTMLElement;
     projectsElem.style.display = "block";
 
 }
@@ -96,10 +96,10 @@ function displayProjectView(username: string) {
  */
 function newProjectDefinitionView(debug: boolean){
     // Toggling the boldness of the new project definition invite button
-    toggleElementBoldness("new-project-definition-invite-button");
+    toggleElementBoldness("newProjectDefinition-inviteButton");
 
     // Toggling the visibility of the new project definition view
-    toggleElementVisibility("new-project-definition-form");
+    toggleElementVisibility("newProjectDefinition-form");
 }
 
 
@@ -138,7 +138,7 @@ function getCountryList(): string {
 }
 
 function addCountryOptions() {
-    let element = document.getElementById("project-country") as HTMLElement;
+    let element = document.getElementById("projectCountry") as HTMLElement;
     let htmlOptions = getCountryList();
     element.innerHTML = htmlOptions;
 }
@@ -271,7 +271,7 @@ function addOrModifySDGImage(selectId: string, debug: boolean) {
     };
 
     // Removing the current child element if any, before adding the generated HTML
-    let parentElem = document.getElementById("sidebar-sticky-wrapper") as HTMLElement;
+    let parentElem = document.getElementById("centralSection-leftSidebar-stickyWrapper") as HTMLElement;
     parentElem.innerHTML = "";
     parentElem?.insertAdjacentHTML("beforeend", htmlToAddToWrapper);
 
@@ -285,12 +285,12 @@ function addOrModifySDGImage(selectId: string, debug: boolean) {
 function getSdgToAddHTMLString(value_to_insert: string): string {
     let html_to_return =
         `<li id="li-sdg-${value_to_insert}" class="added-sdg-li">
-       <div class="new-project-definition-container">
-           <label class="new-project-definition-label" for="project-sdg-${value_to_insert}">
+       <div class="newProjectDefinition-inputField-container">
+           <label class="newProjectDefinition-inputField-label" for="project-sdg-${value_to_insert}">
                SDG ${value_to_insert}
            </label>
            <div id="project-sdg-${value_to_insert}-error"></div>
-           <div class="new-project-definition-input" style="padding-top:1px;">
+           <div class="newProjectDefinition-inputField" style="padding-top:1px;">
                <select id="project-sdg-${value_to_insert}" class="added-sdg-select declaredSdg"
                    name="project-sdg-${value_to_insert}">`
         + getSDGList() +
@@ -337,7 +337,7 @@ function removeDeclaredSDG(number4SdgToRemove: number) {
     let totalNumberOfSdgs = sdgsAddedElems.length + 1;
 
     // Removing the image
-    if (document.getElementById(`img-project-sdg-${number4SdgToRemove}`)) removeElement(`img-project-sdg-${number4SdgToRemove}`, "sidebar-sticky-wrapper");
+    if (document.getElementById(`img-project-sdg-${number4SdgToRemove}`)) removeElement(`img-project-sdg-${number4SdgToRemove}`, "centralSection-leftSidebar-stickyWrapper");
 
     // Removing the language element
     let parentElem = document.getElementById("sdgs-list");
@@ -445,13 +445,13 @@ function addAnotherSdg() {
 function getLanguageToAddHTMLString(value_to_insert: string): string {
     let html_to_return =
         `<li id="li-language-${value_to_insert}" class="added-language-li">
-        <div class="new-project-definition-container">
-            <label class="new-project-definition-label" for="project-language-${value_to_insert}">
+        <div class="newProjectDefinition-inputField-container">
+            <label class="newProjectDefinition-inputField-label" for="project-language-${value_to_insert}">
                 Language ${value_to_insert}
             </label>
             <div id="project-language-${value_to_insert}-error"></div>
-            <div class="new-project-definition-input" style="padding-top:1px;">
-                <select id="project-language-${value_to_insert}" class="added-language-select preferedLanguage"
+            <div class="newProjectDefinition-inputField" style="padding-top:1px;">
+                <select id="project-language-${value_to_insert}" class="addedLanguage-select preferedLanguage"
                     name="project-language-${value_to_insert}">`
         + getLanguageList() +
         `</select>  
@@ -599,11 +599,11 @@ function logout() {
     welcomeContainer2.innerHTML = "";
 
     // Toggling the visibility of the projects main content
-    let projectsMainContent = document.getElementById("projects-main-content") as HTMLElement;
+    let projectsMainContent = document.getElementById("projects-projRep-container") as HTMLElement;
     projectsMainContent.style.display = 'none';
 
     // Toggling the visibility of the new account area
-    let newAccountProjRep = document.getElementById("new-accountProj-rep-title") as HTMLElement;
+    let newAccountProjRep = document.getElementById("newAccount-projRep-title") as HTMLElement;
     newAccountProjRep.style.display = 'block';
 
     // Removing the username data (TODO: to be done better later)
@@ -622,7 +622,7 @@ let authFormSubmit = document.getElementById("auth-form-creation-submit") as HTM
 authFormSubmit?.addEventListener("click", (event) => signUpDataProcessing(event, "http://127.0.0.1:8080/representatives/new-account", true));
 
 /* Listener for the toggling of visibility in the project dashboard view */
-addElementEventListenerForClickAndKeyboardNav("new-project-definition-invite-button", newProjectDefinitionView, true);
+addElementEventListenerForClickAndKeyboardNav("newProjectDefinition-inviteButton", newProjectDefinitionView, true);
 
 /* Listener for the addition of sdgs : for the declaration by default */
 addElementEventListenerForChangeEvent("project-sdg-1", addOrModifySDGImage, "project-sdg-1", true);

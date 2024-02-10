@@ -1,6 +1,6 @@
 /* ---------------------- HEADER section ---------------------- */
 
-#new-account-or-login-access {
+#newAccountOrLogin-button {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -14,7 +14,7 @@
 }
 
 @media screen and (min-width:239px) and (max-width:500px) {
-    #new-account-or-login-access {
+    #newAccountOrLogin-button {
         position: absolute;
         top: 10px;
         right: 10px;
@@ -25,7 +25,7 @@
     }
 }
 
-#user-type-options-modal {
+#userTypeOptions-modal {
     display: none;
 
     position: fixed;
@@ -43,7 +43,7 @@
 
 }
 
-#user-type-options-modal-closing {
+#userTypeOptions-modal-closing {
     position: absolute;
     right: 20px;
     z-index: 1;
@@ -53,7 +53,7 @@
 }
 
 
-#user-type-options-modal-content {
+#userTypeOptions-modal-content {
     position: absolute;
     top: 60px;
     z-index: 1;
@@ -61,7 +61,7 @@
     text-align: center;
 }
 
-#user-type-options-modal-content a {
+#userTypeOptions-modal-content a {
     color: white;
     font-size: 30px;
 }
@@ -70,10 +70,6 @@
 /* ---------------------- MAIN section ----------------------  */
 
 #auth-form-creation input {
-    border-radius: 5px;
-}
-
-auth-form-login input {
     border-radius: 5px;
 }
 

@@ -16,7 +16,7 @@ function checkUsername() { // 📖 AppSecurity: "Make sure your usernames/user I
     // Typing an invalid character, as first input, was not detected using  "input".
     // "keyup" solved the issue.
     username?.addEventListener("keyup", function () {
-        let usernameError = document.getElementById("error-in-username") as HTMLElement;
+        let usernameError = document.getElementById("newAccount-projRep-errorInUsername") as HTMLElement;
         usernameError.setAttribute("style", "background-color:rgb(255, 251, 251)");
 
         if (username?.value && usernameError) {
@@ -65,7 +65,7 @@ function checkPassword() {  // 📖 AppSecurity: "Passwords shorter than 8 chara
     let submitButton = document.getElementById("auth-form-creation-submit") as HTMLButtonElement;
 
     password?.addEventListener("keyup", function () {
-        let passwordError = document.getElementById("error-in-password");
+        let passwordError = document.getElementById("newAccount-projRep-errorInPassword");
         passwordError?.setAttribute("style", "background-color:rgb(255, 251, 251)");
 
         if (password?.value && passwordError) {

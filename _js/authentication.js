@@ -13,7 +13,7 @@ function checkUsername() {
     // Typing an invalid character, as first input, was not detected using  "input".
     // "keyup" solved the issue.
     username?.addEventListener("keyup", function () {
-        let usernameError = document.getElementById("error-in-username");
+        let usernameError = document.getElementById("newAccount-projRep-errorInUsername");
         usernameError.setAttribute("style", "background-color:rgb(255, 251, 251)");
         if (username?.value && usernameError) {
             username.value = username.value.toLowerCase(); // "Make sure your usernames/user IDs are case-insensitive."
@@ -59,7 +59,7 @@ function checkPassword() {
     let password = document.getElementById("password");
     let submitButton = document.getElementById("auth-form-creation-submit");
     password?.addEventListener("keyup", function () {
-        let passwordError = document.getElementById("error-in-password");
+        let passwordError = document.getElementById("newAccount-projRep-errorInPassword");
         passwordError?.setAttribute("style", "background-color:rgb(255, 251, 251)");
         if (password?.value && passwordError) {
             // Avoiding space key in password to avoid confusing situations

@@ -46,28 +46,28 @@
     </header>
 
     <!-- /* ---------------------- MAIN section ----------------------  */ -->
-    <div id="container-main-section">
+    <div id="centralSection-container">
         <aside id="sidebar_left" aria-hidden="true" class="grid aside">
-            <div id="sidebar-sticky-wrapper"></div>
+            <div id="centralSection-leftSidebar-stickyWrapper"></div>
         </aside>
         <main id="main" class="grid">
             <!-- TODO: some screenreader/keyboard navigation accessibility testing/coding -->
 
             <!-- User/password creation -->
-            <div id="new-accountProj-rep-title" style="display:block;">
+            <div id="newAccount-projRep-title" style="display:block;">
                 <h1 style="display:block;">New account creation</h1>
                 <form id="auth-form-creation" method="post" style="display:block;">
-                    <fieldset id="auth-form-creation-fieldset">
+                    <fieldset id="newAccount-projRep-authForm-fieldset">
                         <legend>Please enter username and password</legend>
                         <label for="username">Username</label>
                         <input type="text" name="username" id="username" autocomplete="off">
                         <!--TODO: autocomplete "off" to remove eventually. A help with demos-->
-                        <div id="error-in-username">The username can only contain lowercase letters without accents,
+                        <div id="newAccount-projRep-errorInUsername">The username can only contain lowercase letters without accents,
                             numbers and underscores.</div>
                         <br>
                         <label for="password">Password</label>
                         <input type="password" name="password" id="password"><br>
-                        <div id="error-in-password">The password should be at least 8 characters long.</div>
+                        <div id="newAccount-projRep-errorInPassword">The password should be at least 8 characters long.</div>
                         <br>
                         <button type="submit" id="auth-form-creation-submit" disabled>Submit</button>
                     </fieldset>
@@ -80,9 +80,9 @@
             </div>
 
             <!-- Project main content -->
-            <div id="projects-main-content" style="display:none;">
+            <div id="projects-projRep-container" style="display:none;">
                 <!-- Existing projects -->
-                <h1 id="dashboardProj-rep-title">Dashboard</h1>
+                <h1 id="projects-projRep-dashboardTitle">Dashboard</h1>
                 <div id="projects-list"><strong>Your projects</strong>
                     <ul>
                         <li aria-label="You have no projects declared.">You have no projects declared.</li>
@@ -92,58 +92,58 @@
                     </ul>
                 </div>
                 <!-- New project declaration -->
-                <button type='button' tabindex="0" id="new-project-definition-invite-button" style="font-weight:bold;">
+                <button type='button' tabindex="0" id="newProjectDefinition-inviteButton" style="font-weight:bold;">
                     Click to declare a new project
                 </button>
-                <form id="new-project-definition-form" method="post" style="display:none;">
-                    <fieldset id="new-project-fieldset">
+                <form id="newProjectDefinition-form" method="post" style="display:none;">
+                    <fieldset id="newProjectDefinition-fieldset">
                         <legend><strong>New project declaration</strong></legend>
                         <!-- project name -->
-                        <div class="new-project-definition-container">
-                            <label aria-hidden="true" class="new-project-definition-label" for="project-name">Project
+                        <div class="newProjectDefinition-inputField-container">
+                            <label aria-hidden="true" class="newProjectDefinition-inputField-label" for="project-name">Project
                                 name: </label>
                             <textarea aria-label="Please enter the name of your project."
-                                class="new-project-definition-input" id="project-name" name="project-name" rows="1"
+                                class="newProjectDefinition-inputField" id="project-name" name="project-name" rows="1"
                                 placeholder="" required>
                             </textarea><br>
                         </div>
                         <!-- project description -->
-                        <div class="new-project-definition-container">
-                            <label aria-hidden="true" class="new-project-definition-label"
+                        <div class="newProjectDefinition-inputField-container">
+                            <label aria-hidden="true" class="newProjectDefinition-inputField-label"
                                 for="project-description">Project description:</label>
                             <textarea aria-label="Please enter the description of your project."
-                                class="new-project-definition-input" size="2000" id="project-description"
+                                class="newProjectDefinition-inputField" size="2000" id="project-description"
                                 name="project-description" rows="5" placeholder="" required>
                             </textarea><br>
                         </div>
                         <!-- mission statement -->
-                        <div class="new-project-definition-container">
-                            <label aria-hidden="true" class="new-project-definition-label"
+                        <div class="newProjectDefinition-inputField-container">
+                            <label aria-hidden="true" class="newProjectDefinition-inputField-label"
                                 for="project-mission-statement">Project mission statement:</label>
                             <textarea aria-label="Please enter the mission statement of your project."
-                                class="new-project-definition-input" size="2000" id="project-mission-statement"
+                                class="newProjectDefinition-inputField" size="2000" id="project-mission-statement"
                                 name="project-mission-statement" rows="5" placeholder="">
                             </textarea><br>
                         </div>
                         <!-- country -->
-                        <div class="new-project-definition-container">
-                            <label aria-hidden="true" class="new-project-definition-label"
-                                for="project-country">Country:</label>
+                        <div class="newProjectDefinition-inputField-container">
+                            <label aria-hidden="true" class="newProjectDefinition-inputField-label"
+                                for="projectCountry">Country:</label>
                             <select aria-label="Please declare the country of your project."
-                                class="new-project-definition-input" id="project-country" name="project-country"
+                                class="newProjectDefinition-inputField" id="projectCountry" name="projectCountry"
                                 required>
                                 <!-- here the generated options  -->
                             </select>
                         </div>
                         <!-- sdg goals -->
-                        <div class="new-project-definition-container">
-                            <label aria-hidden="true" class="new-project-definition-label" for="project-sdg-1">Main
+                        <div class="newProjectDefinition-inputField-container">
+                            <label aria-hidden="true" class="newProjectDefinition-inputField-label" for="project-sdg-1">Main
                                 Sustainable Development Goals the project is related to:</label>
                             <div id="error-in-sdg-selection"></div>
                             <ul id="sdgs-list" style="margin:0;">
                                 <li id="li-sdg-1">
-                                    <div class="new-project-definition-container" style="padding-top:0px;">
-                                        <label aria-hidden="true" class="new-project-definition-label"
+                                    <div class="newProjectDefinition-inputField-container" style="padding-top:0px;">
+                                        <label aria-hidden="true" class="newProjectDefinition-inputField-label"
                                             for="project-sdg-1">SDG 1</label>
                                         <select
                                             aria-label="Please declare a Sustainable Development Goal related to your project."
@@ -155,9 +155,9 @@
 
                                 <div id="new-sdg-addition-content" style="visibility: hidden;"></div>
                                 <li style="list-style: none;">
-                                    <div class="new-project-definition-container">
-                                        <label id="new-sdg-addition" class="new-project-definition-label"
-                                            style="width: 100%;">
+                                    <div class="newProjectDefinition-inputField-container">
+                                        <label id="newSdgAddition-label" class="newProjectDefinition-inputField-label">
+                                        </label>
                                             <a id="new-sdg-addition-link" href="javascript:void(0)"> Click to add
                                                 another SDG</a>
                                         </label>
@@ -168,13 +168,13 @@
 
                         <!-- languages -->
                         <!-- Ideally, a dataset of languages per country -->
-                        <div class="new-project-definition-container">
+                        <div class="newProjectDefinition-inputField-container">
                             <div id="error-in-language-selection"></div>
-                            <label class="new-project-definition-label">Prefered languages for communication:</label>
+                            <label class="newProjectDefinition-inputField-label">Prefered languages for communication:</label>
                             <ul id="languages-list" style="margin:0;">
                                 <li id="li-language-1">
-                                    <div class="new-project-definition-container" style="padding-top:0px;">
-                                        <label aria-hidden="true" class="new-project-definition-label"
+                                    <div class="newProjectDefinition-inputField-container" style="padding-top:0px;">
+                                        <label aria-hidden="true" class="newProjectDefinition-inputField-label"
                                             for="project-language-1">Language 1</label>
                                         <select aria-label="Please choose a prefered language for your project."
                                             id="project-language-1" name="project-language-1" class="preferedLanguage"
@@ -186,8 +186,8 @@
 
                                 <div id="new-language-addition-content" style="visibility: hidden;"></div>
                                 <li style="list-style: none;">
-                                    <div class="new-project-definition-container">
-                                        <label id="new-language-addition" class="new-project-definition-label"
+                                    <div class="newProjectDefinition-inputField-container">
+                                        <label id="new-language-addition" class="newProjectDefinition-inputField-label"
                                             style="width: 100%;">
                                             <a id="new-language-addition-link" href="javascript:void(0)"> Click to add
                                                 another language</a>
@@ -198,13 +198,13 @@
                         </div>
 
                         <!-- comments about languages -->
-                        <div class="new-project-definition-container">
-                            <label aria-hidden="true" class="new-project-definition-label"
+                        <div class="newProjectDefinition-inputField-container">
+                            <label aria-hidden="true" class="newProjectDefinition-inputField-label"
                                 for="project-language-comments">Comments about the languages used for the
                                 communication:</label>
                             <textarea
                                 aria-label="Please add any comments concerning the languages used that you would find relavant."
-                                class="new-project-definition-input" id="project-language-comments"
+                                class="newProjectDefinition-inputField" id="project-language-comments"
                                 name="project-language-comments" size="2000" placeholder="">
                             </textarea>
                         </div>

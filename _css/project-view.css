@@ -1,51 +1,59 @@
-/* ---------------------- MAIN section :  ----------------------  */
+/*----------------------- MAIN section :  ------------------------*/
+/*----------------------------------------------------------------*/
+
+/* Main structure: wrapper */
+#centralSection-container {
+    /* without this code, the sidebar wouldn't stretch when the main content would grow.*/
+    display: flex;
+}
+
 /* Main structure: sidebars */
-#sidebar-sticky-wrapper {
+#centralSection-leftSidebar-stickyWrapper {
     position: sticky;
     top: 0;
 }
 
-/* Main structure: account creation */
-#auth-form-creation-fieldset {
+/* Account creation */
+#newAccount-projRep-title {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#newAccount-projRep-authForm-fieldset {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-#error-in-username {
+#newAccount-projRep-errorInUsername {
     margin-top: 1px;
 }
 
-#error-in-password {
+#newAccount-projRep-errorInPassword {
     margin-top: 1px;
 }
 
-/* Main structure: project content */
-#projects-main-content {
+/* Projects content */
+#projects-projRep-container {
     margin-left: 10px;
     margin-right: 10px;
 }
 
-#container-main-section {
-    /* without this code, the sidebar wouldn't stretch when the main content would grow.*/
-    display: flex;
-}
 
-/* Project dashboard */
-#dashboardProj-rep-title {
-    margin-left: 10px;
+/* Projects dashboard */
+#projects-projRep-dashboardTitle {
     text-align: center;
 }
 
-#new-project-definition-invite-button {
+#newProjectDefinition-inviteButton {
     background-color: transparent;
     border: 0px;
     font-family: "Times New Roman", Times, serif;
     font-size: 16px;
 }
 
-#new-project-definition-invite-button:hover {
+#newProjectDefinition-inviteButton:hover {
     border: solid 1px black;
     border-radius: 5px;
     max-width: -moz-fit-content;
@@ -54,24 +62,19 @@
 }
 
 /* Project definition  */
-/* Title */
-#new-accountProj-rep-title {
-    text-align: center;
-    margin-top: 20px;
-}
 
 /* Form and inputs */
-#new-project-definition-form {
+#newProjectDefinition-form {
     padding-right: 5px;
 }
 
-#new-project-fieldset {
+#newProjectDefinition-fieldset {
     width: 100%;
     padding-inline: 0px;
     margin-top: 20px;
 }
 
-.new-project-definition-container {
+.newProjectDefinition-inputField-container {
     /* to wrap label and input field */
     display: flex;
     flex-direction: column;
@@ -82,37 +85,37 @@
     padding-inline: 5px;
 }
 
-.new-project-definition-label {
+.newProjectDefinition-inputField-label {
     width: 100%;
     /* To take into account the Nokia 8110 4G */
 }
 
 @media screen and (min-width:239px) and (max-width:320px) {
-    .new-project-definition-label {
+    .newProjectDefinition-inputField-label {
         width: 170px;
     }
 }
 
-#project-country {
+#projectCountry {
     margin-left: 10px;
     /* to catch up on the selects of languages */
 }
 
-.new-project-definition-container select {
+.newProjectDefinition-inputField-container select {
     width: 80%;
 }
 
 @media screen and (min-width:386px) {
-    .new-project-definition-container select {
+    .newProjectDefinition-inputField-container select {
         width: 300px;
     }
 }
 
-.new-project-definition-container ul {
+.newProjectDefinition-inputField-container ul {
     padding-left: 10px;
 }
 
-.new-project-definition-input {
+.newProjectDefinition-inputField {
     box-sizing: border-box;
     /* to avoid a scrollbar in empty fields */
     display: flex;
@@ -122,12 +125,16 @@
 }
 
 @media screen and (min-width:239px) and (max-width:320px) {
-    .new-project-definition-input {
+    .newProjectDefinition-inputField {
         width: 80%;
     }
 }
 
-.added-language-select {
+#newSdgAddition-label {
+    width: 100%
+}
+
+.addedLanguage-select {
     margin-top: 0;
 }
 
@@ -142,9 +149,4 @@
     font-size: 26px;
     line-height: 18px;
     margin-left: 10px;
-}
-
-.preferedLanguage {
-    /* To be able to count the number of prefered languages declared */
-
 }
