@@ -6,3 +6,10 @@ https://owasp.org/
 maîtriser les standards de sécurité côté navigateur"
 Guide ANSSI 
 https://cyber.gouv.fr/sites/default/files/2013/05/anssi-guide-recommandations_mise_en_oeuvre_site_web_maitriser_standards_securite_cote_navigateur-v2.0.pdf
+
+Adding a local self-signed certificate
+- Powershell admin:
+    * New-SelfSignedCertificate -DnsName "localhost" -CertStoreLocation "cert:\LocalMachine\My" -NotAfter (Get-Date).AddYears(100)
+    * certlm.msc
+- localhost certificate moved from "Personal" to "Trusted Root Certification Authorities"
+Credits: https://stackoverflow.com/questions/8169999/how-can-i-create-a-self-signed-cert-for-localhost
