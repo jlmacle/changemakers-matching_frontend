@@ -166,7 +166,7 @@ export const toggleElementBoldness =
  * 
  */
 
-// TODO: a generic Sign-up/Sign-in function
+/* TODO: a generic Sign-up/Sign-in function */
 
 /****************** Functions used when adding elements/removing elements from a list (sdgs, languages,...) ***********************/
 
