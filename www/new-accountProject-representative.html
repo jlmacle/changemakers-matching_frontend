@@ -23,14 +23,13 @@
     <link rel="stylesheet" type="text/css" href="../_css/authentication.css">
     <title>Seeking ways to better the world? Find if your skills could be used to achieve the UN Sustainable Development
         Goals.</title>
-    <!-- ➡️ TODO: AppSecurity: integrity hash to add (css/js) - Time consuming - Not done at development time ⬅️ -->
+    <!-- ➡️ Prod: TODO: AppSecurity: integrity hash to add (css/js) - Time consuming - Not done at development time ⬅️ -->
     <script type="module" src="../_js/common.mjs" defer></script>
     <script src="../_js/authentication.js" defer></script>
     <script type="module" src="../_js/project_view.mjs" defer></script>
     <!-- type="module" is necessary because of the import -->
 </head>
 
-<!-- TODO: to consider the use of web components -->
 
 <body>
 
@@ -61,7 +60,7 @@
                         <legend>Please enter username and password</legend>
                         <label for="username">Username</label>
                         <input type="text" name="username" id="username" autocomplete="off">
-                        <!--TODO: autocomplete "off" to remove eventually. A help with demos-->
+                        <!--➡️Prod: TODO: autocomplete "off" to remove eventually. A help with demos-->
                         <div id="newAccount-projRep-errorInUsername">The username can only contain lowercase letters without accents,
                             numbers and underscores.</div>
                         <br>
@@ -86,9 +85,9 @@
                 <div id="projects-list"><strong>Your projects</strong>
                     <ul>
                         <li aria-label="You have no projects declared.">You have no projects declared.</li>
-                        <!--aria-label="You have no projects declared, to avoid an 'edit' being voiced"
-                            Might be an issue with other screan readers
-                            TODO: testing to complete -->
+                        <!--TODO: testing to complete
+                            aria-label="You have no projects declared, to avoid an 'edit' being voiced"
+                            Might be an issue with other screan readers -->
                     </ul>
                 </div>
                 <!-- New project declaration -->

@@ -413,7 +413,6 @@ function addAnotherSdg() {
 
     htmlToAdd4NewSdg = getSdgToAddHTMLString("" + number4TheSDGToAdd);
 
-    // TODO: the 'X' accessibility to check on
     let newSdgAdditionContentElem = document.getElementById("new-sdg-addition-content") as HTMLElement;
     newSdgAdditionContentElem.insertAdjacentHTML('beforebegin', htmlToAdd4NewSdg);
 
@@ -480,7 +479,6 @@ function addAnotherLanguage() {
 
     htmlToAdd4NewLanguage = getLanguageToAddHTMLString("" + number4TheLanguageToAdd);
 
-    // TODO: the 'X' accessibility to check on
     let newLanguageAdditionContentElem = document.getElementById("new-language-addition-content") as HTMLElement;
     newLanguageAdditionContentElem.insertAdjacentHTML('beforebegin', htmlToAdd4NewLanguage);
 
@@ -606,8 +604,9 @@ function logout() {
     let newAccountProjRep = document.getElementById("newAccount-projRep-title") as HTMLElement;
     newAccountProjRep.style.display = 'block';
 
-    // Removing the username data (TODO: to be done better later)
-    document.cookie = "username=; path=/;";
+    // Removing the username data 
+    /* TODO: to re-work the cookie part better later */
+    document.cookie = "username=;";
     window.location.reload();
 }
 
@@ -640,7 +639,7 @@ addElementEventListenerForChangeEvent("project-language-1", isDuplicateSelection
 addElementEventListenerForChangeEvent("project-sdg-1", isDuplicateSelectionPresent, "declaredSdg", "error-in-sdg-selection", true);
 
 /* Listener checking the presence of a cookie */
-// TODO: to re-work the cookie part minding the security aspects
+/* TODO: to re-work the cookie part minding the security aspects */
 document.addEventListener("DOMContentLoaded", function (event) {
     console.debug('Entering addEventListener("DOMContentLoaded") function');
     let debug = false;

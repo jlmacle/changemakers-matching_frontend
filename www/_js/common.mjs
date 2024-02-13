@@ -121,7 +121,7 @@ export const toggleElementBoldness = (elementId) => {
  * @param debug A boolean for debug mode.
  *
  */
-// TODO: a generic Sign-up/Sign-in function
+/* TODO: a generic Sign-up/Sign-in function */
 /****************** Functions used when adding elements/removing elements from a list (sdgs, languages,...) ***********************/
 /**
  * Function used to decrement the number, when the id of an element is numbered, for ex. img-project-sdg-3

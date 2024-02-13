@@ -45,8 +45,9 @@ function signUpDataProcessing(event, url, debug) {
         })
             .then(response => response.text())
             .then(stringToSanitize => {
-            // temp cookie for testing (to be done better later)
-            document.cookie = `username=${username}; path=/; max-age=360000;`; // 📖 AppSecurity: Setting a session cookie https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_CheatSheet.html
+            /* TODO : to be done better later */
+            /* Secure attribute to add at some point */
+            document.cookie = `username=${username}; SameSite:strict; max-age=360000;`; // 📖 AppSecurity: Setting a session cookie https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_CheatSheet.html
             if (debug)
                 console.debug("Cookie set: " + document.cookie); // 📖 AppSecurity: (when using HTTPS) "The purpose of the secure attribute is to prevent cookies from being observed by unauthorized parties due to the transmission of the cookie in clear text. To accomplish this goal, browsers which support the secure attribute will only send cookies with the secure attribute when the request is going to an HTTPS page." https://owasp.org/www-community/controls/SecureCookieAttribute 
             displayProjectView(username);
@@ -335,7 +336,6 @@ function addAnotherSdg() {
     console.debug(`Number of sdgs already added: ${totalNumberOfSdgs}`);
     let number4TheSDGToAdd = totalNumberOfSdgs + 1;
     htmlToAdd4NewSdg = getSdgToAddHTMLString("" + number4TheSDGToAdd);
-    // TODO: the 'X' accessibility to check on
     let newSdgAdditionContentElem = document.getElementById("new-sdg-addition-content");
     newSdgAdditionContentElem.insertAdjacentHTML('beforebegin', htmlToAdd4NewSdg);
     // Adding the image
@@ -385,7 +385,6 @@ function addAnotherLanguage() {
     console.debug(`Number of languages already added: ${totalNumberOfLanguages}`);
     let number4TheLanguageToAdd = totalNumberOfLanguages + 1;
     htmlToAdd4NewLanguage = getLanguageToAddHTMLString("" + number4TheLanguageToAdd);
-    // TODO: the 'X' accessibility to check on
     let newLanguageAdditionContentElem = document.getElementById("new-language-addition-content");
     newLanguageAdditionContentElem.insertAdjacentHTML('beforebegin', htmlToAdd4NewLanguage);
     // Adding an event listener to remove the language later
@@ -490,7 +489,8 @@ function logout() {
     // Toggling the visibility of the new account area
     let newAccountProjRep = document.getElementById("newAccount-projRep-title");
     newAccountProjRep.style.display = 'block';
-    // Removing the username data (TODO: to be done better later)
+    // Removing the username data 
+    /* TODO: to re-work the cookie part better later */
     document.cookie = "username=; path=/;";
     window.location.reload();
 }
@@ -513,7 +513,7 @@ addElementEventListenerForChangeEvent("project-language-1", isDuplicateSelection
 /* Listener for dupilcated selection of sdg (listeners for other selects at code generation) */
 addElementEventListenerForChangeEvent("project-sdg-1", isDuplicateSelectionPresent, "declaredSdg", "error-in-sdg-selection", true);
 /* Listener checking the presence of a cookie */
-// TODO: to re-work the cookie part minding the security aspects
+/* TODO: to re-work the cookie part minding the security aspects */
 document.addEventListener("DOMContentLoaded", function (event) {
     console.debug('Entering addEventListener("DOMContentLoaded") function');
     let debug = false;
