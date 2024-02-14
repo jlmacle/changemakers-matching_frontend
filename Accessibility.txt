@@ -14,3 +14,5 @@ NVDA + F7: landmarks, headings, all links, + more (currently having a bug, and c
 Tab: navigation through the page
 NVDA + q: exit NVDA
 https://www.nvaccess.org/files/nvda/documentation/keyCommands.html
+
+Testing with VoiceOver planned.
