@@ -12,6 +12,6 @@ Installing lighttpd on wsl to use https
 sudo apt install lighttpd
 sudo nano /etc/lighttpd/lighttpd.conf
 	➡️ server.document-root        = "/mnt/c/path-to-www"
-sudo systemctl restart lighttpd
+sudo systemctl restart lighttpd (or sudo service lighttpd restart)
 http://127.0.0.1/ (wsl needs to be started)
 https://help.ubuntu.com/community/lighttpd

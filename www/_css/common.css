@@ -78,7 +78,7 @@
     /* to have the sides of the same height as the main content */
 }
 
-@media screen and (max-width:1300px) {
+@media screen and (max-width:1260px) {
 
     /* couldn't use var(--break-value-for-sidebars) */
     .aside {
@@ -98,13 +98,12 @@
     background-color: #fafad2;
 }
 
-@media screen and (max-width:1300px) {
+@media screen and (max-width:1260px) {
 
     /* couldn't use var(--break-value-for-sidebars) */
     #main {
         width: 100%;
     }
-
 }
 
 [id|="error"] {

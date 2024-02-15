@@ -605,7 +605,8 @@ function logout() {
     newAccountProjRep.style.display = 'block';
 
     // Removing the username data 
-    /* TODO: to re-work the cookie part better later */
+    /* TODO: to change the cookie part to mind the security aspects */
+    /* https://www.baeldung.com/spring-security-persistent-remember-me */
     document.cookie = "username=;";
     window.location.reload();
 }
@@ -639,7 +640,8 @@ addElementEventListenerForChangeEvent("project-language-1", isDuplicateSelection
 addElementEventListenerForChangeEvent("project-sdg-1", isDuplicateSelectionPresent, "declaredSdg", "error-in-sdg-selection", true);
 
 /* Listener checking the presence of a cookie */
-/* TODO: to re-work the cookie part minding the security aspects */
+/* TODO: to change the cookie part to mind the security aspects */
+/* https://www.baeldung.com/spring-security-persistent-remember-me */
 document.addEventListener("DOMContentLoaded", function (event) {
     console.debug('Entering addEventListener("DOMContentLoaded") function');
     let debug = false;
