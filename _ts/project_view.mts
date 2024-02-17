@@ -40,7 +40,7 @@ function signUpDataProcessing(event: Event, url: string, debug: boolean) {
     if (!username || !password) // if username or password are empty or null
 
     {
-        let submitElem = document.getElementById("auth-form-creation-submit") as HTMLButtonElement;
+        let submitElem = document.getElementById("newAccount-projRep-form-submit") as HTMLButtonElement;
         submitElem.disabled = false;
         if (debug) console.debug("Username or password are empty. Treated in HTML page.");
     }
@@ -77,7 +77,7 @@ function displayProjectView(username: string) {
     authFormElem.style.display = "none";
 
     // Welcome message
-    let welcomeElem = document.getElementById("welcome-container2") as HTMLElement;
+    let welcomeElem = document.getElementById("welcomeContainer-2") as HTMLElement;
     let htmlToAdd = `<div aria-hidden="true">Welcome, ${username}</div>
                       <div id="logout"><a id="logout-link" href="javascript:void(0)">Logout</a></div>`
     welcomeElem.innerHTML = htmlToAdd;
@@ -593,7 +593,7 @@ function logout() {
     if (debug) console.debug("logout() called");
 
     // Removing the HTML from the welcome message
-    let welcomeContainer2 = document.getElementById("welcome-container2") as HTMLElement;
+    let welcomeContainer2 = document.getElementById("welcomeContainer-2") as HTMLElement;
     welcomeContainer2.innerHTML = "";
 
     // Toggling the visibility of the projects main content
@@ -618,7 +618,7 @@ function logout() {
 
 /* Listener for the submit button: Listener that checks if username/password can be sent to the backend */
 // TDOD: use of the generic code if possible
-let authFormSubmit = document.getElementById("auth-form-creation-submit") as HTMLButtonElement;
+let authFormSubmit = document.getElementById("newAccount-projRep-form-submit") as HTMLButtonElement;
 authFormSubmit?.addEventListener("click", (event) => signUpDataProcessing(event, "http://127.0.0.1:8080/representatives/new-account", true));
 
 /* Listener for the toggling of visibility in the project dashboard view */
