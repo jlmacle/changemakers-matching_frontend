@@ -71,11 +71,11 @@
 
 /* ---------------------- MAIN section ----------------------  */
 
-#auth-form-creation input {
+#newAccount-projRep-form input {
     border-radius: 5px;
 }
 
-#welcome-container {
+#welcomeContainer {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -85,14 +85,14 @@
     font-size: 18px;
 }
 
-#welcome-container2 {
+#welcomeContainer-2 {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
 }
 
-#welcome-container div {
+#welcomeContainer div {
     width: -moz-fit-content;
     /* 'width: fit-content' is not supported by Firefox, Firefox for Android. (Edge dev tools) */
     width: fit-content;

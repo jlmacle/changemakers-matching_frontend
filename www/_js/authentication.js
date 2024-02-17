@@ -9,7 +9,7 @@ let passwordIsValid = false;
 function checkUsername() {
     let debug = false;
     let username = document.getElementById("username");
-    let submitButton = document.getElementById("auth-form-creation-submit");
+    let submitButton = document.getElementById("newAccount-projRep-form-submit");
     // Typing an invalid character, as first input, was not detected using  "input".
     // "keyup" solved the issue.
     username?.addEventListener("keyup", function () {
@@ -57,7 +57,7 @@ checkUsername();
 function checkPassword() {
     let debug = false;
     let password = document.getElementById("password");
-    let submitButton = document.getElementById("auth-form-creation-submit");
+    let submitButton = document.getElementById("newAccount-projRep-form-submit");
     password?.addEventListener("keyup", function () {
         let passwordError = document.getElementById("newAccount-projRep-errorInPassword");
         passwordError?.setAttribute("style", "background-color:rgb(255, 251, 251)");

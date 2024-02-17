@@ -30,7 +30,7 @@ function signUpDataProcessing(event, url, debug) {
     const password = passwordElem.value;
     if (!username || !password) // if username or password are empty or null
      {
-        let submitElem = document.getElementById("auth-form-creation-submit");
+        let submitElem = document.getElementById("newAccount-projRep-form-submit");
         submitElem.disabled = false;
         if (debug)
             console.debug("Username or password are empty. Treated in HTML page.");
@@ -65,7 +65,7 @@ function displayProjectView(username) {
     let authFormElem = document.getElementById("newAccount-projRep-title");
     authFormElem.style.display = "none";
     // Welcome message
-    let welcomeElem = document.getElementById("welcome-container2");
+    let welcomeElem = document.getElementById("welcomeContainer-2");
     let htmlToAdd = `<div aria-hidden="true">Welcome, ${username}</div>
                       <div id="logout"><a id="logout-link" href="javascript:void(0)">Logout</a></div>`;
     welcomeElem.innerHTML = htmlToAdd;
@@ -481,7 +481,7 @@ function logout() {
     if (debug)
         console.debug("logout() called");
     // Removing the HTML from the welcome message
-    let welcomeContainer2 = document.getElementById("welcome-container2");
+    let welcomeContainer2 = document.getElementById("welcomeContainer-2");
     welcomeContainer2.innerHTML = "";
     // Toggling the visibility of the projects main content
     let projectsMainContent = document.getElementById("projects-projRep-container");
@@ -498,7 +498,7 @@ function logout() {
 /* Listener for the logout link: added after the logout link addition (displayProjectView) */
 /* Listener for the submit button: Listener that checks if username/password can be sent to the backend */
 // TDOD: use of the generic code if possible
-let authFormSubmit = document.getElementById("auth-form-creation-submit");
+let authFormSubmit = document.getElementById("newAccount-projRep-form-submit");
 authFormSubmit?.addEventListener("click", (event) => signUpDataProcessing(event, "http://127.0.0.1:8080/representatives/new-account", true));
 /* Listener for the toggling of visibility in the project dashboard view */
 addElementEventListenerForClickAndKeyboardNav("newProjectDefinition-inviteButton", newProjectDefinitionView, true);
