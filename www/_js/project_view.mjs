@@ -11,7 +11,7 @@ let htmlToAdd4NewLanguage = "";
 let addedSdgsSelectedOptions = new Map();
 let htmlToAdd4NewSdg = "";
 let sdgImageNames = [];
-let fileDir = "../_media/UN-graphics/";
+let fileDir = "./_media/UN-graphics/";
 /****************** Signup toward project view  ***********************/
 /**
  * Function used to push the username and password to the backend.
