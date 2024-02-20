@@ -5,7 +5,7 @@
 
 describe('Tab navigation on home page', () => {
   it('passes', () => {
-    cy.visit('_html/index.html')
+    cy.visit('/www/index.html')
 
     // Starting at button
     cy.get('#newAccountOrLogin-button').focus()
