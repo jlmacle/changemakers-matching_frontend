@@ -6,12 +6,3 @@ https://owasp.org/
 maîtriser les standards de sécurité côté navigateur"
 Guide ANSSI 
 https://cyber.gouv.fr/sites/default/files/2013/05/anssi-guide-recommandations_mise_en_oeuvre_site_web_maitriser_standards_securite_cote_navigateur-v2.0.pdf
-
-Installing lighttpd on wsl to use https
-
-sudo apt install lighttpd
-sudo nano /etc/lighttpd/lighttpd.conf
-	➡️ server.document-root        = "/mnt/c/path-to-www"
-sudo systemctl restart lighttpd (or sudo service lighttpd restart)
-http://127.0.0.1/ (wsl needs to be started)
-https://help.ubuntu.com/community/lighttpd
