@@ -1,0 +1,40 @@
+Backend:
+
+- PostgreSQL (https://www.postgresql.org/download/)
+[PostgreSQL’s bin directory might need to be added the PATH]
+CREATE USER user-name WITH ENCRYPTED PASSWORD ‘user-password’;
+CREATE DATABASE database-name OWNER user-name;
+To test the success of the previous commands:
+“\c database_name”, then “\l” 
+
+[Ubuntu:“sudo -u postgres psql” to access the psql console.]
+
+- Environment variables
+DB_NAME:  the name for the database
+DB_USERNAME: the name for the user owning the database
+DB_PASSWORD: the password for the user
+DB_POSTGRES_PORT: the port for the PostgreSQL database
+
+[Ubuntu: in .profile,  port=5432]
+
+
+- Java (https://www.oracle.com/java/technologies/downloads/#java17)
+[Java’s bin directory might need to be added the PATH]
+
+- Maven (https://maven.apache.org/download.cgi)
+[Maven’s bin directory might need to be added the PATH]
+
+[mv spring-boot:run]
+
+-------------
+Frontend:
+
+- Web server: VSCode LivePreview (https://code.visualstudio.com/download)
+
+-------------
+Cypress:
+
+- Nodejs (https://nodejs.org/en/download)
+[Nodejs' bin directory might need to be added the PATH]
+“npm install” at the root of the frontend directory 
+npx cypress open
