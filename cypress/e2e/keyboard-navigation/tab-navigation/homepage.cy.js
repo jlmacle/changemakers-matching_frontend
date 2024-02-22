@@ -1,6 +1,6 @@
 // Installed cypress-plugin-tab
 // https://github.com/kuceb/cypress-plugin-tab
-// Not to remain in production code
+// To remove for production code
 // 📖 AppSecurity: Limiter les composants logiciels tiers (Limit third-party software components), Anssi: R61
 
 describe('Tab navigation on home page', () => {

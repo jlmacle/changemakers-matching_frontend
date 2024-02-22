@@ -45,9 +45,8 @@ function signUpDataProcessing(event, url, debug) {
         })
             .then(response => response.text())
             .then(stringToSanitize => {
-            /* TODO : to be done better later */
-            /* Secure attribute to add at some point */
-            document.cookie = `username=${username}; SameSite:strict; max-age=360000;`; // 📖 AppSecurity: Setting a session cookie https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_CheatSheet.html
+            // temp cookie for testing (to be done better later)
+            document.cookie = `username=${username}; path=/wwww/; max-age=360000;`; // 📖 AppSecurity: Setting a session cookie https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_CheatSheet.html
             if (debug)
                 console.debug("Cookie set: " + document.cookie); // 📖 AppSecurity: (when using HTTPS) "The purpose of the secure attribute is to prevent cookies from being observed by unauthorized parties due to the transmission of the cookie in clear text. To accomplish this goal, browsers which support the secure attribute will only send cookies with the secure attribute when the request is going to an HTTPS page." https://owasp.org/www-community/controls/SecureCookieAttribute 
             displayProjectView(username);
@@ -477,7 +476,7 @@ function removePreferedLanguage(number4LanguageToRemove) {
 ;
 /****************** Logout (to move eventually; common to the contributor page as well)  ***********************/
 function logout() {
-    let debug = false;
+    let debug = true;
     if (debug)
         console.debug("logout() called");
     // Removing the HTML from the welcome message
@@ -490,8 +489,9 @@ function logout() {
     let newAccountProjRep = document.getElementById("newAccount-projRep-title");
     newAccountProjRep.style.display = 'block';
     // Removing the username data 
-    /* TODO: to re-work the cookie part better later */
-    document.cookie = "username=; path=/;";
+    /* TODO: to change the cookie part to mind the security aspects */
+    /* https://www.baeldung.com/spring-security-persistent-remember-me */
+    document.cookie = "username=;";
     window.location.reload();
 }
 /******************  Event listeners (incl. for keyboard navigation) ***********************/
@@ -513,10 +513,11 @@ addElementEventListenerForChangeEvent("project-language-1", isDuplicateSelection
 /* Listener for dupilcated selection of sdg (listeners for other selects at code generation) */
 addElementEventListenerForChangeEvent("project-sdg-1", isDuplicateSelectionPresent, "declaredSdg", "error-in-sdg-selection", true);
 /* Listener checking the presence of a cookie */
-/* TODO: to re-work the cookie part minding the security aspects */
+/* TODO: to change the cookie part to mind the security aspects */
+/* https://www.baeldung.com/spring-security-persistent-remember-me */
 document.addEventListener("DOMContentLoaded", function (event) {
     console.debug('Entering addEventListener("DOMContentLoaded") function');
-    let debug = false;
+    let debug = true;
     let cookie = document.cookie;
     if (cookie) {
         let usernamePart = cookie.split(";")[0];
@@ -526,6 +527,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (username !== "") {
             displayProjectView(username);
             console.debug("Valid cookie found: project view displayed.");
+        }
+        else {
+            console.debug("*" + cookie + "*");
         }
     }
 });

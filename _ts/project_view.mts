@@ -54,7 +54,7 @@ function signUpDataProcessing(event: Event, url: string, debug: boolean) {
             .then(response => response.text())
             .then(stringToSanitize => {
                 // temp cookie for testing (to be done better later)
-                document.cookie = `username=${username}; path=/; max-age=360000;`; // 📖 AppSecurity: Setting a session cookie https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_CheatSheet.html
+                document.cookie = `username=${username}; path=/wwww/; max-age=360000;`; // 📖 AppSecurity: Setting a session cookie https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_CheatSheet.html
                 if (debug) console.debug("Cookie set: " + document.cookie);        // 📖 AppSecurity: (when using HTTPS) "The purpose of the secure attribute is to prevent cookies from being observed by unauthorized parties due to the transmission of the cookie in clear text. To accomplish this goal, browsers which support the secure attribute will only send cookies with the secure attribute when the request is going to an HTTPS page." https://owasp.org/www-community/controls/SecureCookieAttribute 
 
                 displayProjectView(username);
@@ -589,7 +589,7 @@ function removePreferedLanguage(number4LanguageToRemove: number) {
 /****************** Logout (to move eventually; common to the contributor page as well)  ***********************/
 
 function logout() {
-    let debug = false;
+    let debug = true;
     if (debug) console.debug("logout() called");
 
     // Removing the HTML from the welcome message
@@ -644,7 +644,7 @@ addElementEventListenerForChangeEvent("project-sdg-1", isDuplicateSelectionPrese
 /* https://www.baeldung.com/spring-security-persistent-remember-me */
 document.addEventListener("DOMContentLoaded", function (event) {
     console.debug('Entering addEventListener("DOMContentLoaded") function');
-    let debug = false;
+    let debug = true;
 
     let cookie = document.cookie;
     if (cookie) {
@@ -654,6 +654,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (username !== "") {
             displayProjectView(username);
             console.debug("Valid cookie found: project view displayed.");
+        }
+        else {
+            console.debug("*"+cookie+"*");
         }
     }
 });
