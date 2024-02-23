@@ -528,8 +528,5 @@ document.addEventListener("DOMContentLoaded", function (event) {
             displayProjectView(username);
             console.debug("Valid cookie found: project view displayed.");
         }
-        else {
-            console.debug("*" + cookie + "*");
-        }
     }
 });
