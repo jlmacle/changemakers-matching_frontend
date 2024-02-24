@@ -13,7 +13,7 @@ function openUserTypeOptionsModal(debug: boolean) {
         elem.setAttribute("aria-hidden", "true");
     }
 
-    let modal = document.getElementById("userTypeOptions-modal") as HTMLElement;
+    let modal = document.getElementById("userTypeOptions-modal-container") as HTMLElement;
     modal.setAttribute("aria-hidden", "false");
     modal.style.display = "block";
     modal.focus();
@@ -31,7 +31,7 @@ function closeUserTypeOptionsModal(debug: boolean) {
         elem.setAttribute("aria-hidden", "false");
     }
 
-    let modal = document.getElementById("userTypeOptions-modal") as HTMLElement;
+    let modal = document.getElementById("userTypeOptions-modal-container") as HTMLElement;
     modal.setAttribute("aria-hidden", "true");
     modal.style.display = "none";
 

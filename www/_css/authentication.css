@@ -27,7 +27,7 @@
     }
 }
 
-#userTypeOptions-modal {
+#userTypeOptions-modal-container {
     display: none;
 
     position: fixed;
