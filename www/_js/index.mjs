@@ -12,7 +12,7 @@ function openUserTypeOptionsModal(debug) {
     for (let elem of toIgnoreWhenModal1IsOn) {
         elem.setAttribute("aria-hidden", "true");
     }
-    let modal = document.getElementById("userTypeOptions-modal");
+    let modal = document.getElementById("userTypeOptions-modal-container");
     modal.setAttribute("aria-hidden", "false");
     modal.style.display = "block";
     modal.focus();
@@ -29,7 +29,7 @@ function closeUserTypeOptionsModal(debug) {
     for (let elem of toIgnoreWhenModal1IsOn) {
         elem.setAttribute("aria-hidden", "false");
     }
-    let modal = document.getElementById("userTypeOptions-modal");
+    let modal = document.getElementById("userTypeOptions-modal-container");
     modal.setAttribute("aria-hidden", "true");
     modal.style.display = "none";
     // Bringing the focus back to the button that triggered the modal
