@@ -2,7 +2,7 @@ Backend:
 
 - PostgreSQL (https://www.postgresql.org/download/)
 [PostgreSQL’s bin directory might need to be added the PATH]
-CREATE USER user-name WITH ENCRYPTED PASSWORD ‘user-password’;
+CREATE USER user-name WITH ENCRYPTED PASSWORD 'user-password';
 CREATE DATABASE database-name OWNER user-name;
 To test the success of the previous commands:
 “\c database_name”, then “\l” 
