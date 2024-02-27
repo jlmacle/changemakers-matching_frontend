@@ -9,7 +9,7 @@ https://support.microsoft.com/en-us/windows/appendix-b-narrator-keyboard-command
 
 Testing with NVDA:
 Ctrl + Alt + n: start NVDA
-NVDA + F7: landmarks, headings, all links, + more (currently having a bug, and cannot re-access the feature)
+NVDA + F7: Links, headings, forms fields, buttons, landmarks 
 Tab: navigation through the page
 NVDA + q: exit NVDA
 https://www.nvaccess.org/files/nvda/documentation/keyCommands.html
