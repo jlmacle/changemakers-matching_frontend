@@ -17,6 +17,7 @@ function openUserTypeOptionsModal(debug: boolean) {
     modal.setAttribute("aria-hidden", "false");
     modal.style.display = "block";
     modal.focus();
+    
 }
 
 /**
