@@ -1,4 +1,4 @@
-Currently tested with Narrator:
+Currently testing with Narrator:
 Ctrl + Windows + Enter: start/stop Narrator
 Narrator + space: scan on/scan off
 Narrator + F5: landmarks
