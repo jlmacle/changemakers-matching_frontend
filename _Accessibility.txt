@@ -16,6 +16,11 @@ NVDA + q: exit NVDA
 https://www.nvaccess.org/files/nvda/documentation/keyCommands.html
 
 Currently testing with Orca:
-Super + Alt + Space: start/stop Orca
+orca (terminal): start Orca
 Orca Modifier + z: start/stop the structural navigation
+Alt + Shift + K: list of links 
+Alt + Shift + H: list of headings
+Alt + Shift + F: list of form fields
+Alt + Shift + B: list of buttons 
+Alt + Shift + M: list of landmarks 
 https://help.gnome.org/users/orca/stable/commands_structural_navigation.html.en
