@@ -16,8 +16,6 @@ function openUserTypeOptionsModal(debug) {
     modal.setAttribute("aria-hidden", "false");
     modal.style.display = "block";
     modal.focus();
-
-    
 }
 /**
  * Function closing the modal used to differentiate project representatives from contributors.
