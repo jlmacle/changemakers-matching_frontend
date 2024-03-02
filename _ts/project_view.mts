@@ -433,7 +433,7 @@ function addAnotherSdg() {
 }
 
 
-/******************  Addition/removal of prefered language options ***********************/
+/******************  Addition/removal of preferred language options ***********************/
 
 
 /**
@@ -450,7 +450,7 @@ function getLanguageToAddHTMLString(value_to_insert: string): string {
             </label>
             <div id="project-language-${value_to_insert}-error"></div>
             <div class="newProjectDefinition-inputField" style="padding-top:1px;">
-                <select id="project-language-${value_to_insert}" class="addedLanguage-select preferedLanguage"
+                <select id="project-language-${value_to_insert}" class="addedLanguage-select preferredLanguage"
                     name="project-language-${value_to_insert}">`
         + getLanguageList() +
         `</select>  
@@ -466,13 +466,13 @@ function getLanguageToAddHTMLString(value_to_insert: string): string {
 
 
 /**
- * Function used to add another prefered language to the project.
+ * Function used to add another preferred language to the project.
  */
 function addAnotherLanguage() {
     console.debug("Entering addAnotherLanguage() function");
 
     // Getting the number of languages already added
-    let languagesElems = document.getElementsByClassName("preferedLanguage") as HTMLCollectionOf<HTMLElement>;
+    let languagesElems = document.getElementsByClassName("preferredLanguage") as HTMLCollectionOf<HTMLElement>;
     let totalNumberOfLanguages = languagesElems.length;
     console.debug(`Number of languages already added: ${totalNumberOfLanguages}`);
     let number4TheLanguageToAdd = totalNumberOfLanguages + 1;
@@ -483,13 +483,13 @@ function addAnotherLanguage() {
     newLanguageAdditionContentElem.insertAdjacentHTML('beforebegin', htmlToAdd4NewLanguage);
 
     // Adding an event listener to remove the language later
-    addElementEventListenerForClickAndKeyboardNav(`delete-language-${number4TheLanguageToAdd}`, removePreferedLanguage, number4TheLanguageToAdd, true);
+    addElementEventListenerForClickAndKeyboardNav(`delete-language-${number4TheLanguageToAdd}`, removepreferredLanguage, number4TheLanguageToAdd, true);
 
     // Adding an event listener for duplicated selections (change event)
-    addElementEventListenerForChangeEvent(`project-language-${number4TheLanguageToAdd}`, isDuplicateSelectionPresent, "preferedLanguage", "error-in-language-selection", true);
+    addElementEventListenerForChangeEvent(`project-language-${number4TheLanguageToAdd}`, isDuplicateSelectionPresent, "preferredLanguage", "error-in-language-selection", true);
     
     // Potential duplication at language creation
-    isDuplicateSelectionPresent("preferedLanguage", "error-in-language-selection", true);
+    isDuplicateSelectionPresent("preferredLanguage", "error-in-language-selection", true);
 
 }
 
@@ -516,15 +516,15 @@ function addAnotherLanguageUsingATimeBuffer(debug: boolean) {
 
 
 /**
-* Function used to remove one of the prefered languages.
+* Function used to remove one of the preferred languages.
 * @param number4LanguageToRemove The number of the language to remove.
 */
 
-function removePreferedLanguage(number4LanguageToRemove: number) {
+function removepreferredLanguage(number4LanguageToRemove: number) {
     let debug = false;
 
     // Getting the added languages elements
-    console.debug("\n" + `removePreferedLanguage() called on language number ${number4LanguageToRemove}.`);
+    console.debug("\n" + `removepreferredLanguage() called on language number ${number4LanguageToRemove}.`);
     let languagesAddedElems = document.getElementsByClassName("added-language-li") as HTMLCollectionOf<HTMLElement>;
     let totalNumberOfLanguages = languagesAddedElems.length + 1;
 
@@ -574,11 +574,11 @@ function removePreferedLanguage(number4LanguageToRemove: number) {
     languagesAddedElems = document.getElementsByClassName("added-language-li") as HTMLCollectionOf<HTMLElement>;
     totalNumberOfLanguages = languagesAddedElems.length + 1;
     for (let i = number4LanguageToRemove; i <= totalNumberOfLanguages; i++) {
-        addElementEventListenerForClickAndKeyboardNav(`delete-language-${i}`, removePreferedLanguage, i, true);
+        addElementEventListenerForClickAndKeyboardNav(`delete-language-${i}`, removepreferredLanguage, i, true);
     }
 
     // In case the removal would have suppressed a duplication in the selections
-    isDuplicateSelectionPresent("preferedLanguage", "error-in-language-selection", true);
+    isDuplicateSelectionPresent("preferredLanguage", "error-in-language-selection", true);
 
     // Clearing the selected options map 
     addedLanguagesSelectedOptions.clear();
@@ -634,7 +634,7 @@ addElementEventListenerForClickAndKeyboardNav("new-sdg-addition-link", addAnothe
 addElementEventListenerForClickAndKeyboardNav("new-language-addition-link", addAnotherLanguageUsingATimeBuffer, true);
 
 /* Listener for dupilcated selection of language (listeners for other selects at code generation) */
-addElementEventListenerForChangeEvent("project-language-1", isDuplicateSelectionPresent, "preferedLanguage", "error-in-language-selection", true);
+addElementEventListenerForChangeEvent("project-language-1", isDuplicateSelectionPresent, "preferredLanguage", "error-in-language-selection", true);
 
 /* Listener for dupilcated selection of sdg (listeners for other selects at code generation) */
 addElementEventListenerForChangeEvent("project-sdg-1", isDuplicateSelectionPresent, "declaredSdg", "error-in-sdg-selection", true);
