@@ -27,7 +27,7 @@
     <script type="module" src="./_js/common.mjs" defer></script>
     <script src="./_js/authentication.js" defer></script>
     <script type="module" src="./_js/project_view.mjs" defer></script>
-    <!-- type="module" is necessary because of the import -->
+    <!-- type="module" is necessary because of the imports/exports -->
 </head>
 
 
@@ -48,7 +48,7 @@
         <aside id="sidebar-left" aria-hidden="true" class="grid aside">
             <div id="sidebar-left-stickyWrapper"></div>
         </aside>
-        <main id="main" class="grid">
+        <main id="centralSection" class="grid">
             <!-- TODO: some screenreader/keyboard navigation accessibility testing/coding -->
 
             <!-- User/password creation -->
@@ -220,7 +220,7 @@
                 </form>
             </div>
         </main>
-        <aside aria-hidden="true" class="grid aside"></aside>
+        <aside id="sidebar-right" aria-hidden="true" class="grid aside"></aside>
     </div>   
 
     <!-- /* ---------------------- FOOTER section ----------------------   */ -->

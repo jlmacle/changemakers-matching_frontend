@@ -91,7 +91,7 @@
 }
 
 
-#main {
+#centralSection {
     width: calc(100% - (2*var(--side-width)));
     min-height: var(--main-min-height);
     border: solid 1px black;
