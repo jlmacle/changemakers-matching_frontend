@@ -2,13 +2,13 @@
 /*----------------------------------------------------------------*/
 
 /* Main structure: wrapper */
-#centralSection-container {
+#main-container {
     /* without this code, the sidebar wouldn't stretch when the main content would grow.*/
     display: flex;
 }
 
 /* Main structure: sidebars */
-#centralSection-leftSidebar-stickyWrapper {
+#sidebar-left-stickyWrapper {
     position: sticky;
     top: 0;
 }
