@@ -38,21 +38,19 @@
 
     <!------------------------------ HEADER section ------------------------------>
     <header id="header">
-
         <!-- Ability to skip to main content for screen readers -->
-        <a style="text-indent:-5000000px;" href="#main" class="to-ignore-when-modal1" aria-hidden="false">Next is new
-            account creation and login.
+        <a class="to-ignore-when-modal1" aria-hidden="false" style="text-indent:-5000000px;" href="#main">
+            Next is new account creation and login.
             Otherwise, you can skip to user testimonies.</a>
 
         <!-- New account/login button  -->
-        <button tabindex="0" aria-label="Click to create a new account or to login." id="newAccountOrLogin-button"
-            class="to-ignore-when-modal1" aria-hidden="false">
+        <button id="newAccountOrLogin-button" class="to-ignore-when-modal1" tabindex="0" 
+        aria-label="Click to create a new account or to login." aria-hidden="false">
             <span aria-hidden="true">New<br>account<br>-<br>Login</span>
             <!-- aria-hidden used to avoid screen reader unecessary reading, after reading the aria-label -->
         </button>
         <!-- Modal for the choice of type of user -->
-        <div id="userTypeOptions-modal-container" role="dialog" aria-modal="true" aria-hidden="true"
-            aria-labelledby="dialog1Label">
+        <div id="userTypeOptions-modal-container" role="dialog" aria-modal="true" aria-hidden="true">
             <!-- ➡️ Need to transmit the type of users -->
             <div id="userTypeOptions-modal-content" tabindex="0"
                 aria-describedby=" Please choose the appropriate option between 'project representative' and 'contributor' ">
@@ -61,15 +59,15 @@
                 <span aria-hidden="true" style="font-size:30px;color:white;"><strong> - </strong></span><br><br>
                 <a aria-hidden="true" style="text-decoration: none;">Contributor</a>
             </div>
-            <div tabindex="0" aria-label="Click to exit choice of type of user." id="userTypeOptions-modal-closing">
+            <div id="userTypeOptions-modal-closing" tabindex="0" aria-label="Click to exit choice of type of user.">
                 <span aria-hidden="true">&times;</span>
             </div>
         </div>
 
         <!-- Header title -->
         <div id="header-title-container">
-            <a id="header-title-home-link" href="./index.html" title="Link to the homepage"
-                class="to-ignore-when-modal1" aria-hidden="false">
+            <a id="header-title-home-link" class="to-ignore-when-modal1" aria-hidden="false" 
+            href="./index.html" title="Link to the homepage">
                 <img src="./_media/header-picture.png" alt="">
             </a>
         </div>
@@ -78,13 +76,13 @@
 
     <!------------------------------ MAIN section ------------------------------>
     <div id="main-container">
-        <aside id="sidebar-left" aria-hidden="true" class="grid aside"></aside>
+        <aside id="sidebar-left" class="grid aside" aria-hidden="true"></aside>
         <main id="main" class="to-ignore-when-modal1" aria-hidden="false">
             <div id="testimonies"  tabindex="0" role="text" aria-readonly="true" style="text-align:center;margin:auto;margin-top: 300px;">
                 <strong>Testimonies of satisfied users</strong>
             </div>
         </main>
-        <aside aria-hidden="true" class="grid aside"></aside>
+        <aside class="grid aside" aria-hidden="true"></aside>
     </div>
 
     <!------------------------------ FOOTER section ------------------------------>
