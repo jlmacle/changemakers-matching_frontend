@@ -210,7 +210,7 @@ function addOrModifySDGImage(selectId, debug) {
     }
     ;
     // Removing the current child element if any, before adding the generated HTML
-    let parentElem = document.getElementById("centralSection-leftSidebar-stickyWrapper");
+    let parentElem = document.getElementById("sidebar-left-stickyWrapper");
     parentElem.innerHTML = "";
     parentElem?.insertAdjacentHTML("beforeend", htmlToAddToWrapper);
 }
@@ -269,7 +269,7 @@ function removeDeclaredSDG(number4SdgToRemove) {
     let totalNumberOfSdgs = sdgsAddedElems.length + 1;
     // Removing the image
     if (document.getElementById(`img-project-sdg-${number4SdgToRemove}`))
-        removeElement(`img-project-sdg-${number4SdgToRemove}`, "centralSection-leftSidebar-stickyWrapper");
+        removeElement(`img-project-sdg-${number4SdgToRemove}`, "sidebar-left-stickyWrapper");
     // Removing the language element
     let parentElem = document.getElementById("sdgs-list");
     let htmlElemToRemove = document.getElementById(`li-sdg-${number4SdgToRemove}`);
