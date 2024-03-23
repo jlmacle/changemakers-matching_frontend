@@ -73,7 +73,7 @@ function signUpDataProcessing(event: Event, url: string, debug: boolean) {
  */
 function displayProjectView(username: string) {
     // Toggling the visibility of the authentication form
-    let authFormElem = document.getElementById("newAccount-projRep-title") as HTMLElement;
+    let authFormElem = document.getElementById("newAccount-projRep-container") as HTMLElement;
     authFormElem.style.display = "none";
 
     // Welcome message
@@ -601,7 +601,7 @@ function logout() {
     projectsMainContent.style.display = 'none';
 
     // Toggling the visibility of the new account area
-    let newAccountProjRep = document.getElementById("newAccount-projRep-title") as HTMLElement;
+    let newAccountProjRep = document.getElementById("newAccount-projRep-container") as HTMLElement;
     newAccountProjRep.style.display = 'block';
 
     // Removing the username data 
