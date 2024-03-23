@@ -61,7 +61,7 @@ function signUpDataProcessing(event, url, debug) {
  */
 function displayProjectView(username) {
     // Toggling the visibility of the authentication form
-    let authFormElem = document.getElementById("newAccount-projRep-title");
+    let authFormElem = document.getElementById("newAccount-projRep-container");
     authFormElem.style.display = "none";
     // Welcome message
     let welcomeElem = document.getElementById("welcomeContainer-2");
@@ -486,7 +486,7 @@ function logout() {
     let projectsMainContent = document.getElementById("projects-projRep-container");
     projectsMainContent.style.display = 'none';
     // Toggling the visibility of the new account area
-    let newAccountProjRep = document.getElementById("newAccount-projRep-title");
+    let newAccountProjRep = document.getElementById("newAccount-projRep-container");
     newAccountProjRep.style.display = 'block';
     // Removing the username data 
     /* TODO: to change the cookie part to mind the security aspects */
