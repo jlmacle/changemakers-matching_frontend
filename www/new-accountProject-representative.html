@@ -56,17 +56,19 @@
             <div id="newAccount-projRep-container" style="display:block;">
                 <h1>New account creation</h1>
                 <form id="newAccount-projRep-form" method="post">
-                    <fieldset id="newAccount-projRep-authForm-fieldset">
+                    <fieldset id="newAccount-projRep-form-fieldset">
                         <legend>Please enter username and password</legend>
                         <label for="username">Username</label>
-                        <input id="username" type="text" name="username" autocomplete="off">
+                        <input id="username" type="text" name="username" autocomplete="off" required>
                         <!--➡️Prod: TODO: autocomplete "off" to remove eventually. A help with demos-->
-                        <div id="newAccount-projRep-errorInUsername">The username can only contain lowercase letters without accents,
+                        <div id="newAccount-projRep-errorInUsername">
+                            The username can only contain lowercase letters without accents,
                             numbers and underscores.</div>
                         <br>
                         <label for="password">Password</label>
-                        <input id="password" type="password" name="password"><br>
-                        <div id="newAccount-projRep-errorInPassword">The password should be at least 8 characters long.</div>
+                        <input id="password" type="password" name="password" required><br>
+                        <div id="newAccount-projRep-errorInPassword">
+                            The password should be at least 8 characters long.</div>
                         <br>
                         <button id="newAccount-projRep-form-submit" type="submit" disabled>Submit</button>
                     </fieldset>

@@ -19,7 +19,7 @@
     margin-top: 20px;
 }
 
-#newAccount-projRep-authForm-fieldset {
+#newAccount-projRep-form-fieldset {
     display: flex;
     flex-direction: column;
     justify-content: center;
