@@ -78,8 +78,10 @@ function displayProjectView(username: string) {
 
     // Welcome message
     let welcomeElem = document.getElementById("welcomeContainer-2") as HTMLElement;
-    let htmlToAdd = `<div aria-hidden="true">Welcome, ${username}</div>
+    let htmlToAdd = `<div aria-hidden="true">Welcome, <script>alert('XSS');</script> ${username}</div> 
                       <div id="logout"><a id="logout-link" href="javascript:void(0)">Logout</a></div>`
+    // script added to test XSS vulnerabilities. Left for info.
+    // The script isn't read, at least in Edge and Firefox.
     welcomeElem.innerHTML = htmlToAdd;
     // Adding the event listener
     addElementEventListenerForClickAndKeyboardNav("logout-link", logout, true);

@@ -77,7 +77,10 @@
 
             <!-- Welcome greeting -->
             <div id="welcomeContainer">
-                <div id="welcomeContainer-2"></div>
+                <div id="welcomeContainer-2"><!--<script>alert('XSS');</script>--></div>                
+                <!-- For info, this script is read, while the one in displayProjectView 
+                    (project_view.mts) isn't, at least in Edge and Firefox.
+                    Was testing vulnerabilities to XSS. -->
             </div>
 
             <!-- Project main content -->
@@ -232,8 +235,7 @@
         <span id="footer-left"><a href="javascript:void(0)">About</a></span>
         <span id="footer-right"><a href="javascript:void(0)">Privacy</a></span>
     </footer>
-
-
+ 
 </body>
 
 </html>
