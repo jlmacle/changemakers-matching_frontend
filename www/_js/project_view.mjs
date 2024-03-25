@@ -321,7 +321,7 @@ function removeDeclaredSDG(number4SdgToRemove) {
         addElementEventListenerForClickAndKeyboardNav(`delete-sdg-${i}`, removeDeclaredSDG, i, true);
     }
     // In case the removal would have suppressed a duplication in the selections
-    isDuplicateSelectionPresent("declaredSdg", "error-in-sdg-selection", true);
+    isDuplicateSelectionPresent("declaredSdg", "duplication-in-sdg-selection", true);
     // Clearing the selected options map 
     addedSdgsSelectedOptions.clear();
 }
@@ -346,9 +346,9 @@ function addAnotherSdg() {
     // Adding an event listener to remove the sdg later
     addElementEventListenerForClickAndKeyboardNav(`delete-sdg-${number4TheSDGToAdd}`, removeDeclaredSDG, number4TheSDGToAdd, true);
     // Adding an event listener for duplicated selections (change event)
-    addElementEventListenerForChangeEvent(`project-sdg-${number4TheSDGToAdd}`, isDuplicateSelectionPresent, "declaredSdg", "error-in-sdg-selection", true);
+    addElementEventListenerForChangeEvent(`project-sdg-${number4TheSDGToAdd}`, isDuplicateSelectionPresent, "declaredSdg", "duplication-in-sdg-selection", true);
     // Potential duplication at sdg creation
-    isDuplicateSelectionPresent("declaredSdg", "error-in-sdg-selection", true);
+    isDuplicateSelectionPresent("declaredSdg", "duplication-in-sdg-selection", true);
 }
 /******************  Addition/removal of preferred language options ***********************/
 /**
@@ -391,9 +391,9 @@ function addAnotherLanguage() {
     // Adding an event listener to remove the language later
     addElementEventListenerForClickAndKeyboardNav(`delete-language-${number4TheLanguageToAdd}`, removepreferredLanguage, number4TheLanguageToAdd, true);
     // Adding an event listener for duplicated selections (change event)
-    addElementEventListenerForChangeEvent(`project-language-${number4TheLanguageToAdd}`, isDuplicateSelectionPresent, "preferredLanguage", "error-in-language-selection", true);
+    addElementEventListenerForChangeEvent(`project-language-${number4TheLanguageToAdd}`, isDuplicateSelectionPresent, "preferredLanguage", "duplication-in-language-selection", true);
     // Potential duplication at language creation
-    isDuplicateSelectionPresent("preferredLanguage", "error-in-language-selection", true);
+    isDuplicateSelectionPresent("preferredLanguage", "duplication-in-language-selection", true);
 }
 /**
  * Function used to avoid issues with adding several languages on a single key press.
@@ -471,7 +471,7 @@ function removepreferredLanguage(number4LanguageToRemove) {
         addElementEventListenerForClickAndKeyboardNav(`delete-language-${i}`, removepreferredLanguage, i, true);
     }
     // In case the removal would have suppressed a duplication in the selections
-    isDuplicateSelectionPresent("preferredLanguage", "error-in-language-selection", true);
+    isDuplicateSelectionPresent("preferredLanguage", "duplication-in-language-selection", true);
     // Clearing the selected options map 
     addedLanguagesSelectedOptions.clear();
 }
@@ -511,9 +511,9 @@ addElementEventListenerForClickAndKeyboardNav("new-sdg-addition-link", addAnothe
 /* Listener for adding a new language */
 addElementEventListenerForClickAndKeyboardNav("new-language-addition-link", addAnotherLanguageUsingATimeBuffer, true);
 /* Listener for dupilcated selection of language (listeners for other selects at code generation) */
-addElementEventListenerForChangeEvent("project-language-1", isDuplicateSelectionPresent, "preferredLanguage", "error-in-language-selection", true);
+addElementEventListenerForChangeEvent("project-language-1", isDuplicateSelectionPresent, "preferredLanguage", "duplication-in-language-selection", true);
 /* Listener for dupilcated selection of sdg (listeners for other selects at code generation) */
-addElementEventListenerForChangeEvent("project-sdg-1", isDuplicateSelectionPresent, "declaredSdg", "error-in-sdg-selection", true);
+addElementEventListenerForChangeEvent("project-sdg-1", isDuplicateSelectionPresent, "declaredSdg", "duplication-in-sdg-selection", true);
 /* Listener checking the presence of a cookie */
 /* TODO: to change the cookie part to mind the security aspects */
 /* https://www.baeldung.com/spring-security-persistent-remember-me */

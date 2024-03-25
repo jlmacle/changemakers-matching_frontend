@@ -256,5 +256,5 @@ function redirectToHomePage() {
     document.location.href = "../_html/index.html";
 }
 /*********************** Adding the event listeners *****************************/
-addElementEventListenerForClickAndKeyboardNav("header-title-container", redirectToHomePage, true);
+addElementEventListenerForClickAndKeyboardNav("homePageTitle-container", redirectToHomePage, true);
 /* TODO Event listeners for footer links */
