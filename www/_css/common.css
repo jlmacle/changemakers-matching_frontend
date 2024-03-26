@@ -101,7 +101,7 @@
 @media screen and (max-width:1260px) {
 
     /* couldn't use var(--break-value-for-sidebars) */
-    #main {
+    #centralSection {
         width: 100%;
     }
 }
