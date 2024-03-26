@@ -20,13 +20,13 @@ describe('Tab navigation on home page', () => {
     // })   
 
     // Wrong code for memory
-    //cy.focused().its('id').should("equal","header-title-home-link")
+    //cy.focused().its('id').should("equal","homePageTitle-link")
     // ⬆️ issue: cy.its() waited for the specified property id to exist, but it never did.
     
     // Code that succeed: This assertion waits for an element to be focused 
     // and then directly checks its id, providing a clearer error message if it fails.
     cy.focused().should($el => {
-      expect($el).to.have.id("header-title-home-link"); 
+      expect($el).to.have.id("homePageTitle-link"); 
     })
 
     // Next is testimonies
