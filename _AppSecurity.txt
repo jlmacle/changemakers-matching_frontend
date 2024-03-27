@@ -6,3 +6,17 @@ https://owasp.org/
 maîtriser les standards de sécurité côté navigateur"
 Guide ANSSI 
 https://cyber.gouv.fr/sites/default/files/2013/05/anssi-guide-recommandations_mise_en_oeuvre_site_web_maitriser_standards_securite_cote_navigateur-v2.0.pdf
+
+
+-----------------------------------------------------------------------------------------------------
+To take into account in the development:
+
+* Pro Spring Security, 3rd edition, Massimo Nardone, Carlo Scarioni
+"Applications should run as isolated as possible from the other components of the host machine."
+
+* The Web application hacker's handbook, 2nd edition, Daffyd Stuttard, Marcus Pinto
+"Some people's names contain an apostrophy or hyphen. These could be used in attacks against databases 
+(...)"
+➡️ in case of addresses in user inputs
+
+
