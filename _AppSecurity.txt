@@ -18,5 +18,16 @@ To take into account in the development:
 "Some people's names contain an apostrophy or hyphen. These could be used in attacks against databases 
 (...)"
 ➡️ in case of addresses in user inputs
+"To prevent SQL injection attacks, 
+any characters within the user input that may be used to attack the database 
+are escaped before the query is constructed."
+
+"To prevent SOAP injection attacks,
+any XML metacharacters within the user's profile 
+are suitably encoded."
+
+"To prevent cross-site scripting attacks,
+the application HTML-encodes any user-supplied data 
+that is embedded in the returned page."
 
 
