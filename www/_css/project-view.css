@@ -111,6 +111,11 @@
     }
 }
 
+/* 
+An illustration of descendant selector:
+The descendant selector matches all elements that are descendants of a specified element.
+https://www.w3schools.com/css/css_combinators.asp#gsc.tab=0
+*/
 .newProjectDefinition-inputField-container ul {
     padding-left: 10px;
 }
@@ -138,6 +143,12 @@
     margin-top: 0;
 }
 
+/* 
+An illustration of attribute selector
+The [attribute|="value"] selector is used to select elements with the specified attribute, 
+whose value can be exactly the specified value, or the specified value followed by a hyphen (-).
+https://www.w3schools.com/css/css_attribute_selectors.asp 
+*/
 
 [id|="delete-sdg"] {
     font-size: 26px;
