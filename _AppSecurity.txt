@@ -12,22 +12,23 @@ https://cyber.gouv.fr/sites/default/files/2013/05/anssi-guide-recommandations_mi
 To take into account in the development:
 
 * Pro Spring Security, 3rd edition, Massimo Nardone, Carlo Scarioni
-"Applications should run as isolated as possible from the other components of the host machine."
+"Applications should run as isolated as possible from the other components of the host machine.", p.5
 
 * The Web application hacker's handbook, 2nd edition, Daffyd Stuttard, Marcus Pinto
 "Some people's names contain an apostrophy or hyphen. These could be used in attacks against databases 
-(...)"
+(...)", p.24
 ➡️ in case of addresses in user inputs
+
 "To prevent SQL injection attacks, 
 any characters within the user input that may be used to attack the database 
-are escaped before the query is constructed."
+are escaped before the query is constructed.", p.27
 
 "To prevent SOAP injection attacks,
 any XML metacharacters within the user's profile 
-are suitably encoded."
+are suitably encoded.", p.27
 
 "To prevent cross-site scripting attacks,
 the application HTML-encodes any user-supplied data 
-that is embedded in the returned page."
+that is embedded in the returned page.", p.27
 
 
