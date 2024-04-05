@@ -15,6 +15,9 @@ To take into account in the development:
 "Applications should run as isolated as possible from the other components of the host machine.", p.5
 
 * The Web application hacker's handbook, 2nd edition, Daffyd Stuttard, Marcus Pinto
+"Users can interfere with any piece of data transmitted between the client and the server,
+including request parameters, cookies and HTTP headers.", p.9
+
 "Some people's names contain an apostrophy or hyphen. These could be used in attacks against databases 
 (...)", p.24
 ➡️ in case of addresses in user inputs
