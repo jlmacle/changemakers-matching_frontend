@@ -18,6 +18,9 @@ To take into account in the development:
 "Users can interfere with any piece of data transmitted between the client and the server,
 including request parameters, cookies and HTTP headers.", p.9
 
+"Any assumption developers make about users will interact with the application 
+may be violated.", p.9
+
 "Some people's names contain an apostrophy or hyphen. These could be used in attacks against databases 
 (...)", p.24
 ➡️ in case of addresses in user inputs
