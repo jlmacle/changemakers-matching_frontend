@@ -1,6 +1,6 @@
 # Changemakers Matching
 
-More information in the [wiki](https://github.com/jlmacle/changemakers-matchmaking_front-end/wiki).
+More information in the [wiki](https://github.com/jlmacle/changemakers-matching_frontend/wiki).
 
 
 If you are interested:
