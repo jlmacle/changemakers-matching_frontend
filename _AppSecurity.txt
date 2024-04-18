@@ -27,6 +27,9 @@ may be violated.", p.9
 (...)", p.24
 ➡️ in case of addresses in user inputs
 
+"Vulnerabilities can often be avoided not by validating the input itself,
+but by ensuring that the processing that is performed on it is inherently safe.", p.25
+
 "To prevent SQL injection attacks, 
 any characters within the user input that may be used to attack the database 
 are escaped before the query is constructed.", p.27
@@ -39,4 +42,5 @@ are suitably encoded.", p.27
 the application HTML-encodes any user-supplied data 
 that is embedded in the returned page.", p.27
 
-
+"One approach is to perform sanitization steps recursively, 
+continuing until no further modifications have been made on an item of input.", p29
