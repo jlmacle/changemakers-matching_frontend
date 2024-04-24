@@ -57,19 +57,22 @@
                 <form id="newAccount-projRep-form" method="post">
                     <fieldset id="newAccount-projRep-form-fieldset">
                         <legend>Please enter username and password</legend>
+                        <br>
 
                         <label for="username">Username</label>
                         <input id="username" type="text" name="username" autocomplete="off" required>
                         <!--➡️Prod: TODO: autocomplete "off" to remove eventually. A help with demos-->
                         <div id="newAccount-projRep-errorInUsername">
-                            The username can only contain lowercase letters without accents,
+                            The username can only contain lowercase letters (without accents),
                             numbers and underscores.</div>
+                        <br>
                         <br>
 
                         <label for="password">Password</label>
-                        <input id="password" type="password" name="password" required><br>
+                        <input id="password" type="password" name="password" required>
                         <div id="newAccount-projRep-errorInPassword">
                             The password should be at least 8 characters long.</div>
+                        <br>
                         <br>
 
                         <button id="newAccount-projRep-form-submit" type="submit" disabled>Submit</button>
@@ -82,12 +85,11 @@
                 <div id="welcomeContainer-2"><!--<script>alert('XSS');</script>--></div>                
                 <!-- For info, this script is read, while the one in displayProjectView 
                     (project_view.mts) isn't, at least in Edge and Firefox.
-                    Was testing vulnerabilities to XSS. -->
+                    I was testing vulnerabilities to XSS. -->
             </div>
 
             <!-- Project main content -->
             <div id="projects-projRep-container" style="display:none;">
-
                 <!-- Existing projects -->
                 <h1 id="projects-projRep-dashboardTitle">Dashboard</h1>
                 <div id="projects-list"><strong>Your projects</strong>
@@ -111,8 +113,7 @@
                                 for="project-name">Project name:</label>
                             <textarea  id="project-name" class="newProjectDefinition-inputField" 
                                 aria-label="Please enter the name of your project."
-                                name="project-name" rows="1"
-                                placeholder="" required>
+                                name="project-name" rows="1" required>
                             </textarea><br>
                         </div>
 
@@ -122,7 +123,7 @@
                                 for="project-description">Project description:</label>
                             <textarea id="project-description" class="newProjectDefinition-inputField" 
                                 aria-label="Please enter the description of your project."
-                                size="2000" name="project-description" rows="5" placeholder="" required>
+                                size="2000" name="project-description" rows="5" required>
                             </textarea><br>
                         </div>
 
@@ -132,7 +133,7 @@
                                 for="project-mission-statement">Project mission statement:</label>
                             <textarea id="project-mission-statement" class="newProjectDefinition-inputField"
                                 aria-label="Please enter the mission statement of your project."
-                                size="2000" name="project-mission-statement" rows="5" placeholder="">
+                                size="2000" name="project-mission-statement" rows="5">
                             </textarea><br>
                         </div>
 
@@ -221,7 +222,7 @@
                             <textarea
                                 id="project-language-comments" class="newProjectDefinition-inputField" 
                                 aria-label="Please add any comments concerning the languages used that you would find relavant."
-                                name="project-language-comments" size="2000" placeholder="">
+                                name="project-language-comments" size="2000" >
                             </textarea>
                         </div>
                         
