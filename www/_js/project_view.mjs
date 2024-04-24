@@ -67,7 +67,7 @@ function displayProjectView(username) {
     let welcomeElem = document.getElementById("welcomeContainer-2");
     let htmlToAdd = `<div aria-hidden="true">Welcome, <script>alert('XSS');</script> ${username}</div> 
                       <div id="logout"><a id="logout-link" href="javascript:void(0)">Logout</a></div>`;
-    // script added to test XSS vulnerabilities, left for info.
+    // script added to test XSS vulnerabilities. Left for info.
     // The script isn't read, at least in Edge and Firefox.
     welcomeElem.innerHTML = htmlToAdd;
     // Adding the event listener

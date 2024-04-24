@@ -19,8 +19,8 @@ function checkUsername() {
             username.value = username.value.toLowerCase(); // "Make sure your usernames/user IDs are case-insensitive."
             if (username.value.search(/\W/) !== -1) { // Equivalent to [^A-Za-z0-9_]
                 if (debug)
-                    console.debug("Invalid character. The username can only contain lowercase letters without accents, numbers and underscores.");
-                usernameError.innerHTML = "⚠️ Invalid character present. <br>The username can only contain lowercase letters without accents, numbers and underscores.";
+                    console.debug("Invalid character. The username can only contain lowercase letters (without accents), numbers and underscores.");
+                usernameError.innerHTML = "⚠️ Invalid character present. <br>The username can only contain lowercase letters (without accents), numbers and underscores.";
                 submitButton.disabled = true;
                 usernameIsValid = false;
             }

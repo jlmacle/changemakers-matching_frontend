@@ -41,7 +41,8 @@
         <!-- Ability to skip to main content for screen readers -->
         <a class="to-ignore-when-modal1" aria-hidden="false" style="text-indent:-5000000px;" href="#main">
             Next is new account creation and login.
-            Otherwise, you can skip to user testimonies.</a>
+            Otherwise, you can skip to user testimonies.
+        </a>
 
         <!-- New account/login button  -->
         <button id="newAccountOrLogin-button" class="to-ignore-when-modal1" tabindex="0" 
@@ -62,16 +63,19 @@
                 <span aria-hidden="true" style="font-size:30px;color:white;"><strong> - </strong></span><br><br>
                 <a aria-hidden="true" style="text-decoration: none;">Contributor</a>
             </div>
-            <div id="userTypeOptions-modal-closing" tabindex="0" aria-label="Click to exit choice of type of user.">
+            <!-- tabindex="0": For the tab navigation to reach the div  -->
+            <div id="userTypeOptions-modal-closing" tabindex="0" 
+                aria-label="Click to exit choice of type of user."> 
                 <span aria-hidden="true">&times;</span>
             </div>
         </div>
 
-        <!-- Header title -->
+        <!-- Header title: after the login button to avoid unnecessary screen reader reading -->
         <div id="homePageTitle-container">
             <a id="homePageTitle-link" class="to-ignore-when-modal1" aria-hidden="false" 
             href="./index.html" title="Link to the homepage">
-                <img src="./_media/header-picture.png" alt="">
+                <img src="./_media/header-picture.png" alt=""> 
+                <!-- alt for the code quality, "" to avoid unnecessary screen reader reading -->
             </a>
         </div>
 
@@ -81,7 +85,7 @@
     <div id="main-container">
         <aside id="sidebar-left" class="grid aside" aria-hidden="true"></aside>
         <main id="centralSection" class="to-ignore-when-modal1" aria-hidden="false">
-            <div id="testimonies"  tabindex="0" role="text" style="text-align:center;margin:auto;margin-top: 300px;">
+            <div id="testimonies"  tabindex="0" role="text" style="text-align:center;margin:auto;margin-top:300px;">
                 <strong>Testimonies of satisfied users</strong>
             </div>
         </main>
