@@ -21,7 +21,7 @@ including request parameters, cookies and HTTP headers.", p.9
 "Any assumption developers make about users will interact with the application 
 may be violated.", p.9
 
-"Approaches based on data sanitization are often highly effective (...)"
+"Approaches based on data sanitization are often highly effective (...)", p.24
 
 "Some people's names contain an apostrophy or hyphen. 
 These could be used in attacks against databases (...)", p.24
@@ -45,4 +45,10 @@ that is embedded in the returned page.", p.27
 (e.g., to avoid <script>code</script> posted in comments fields being run in users browsers)
 
 "One approach is to perform sanitization steps recursively, 
-continuing until no further modifications have been made on an item of input.", p29
+continuing until no further modifications have been made on an item of input.", p.29
+
+"Measures implemented to handle attackers typically include the following tasks:
+- Handling errors
+- Maintaining audit logs
+- Alerting administrators
+- Responding to attacks", p.30
