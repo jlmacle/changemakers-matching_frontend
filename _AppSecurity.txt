@@ -52,3 +52,13 @@ continuing until no further modifications have been made on an item of input.", 
 - Maintaining audit logs
 - Alerting administrators
 - Responding to attacks", p.30
+
+"In any application for which security is important,
+key events should be logged as a matter of course.
+At a minimum, these typically include the following:
+- All events relating to the authentication functionality,
+such as successful and failed login, and change of password
+- Key transactions, such as credit card payments and funds transfers
+- Access attempts that are blocked by the access control mechanisms
+- Any requests containing known attack strings 
+that indicate overtly malicious intentions.", p.32
