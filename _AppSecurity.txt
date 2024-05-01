@@ -62,3 +62,9 @@ such as successful and failed login, and change of password
 - Access attempts that are blocked by the access control mechanisms
 - Any requests containing known attack strings 
 that indicate overtly malicious intentions.", p.32
+
+"In many security-critical applications,
+such as those used by online banks,
+every client request is logged in full,
+providing a complete forensic record
+that can be used to investigate any incidents.", p.32
