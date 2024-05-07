@@ -68,3 +68,13 @@ such as those used by online banks,
 every client request is logged in full,
 providing a complete forensic record
 that can be used to investigate any incidents.", p.32
+
+"In terms of attack surface,
+poorly protected audit logs 
+can provide a gold mine of information to an attacker,
+disclosing a host of sensitive information
+such as session tokens and request parameters.", p.32
+
+"Such logs need to be strongly protected against unauthorized read or write access.
+An effective approach is to store audit logs on an autonomous system
+that accepts only update messages from the main application.", p.32
