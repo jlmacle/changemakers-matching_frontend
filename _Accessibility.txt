@@ -26,3 +26,6 @@ Alt + Shift + M: list of landmarks
 Alt + Shift + L: list of lists 
 Alt + Shift + I: list of list items 
 https://help.gnome.org/users/orca/stable/commands_structural_navigation.html.en
+
+Potential inspiration:
+https://www.bretignolles-sur-mer.fr/
