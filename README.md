@@ -9,7 +9,7 @@ If you are interested:
 (Make sure the video settings are on the highest quality setting.)
 <br><br>
 I likely won't be posting video updates any more.<br>
-Focusing full-time on automated testing is what I need to do.<br>
+Focusing full-time on front-end automated testing is what I need to do.<br>
 Please accept my apologies if you were expecting a completed project.
 
 
