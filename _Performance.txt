@@ -1,0 +1,7 @@
+Lighthouse: 
+
+"Image formats like WebP and AVIF often provide better compression than PNG or JPEG, 
+which means faster downloads and less data consumption." 
+https://web.dev/articles/codelab-serve-images-webp 
+
+cwebp -q 100 header-picture.png -o header-picture.webp
