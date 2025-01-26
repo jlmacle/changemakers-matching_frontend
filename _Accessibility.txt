@@ -29,3 +29,10 @@ https://help.gnome.org/users/orca/stable/commands_structural_navigation.html.en
 
 Potential inspiration:
 https://www.bretignolles-sur-mer.fr/
+
+What should be:
+1. Perceivable
+2. Operable
+3. Understandable
+4. Robust
+in the website?
