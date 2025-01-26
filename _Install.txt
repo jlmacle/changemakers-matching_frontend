@@ -15,7 +15,7 @@ DB_USERNAME: the name for the user owning the database
 DB_PASSWORD: the password for the user
 DB_POSTGRES_PORT: the port for the PostgreSQL database
 
-[Ubuntu: in .profile,  port=5432]
+[Ubuntu: in .profile,  port="the port for the PostgreSQL database"]
 
 
 - Java (https://www.oracle.com/java/technologies/downloads/#java17)
@@ -37,4 +37,12 @@ Cypress:
 - Nodejs (https://nodejs.org/en/download)
 [Nodejs' bin directory might need to be added the PATH]
 “npm install” at the root of the frontend directory 
+
+cypress-plugin-tab to install:
+https://github.com/kuceb/cypress-plugin-tab 
+
 npx cypress open
+
+
+
+
