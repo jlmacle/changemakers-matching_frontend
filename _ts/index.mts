@@ -45,7 +45,7 @@ function closeUserTypeOptionsModal(debug: boolean) {
  * Function used to re-direct toward the project representative page 
  */
 function redirectToProjRepPage() {
-    document.location.href = "../_html/new-accountProject-representative.html";
+    document.location.href = "./www/_html/new-accountProject-representative.html";
 }
 
 /****************************** Adding the event listeners to the index.html page  ********************************/
