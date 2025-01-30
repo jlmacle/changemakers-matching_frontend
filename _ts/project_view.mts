@@ -14,7 +14,7 @@ let addedSdgsSelectedOptions: Map<string, string> = new Map<string, string>();
 let htmlToAdd4NewSdg = "";
 
 let sdgImageNames: string[] = [];
-let fileDir = "./_media/UN-graphics/";
+let fileDir = "../_media/UN-graphics/";
 
 
 /****************** Signup toward project view  ***********************/
