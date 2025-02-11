@@ -12,10 +12,10 @@ function checkUsername() {
     let submitButton = document.getElementById("newAccount-projRep-form-submit");
     // Typing an invalid character, as first input, was not detected using  "input".
     // "keyup" solved the issue.
-    username?.addEventListener("keyup", function () {
+    username === null || username === void 0 ? void 0 : username.addEventListener("keyup", function () {
         let usernameError = document.getElementById("newAccount-projRep-errorInUsername");
         usernameError.setAttribute("style", "background-color:rgb(255, 251, 251)");
-        if (username?.value && usernameError) {
+        if ((username === null || username === void 0 ? void 0 : username.value) && usernameError) {
             username.value = username.value.toLowerCase(); // "Make sure your usernames/user IDs are case-insensitive."
             if (username.value.search(/\W/) !== -1) { // Equivalent to [^A-Za-z0-9_]
                 if (debug)
@@ -43,7 +43,7 @@ function checkUsername() {
         }
         else if (debug) {
             console.debug("(username?.value && usernameError) has false for value.");
-            console.debug("username?.value = " + username?.value);
+            console.debug("username?.value = " + (username === null || username === void 0 ? void 0 : username.value));
             console.debug("usernameError = " + usernameError);
             console.debug("End of : (username?.value && usernameError) has false for value.");
         }
@@ -58,10 +58,10 @@ function checkPassword() {
     let debug = false;
     let password = document.getElementById("password");
     let submitButton = document.getElementById("newAccount-projRep-form-submit");
-    password?.addEventListener("keyup", function () {
+    password === null || password === void 0 ? void 0 : password.addEventListener("keyup", function () {
         let passwordError = document.getElementById("newAccount-projRep-errorInPassword");
-        passwordError?.setAttribute("style", "background-color:rgb(255, 251, 251)");
-        if (password?.value && passwordError) {
+        passwordError === null || passwordError === void 0 ? void 0 : passwordError.setAttribute("style", "background-color:rgb(255, 251, 251)");
+        if ((password === null || password === void 0 ? void 0 : password.value) && passwordError) {
             // Avoiding space key in password to avoid confusing situations
             // for persons submitting inputs with the space key,
             // and who would enter a space inadvertently at the end of their password 
@@ -98,7 +98,7 @@ function checkPassword() {
         else {
             if (debug) {
                 console.debug("(password?.value && passwordError) has false for value.");
-                console.debug("password?.value = " + password?.value);
+                console.debug("password?.value = " + (password === null || password === void 0 ? void 0 : password.value));
                 console.debug("passwordError = " + passwordError);
                 console.debug("End of : (password?.value && passwordError) has false for value.");
             }

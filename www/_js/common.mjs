@@ -201,7 +201,7 @@ export const renumberString = (numberRemoved, totalNumberOfElements, patternStri
     let debug = false;
     let stringToReturn = "";
     for (let i = numberRemoved; i <= totalNumberOfElements - 1; i++) {
-        let patternStringRenumbered = patternStringToRenumber.replaceAll(patternToSubstitute, "" + i);
+        let patternStringRenumbered = patternStringToRenumber.split(patternToSubstitute).join("" + i);
         stringToReturn += patternStringRenumbered;
         if (debug)
             console.debug(`for i=${i}, string=${patternStringRenumbered}`);

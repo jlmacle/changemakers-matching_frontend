@@ -34,7 +34,7 @@ function closeUserTypeOptionsModal(debug) {
     modal.style.display = "none";
     // Bringing the focus back to the button that triggered the modal
     let newAccountOrLoginAccess = document.getElementById("newAccountOrLogin-button");
-    newAccountOrLoginAccess?.focus();
+    newAccountOrLoginAccess === null || newAccountOrLoginAccess === void 0 ? void 0 : newAccountOrLoginAccess.focus();
 }
 /**
  * Function used to re-direct toward the project representative page
