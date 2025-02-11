@@ -6,7 +6,7 @@ let passwordIsValid: boolean = false;
  *  A potentiality: the fields are empty (by selecting, then suppressing the values), and the submit button is enabled even so.
     The issue has been solved at HTML level.
  */
-function checkUsername() { // 📖 AppSecurity: "Make sure your usernames/user IDs are case-insensitive.", https://cheatsheetseries.owasp.org/cheatsheets/Authentication_CheatSheet.html#user-ids
+export const checkUsername = () => { // 📖 AppSecurity: "Make sure your usernames/user IDs are case-insensitive.", https://cheatsheetseries.owasp.org/cheatsheets/Authentication_CheatSheet.html#user-ids
 
     let debug = false;
 
@@ -58,7 +58,7 @@ checkUsername();
 /** 
  * Function used to check if the password is valid.
  */
-function checkPassword() {  // 📖 AppSecurity: "Passwords shorter than 8 characters are considered to be weak (NIST SP800-63B)" "A common maximum length is 64 characters due to limitations in certain hashing algorithms" https://cheatsheetseries.owasp.org/cheatsheets/Authentication_CheatSheet.html#implement-proper-password-strength-controls 
+export const checkPassword = () => {  // 📖 AppSecurity: "Passwords shorter than 8 characters are considered to be weak (NIST SP800-63B)" "A common maximum length is 64 characters due to limitations in certain hashing algorithms" https://cheatsheetseries.owasp.org/cheatsheets/Authentication_CheatSheet.html#implement-proper-password-strength-controls 
     let debug = false;
 
     let password = document.getElementById("password") as HTMLInputElement;
