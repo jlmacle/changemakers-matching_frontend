@@ -214,7 +214,7 @@ function addOrModifySDGImage(selectId, debug) {
     // Removing the current child element if any, before adding the generated HTML
     let parentElem = document.getElementById("sidebar-left-stickyWrapper");
     parentElem.innerHTML = "";
-    parentElem?.insertAdjacentHTML("beforeend", htmlToAddToWrapper);
+    parentElem === null || parentElem === void 0 ? void 0 : parentElem.insertAdjacentHTML("beforeend", htmlToAddToWrapper);
 }
 /**
 * Function used to avoid code redundancy when working with strings related to adding a new sdg.
@@ -275,7 +275,7 @@ function removeDeclaredSDG(number4SdgToRemove) {
     // Removing the language element
     let parentElem = document.getElementById("sdgs-list");
     let htmlElemToRemove = document.getElementById(`li-sdg-${number4SdgToRemove}`);
-    parentElem?.removeChild(htmlElemToRemove);
+    parentElem === null || parentElem === void 0 ? void 0 : parentElem.removeChild(htmlElemToRemove);
     // Before removing the next sdgs, storing the current id-value pairs:
     if (debug)
         console.debug("  Storing the current id-value pairs before removing following sdgs.");
@@ -297,7 +297,7 @@ function removeDeclaredSDG(number4SdgToRemove) {
         if (debug)
             console.debug(`  Removing sdg of id: ${sdgToRemoveId}`);
         let htmlToRemove = document.getElementById(sdgToRemoveId);
-        parentElem?.removeChild(htmlToRemove);
+        parentElem === null || parentElem === void 0 ? void 0 : parentElem.removeChild(htmlToRemove);
         // Renaming the ids in the pictures
         decrementElementIdNumber("img-project-sdg-", `img-project-sdg-${i}`);
     }
@@ -427,7 +427,7 @@ function removepreferredLanguage(number4LanguageToRemove) {
     // Removing the language element
     let parentElem = document.getElementById("languages-list");
     let htmlElemToRemove = document.getElementById(`li-language-${number4LanguageToRemove}`);
-    parentElem?.removeChild(htmlElemToRemove);
+    parentElem === null || parentElem === void 0 ? void 0 : parentElem.removeChild(htmlElemToRemove);
     // Before removing the next languages, storing the current id-value pairs:
     if (debug)
         console.debug("  Storing the current id-value pairs before removing following languages.");
@@ -449,7 +449,7 @@ function removepreferredLanguage(number4LanguageToRemove) {
         if (debug)
             console.debug(`  Removing language of id: ${languageToRemoveId}`);
         let htmlToRemove = document.getElementById(languageToRemoveId);
-        parentElem?.removeChild(htmlToRemove);
+        parentElem === null || parentElem === void 0 ? void 0 : parentElem.removeChild(htmlToRemove);
     }
     // Adding the renumbered strings
     let numberBeforeLanguageToRemove = number4LanguageToRemove - 1;
@@ -501,7 +501,7 @@ function logout() {
 /* Listener for the submit button: Listener that checks if username/password can be sent to the backend */
 // TDOD: use of the generic code if possible
 let authFormSubmit = document.getElementById("newAccount-projRep-form-submit");
-authFormSubmit?.addEventListener("click", (event) => signUpDataProcessing(event, "http://127.0.0.1:8080/representatives/new-account", true));
+authFormSubmit === null || authFormSubmit === void 0 ? void 0 : authFormSubmit.addEventListener("click", (event) => signUpDataProcessing(event, "http://127.0.0.1:8080/representatives/new-account", true));
 /* Listener for the toggling of visibility in the project dashboard view */
 addElementEventListenerForClickAndKeyboardNav("newProjectDefinition-inviteButton", newProjectDefinitionView, true);
 /* Listener for the addition of sdgs : for the declaration by default */
