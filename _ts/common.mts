@@ -275,6 +275,7 @@ export const renumberString =
 
         let stringToReturn = "";
         for (let i = numberRemoved; i <= totalNumberOfElements - 1; i++) {
+            // Not using replaceAll for compatibility with ES6
             let patternStringRenumbered = patternStringToRenumber.split(patternToSubstitute).join("" + i);
             stringToReturn += patternStringRenumbered;
 
