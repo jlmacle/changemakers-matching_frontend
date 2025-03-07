@@ -30,7 +30,14 @@ function checkUsername () { // 📖 AppSecurity: "Make sure your usernames/user 
 
             else if (username.value.length < 4) {
                 if (debug) console.debug("Username is too short");
-                usernameError.innerText = "⚠️ The username must be at least 4 characters long.";
+                usernameError.innerText = "⚠️ The username must between 4 and 10 characters long.";
+                submitButton.disabled = true;
+                usernameIsValid = false;
+            }
+
+            else if (username.value.length > 10) {
+                if (debug) console.debug("Username is too long");
+                usernameError.innerText = "⚠️ The username must between 4 and 10 characters long.";
                 submitButton.disabled = true;
                 usernameIsValid = false;
             }
