@@ -109,7 +109,7 @@ export const toggleElementBoldness = (elementId) => {
         element.style.fontWeight = "bold";
     }
     else {
-        console.log(`Unexpected fontweight value: ${element.style.fontWeight}`);
+        console.debug(`Unexpected fontweight value: ${element.style.fontWeight}`);
     }
 };
 /****************** Sign-up/Sign-in data ***********************/
