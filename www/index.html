@@ -39,13 +39,13 @@
     <!------------------------------ HEADER section ------------------------------>
     <header id="header">
         <!-- Ability to skip to main content for screen readers -->
-        <a id="skipToMainContent" class="to-ignore-when-modal1" aria-hidden="false" style="text-indent:-5000000px;" href="#main">
+        <a id="skipToMainContent" data-cy="skipToMainContent" class="to-ignore-when-modal1" aria-hidden="false" style="text-indent:-5000000px;" href="#main">
             Next is new account creation and login.
             Otherwise, you can skip to user testimonies.
         </a>
 
         <!-- New account/login button  -->
-        <button id="newAccountOrLogin-button" class="to-ignore-when-modal1" tabindex="0" 
+        <button id="newAccountOrLogin-button" data-cy="newAccountOrLogin-button" class="to-ignore-when-modal1" tabindex="0" 
         aria-label="Click to create a new account or to login." aria-hidden="false">
             <span aria-hidden="true">New<br>account<br>-<br>Login</span>
             <!-- aria-hidden used to avoid screen reader unecessary reading, after reading the aria-label -->
@@ -72,7 +72,9 @@
 
         <!-- Header title: after the login button to avoid unnecessary screen reader reading -->
         <div id="homePageTitle-container">
-            <a id="homePageTitle-link" class="to-ignore-when-modal1" aria-hidden="false" 
+  .should('have.attr', 'data-cy', "privacy-link");
+  .should('have.attr', 'data-cy', "privacy-link");
+            <a id="homePageTitle-link" data-cy="homePageTitle-link" class="to-ignore-when-modal1" aria-hidden="false" 
             href="./index.html" title="Link to the homepage">
                 <img src="./_media/header-picture.webp" alt=""> 
                 <!-- alt for the code quality, "" to avoid unnecessary screen reader reading -->
@@ -85,7 +87,7 @@
     <div id="main-container">
         <aside id="sidebar-left" class="grid aside" aria-hidden="true"></aside>
         <main id="centralSection" class="to-ignore-when-modal1" aria-hidden="false">
-            <div id="testimonies"  tabindex="0" role="text" style="text-align:center;margin:auto;margin-top:300px;">
+            <div id="testimonies" data-cy="testimonies" tabindex="0" role="text" style="text-align:center;margin:auto;margin-top:300px;">
                 <strong>Testimonies of satisfied users</strong>
             </div>
         </main>
@@ -94,8 +96,8 @@
 
     <!------------------------------ FOOTER section ------------------------------>
     <footer id="footer-container" class="to-ignore-when-modal1" aria-hidden="false">
-        <span id="footer-left" class="footer"><a id="about-link"  href="./index.html">About</a></span>
-        <span id="footer-right" class="footer"><a id="privacy-link"  href="./index.html">Privacy</a></span>
+        <span id="footer-left" class="footer"><a id="about-link" data-cy="about-link" href="./index.html">About</a></span>
+        <span id="footer-right" class="footer"><a id="privacy-link" data-cy="privacy-link" href="./index.html">Privacy</a></span>
     </footer>
 
 </body>
