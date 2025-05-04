@@ -38,7 +38,7 @@
     <!------------------------------ HEADER section ------------------------------>
     <header id="header">
         <div id="homePageTitle-container">
-            <a id="title-link" data-cy="title-link" tabindex="0" href="../index.html" title="Link to the homepage">
+            <a id="title-link" data-test="title-link" tabindex="0" href="../index.html" title="Link to the homepage">
                 <img src="../_media/header-picture.webp" alt="">
             </a>
         </div>
@@ -61,7 +61,7 @@
                         <br>
 
                         <label for="username">Username</label>
-                        <input id="username" data-cy="username" type="text" name="username" autocomplete="off" required>
+                        <input id="username" data-test="username" type="text" name="username" autocomplete="off" required>
                         <!--➡️Prod: TODO: autocomplete "off" to remove eventually. A help with demos-->
                         <div id="newAccount-projRep-errorInUsername">
                             The username can only contain lowercase letters (without accents),
@@ -70,7 +70,7 @@
                         <br>
 
                         <label for="password">Password</label>
-                        <input id="password" data-cy="password" type="password" name="password" required>
+                        <input id="password" data-test="password" type="password" name="password" required>
                         <div id="newAccount-projRep-errorInPassword">
                             The password should be at least 8 characters long.</div>
                         <br>
@@ -247,8 +247,8 @@
 
     <!------------------------------ FOOTER section ------------------------------>
     <footer id="footer-container" class="to-ignore-when-modal1" aria-hidden="false">
-        <span id="footer-left" class="footer"><a id="about-link" data-cy="about-link" href="./index.html">About</a></span>
-        <span id="footer-right" class="footer"><a id="privacy-link" data-cy="privacy-link" href="./index.html">Privacy</a></span>
+        <span id="footer-left" class="footer"><a id="about-link" data-test="about-link" href="./index.html">About</a></span>
+        <span id="footer-right" class="footer"><a id="privacy-link" data-test="privacy-link" href="./index.html">Privacy</a></span>
     </footer>
  
 </body>
