@@ -1,4 +1,6 @@
 Angular Language Service, Angular
 
+ESLint, Microsoft
+
 Live Preview, Microsoft
 
